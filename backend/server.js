@@ -46,8 +46,6 @@ const upload = multer({
     }
 });
 
-const mongoose = require('mongoose');
-
 // Use environment variable if available, otherwise fallback to local MongoDB
 const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/portfolio';
 
