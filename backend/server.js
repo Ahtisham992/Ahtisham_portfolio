@@ -46,15 +46,22 @@ const upload = multer({
     }
 });
 
-// MongoDB connection with better error handling
-mongoose.connect('mongodb://localhost:27017/portfolio', {
+const mongoose = require('mongoose');
+
+// Use environment variable if available, otherwise fallback to local MongoDB
+const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/portfolio';
+
+mongoose.connect(mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-}).then(() => {
-    console.log('Connected to MongoDB');
-}).catch(err => {
-    console.error('MongoDB connection error:', err);
-    process.exit(1);
+})
+.then(() => {
+    console.log(`✅ Connected to MongoDB at ${mongoURI}`);
+})
+.catch(err => {
+    console.error('❌ MongoDB connection error:', err.message);
+    console.error(err);
+    process.exit(1); // Exit process if DB connection fails
 });
 
 // Admin Schema
