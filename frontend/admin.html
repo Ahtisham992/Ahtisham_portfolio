@@ -33,7 +33,7 @@
             const [editingItem, setEditingItem] = useState(null);
             const [showModal, setShowModal] = useState(false);
 
-            const API_BASE = 'http://localhost:5000/api';
+            const API_BASE = 'https://mellow-truth-production.up.railway.app/api';
 
             // Check if user is authenticated on component mount
             useEffect(() => {
@@ -262,7 +262,7 @@
                                     {previewUrl ? (
                                         <img src={previewUrl} alt="Preview" className="w-full h-full object-cover" />
                                     ) : profile?.profileImage ? (
-                                        <img src={`http://localhost:5000${profile.profileImage}`} alt="Current" className="w-full h-full object-cover" />
+                                        <img src={`https://mellow-truth-production.up.railway.app${profile.profileImage}`} alt="Current" className="w-full h-full object-cover" />
                                     ) : (
                                         <div className="w-full h-full flex items-center justify-center">
                                             <i className="fas fa-user text-gray-400 text-2xl"></i>
