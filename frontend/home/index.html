@@ -124,12 +124,6 @@
                             autoplay>
                         </lottie-player>
 
-                        <!-- Floating name & title under the robot -->
-                        <div class="absolute inset-x-0 bottom-0 text-center transform translate-y-12 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                            <h3 class="text-3xl font-bold text-white" id="robotName">Loading...</h3>
-                            <p class="text-xl text-purple-200" id="robotTitle">Loading...</p>
-                        </div>
-
                         <!-- Decorative floating code icon -->
                         <div class="absolute -top-6 -right-6 w-20 h-20 bg-yellow-400 rounded-full flex items-center justify-center shadow-lg animate-bounce">
                             <i class="fas fa-code text-3xl text-purple-600"></i>
@@ -353,23 +347,6 @@
     </footer>
 
     <script src="scripts.js"></script>
-    <!-- Small script to inject name/title under the robot -->
-    <script>
-        // Update robot name/title once profile is loaded
-        const updateRobotText = () => {
-            const profile = window.portfolioData?.profile;
-            if (!profile) return;
-            document.getElementById('robotName').textContent = profile.name;
-            document.getElementById('robotTitle').textContent = profile.title;
-        };
-
-        // Hook into existing renderProfile (scripts.js already has this function)
-        const originalRenderProfile = window.renderProfile || (() => {});
-        window.renderProfile = function () {
-            originalRenderProfile.apply(this, arguments);
-            updateRobotText();
-        };
-    </script>
 </body>
 
 </html>
