@@ -10,18 +10,13 @@ const fs = require('fs');
 const app = express();
 
 // Middleware
-app.use(cors({
-    origin: ['https://ahtisham05-portfolio.netlify.app', 'http://localhost:3000'],
-    credentials: true
-}));
+app.use(cors());
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 
-// Create uploads directory if it doesn't exist (only in development)
-if (process.env.NODE_ENV !== 'production') {
-    if (!fs.existsSync('uploads')) {
-        fs.mkdirSync('uploads');
-    }
+// Create uploads directory if it doesn't exist
+if (!fs.existsSync('uploads')) {
+    fs.mkdirSync('uploads');
 }
 
 // File upload configuration
@@ -52,7 +47,7 @@ const upload = multer({
 });
 
 // Use environment variable if available, otherwise fallback to local MongoDB
-const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/portfolio';
+const mongoURI = process.env.MONGODB_URI;
 
 mongoose.connect(mongoURI, {
     useNewUrlParser: true,
@@ -64,10 +59,7 @@ mongoose.connect(mongoURI, {
 .catch(err => {
     console.error('❌ MongoDB connection error:', err.message);
     console.error(err);
-    // Don't exit in production
-    if (process.env.NODE_ENV !== 'production') {
-        process.exit(1);
-    }
+    process.exit(1); // Exit process if DB connection fails
 });
 
 // Admin Schema
@@ -184,15 +176,6 @@ const handleError = (res, error, message = 'Server error') => {
 };
 
 // Routes
-
-// Root route
-app.get('/', (req, res) => {
-    res.json({ 
-        message: 'Portfolio API', 
-        version: '1.0.0',
-        status: 'active'
-    });
-});
 
 // Auth Routes
 app.post('/api/auth/login', async (req, res) => {
@@ -612,28 +595,17 @@ app.post('/api/contact', async (req, res) => {
 app.get('/api/health', (req, res) => {
     res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
-
 // Handle 404 for API routes
 app.use('/api', (req, res) => {
     res.status(404).json({ message: 'API endpoint not found' });
 });
 
-// Initialize admin on startup
-if (mongoose.connection.readyState === 1) {
-    initializeAdmin();
-} else {
-    mongoose.connection.once('open', () => {
-        initializeAdmin();
-    });
-}
 
-// Only start server if not in serverless environment
-if (process.env.NODE_ENV !== 'production') {
-    const PORT = process.env.PORT || 5000;
-    app.listen(PORT, () => {
-        console.log(`Server running on port ${PORT}`);
-    });
-}
+const PORT = process.env.PORT || 5000;
 
-// Export for Vercel
+app.listen(PORT, async () => {
+    console.log(`Server running on port ${PORT}`);
+    await initializeAdmin();
+});
+
 module.exports = app;
