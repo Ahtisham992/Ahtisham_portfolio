@@ -4,12 +4,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
+    <title>Admin Panel - Portfolio Manager</title>
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .select2-container {
+            width: 100% !important;
+        }
+
+        .select2-container .select2-selection--single {
+            height: 42px !important;
+            border: 1px solid #d1d5db !important;
+            border-radius: 0.375rem !important;
+            display: flex !important;
+            align-items: center !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 42px !important;
+            padding-left: 12px !important;
+            color: #374151 !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 40px !important;
+            right: 8px !important;
+        }
+
+        .select2-dropdown {
+            border: 1px solid #d1d5db !important;
+            border-radius: 0.375rem !important;
+        }
+
+        .select2-results__option {
+            padding: 8px 12px !important;
+        }
+
+        .icon-preview {
+            font-size: 20px;
+            margin-right: 8px;
+        }
+
+        .color-swatch {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            margin-right: 8px;
+            vertical-align: middle;
+            border: 1px solid #e5e7eb;
+        }
+    </style>
 </head>
 
 <body>
@@ -17,828 +86,1535 @@
 
     <script type="text/babel">
         const { useState, useEffect } = React;
+        const API_BASE_URL = 'http://localhost:5000/api';
 
-        const AdminPanel = () => {
+        // Icon Library - Popular FontAwesome Icons
+        const ICON_OPTIONS = [
+            { value: 'fab fa-react', label: 'React', icon: 'fab fa-react' },
+            { value: 'fab fa-js', label: 'JavaScript', icon: 'fab fa-js' },
+            { value: 'fab fa-python', label: 'Python', icon: 'fab fa-python' },
+            { value: 'fab fa-java', label: 'Java', icon: 'fab fa-java' },
+            { value: 'fab fa-html5', label: 'HTML5', icon: 'fab fa-html5' },
+            { value: 'fab fa-css3-alt', label: 'CSS3', icon: 'fab fa-css3-alt' },
+            { value: 'fab fa-node-js', label: 'Node.js', icon: 'fab fa-node-js' },
+            { value: 'fab fa-docker', label: 'Docker', icon: 'fab fa-docker' },
+            { value: 'fab fa-git-alt', label: 'Git', icon: 'fab fa-git-alt' },
+            { value: 'fab fa-github', label: 'GitHub', icon: 'fab fa-github' },
+            { value: 'fab fa-aws', label: 'AWS', icon: 'fab fa-aws' },
+            { value: 'fab fa-linux', label: 'Linux', icon: 'fab fa-linux' },
+            { value: 'fab fa-angular', label: 'Angular', icon: 'fab fa-angular' },
+            { value: 'fab fa-vuejs', label: 'Vue.js', icon: 'fab fa-vuejs' },
+            { value: 'fab fa-sass', label: 'Sass', icon: 'fab fa-sass' },
+            { value: 'fab fa-bootstrap', label: 'Bootstrap', icon: 'fab fa-bootstrap' },
+            { value: 'fab fa-npm', label: 'NPM', icon: 'fab fa-npm' },
+            { value: 'fab fa-yarn', label: 'Yarn', icon: 'fab fa-yarn' },
+            { value: 'fab fa-wordpress', label: 'WordPress', icon: 'fab fa-wordpress' },
+            { value: 'fab fa-php', label: 'PHP', icon: 'fab fa-php' },
+            { value: 'fab fa-laravel', label: 'Laravel', icon: 'fab fa-laravel' },
+            { value: 'fab fa-android', label: 'Android', icon: 'fab fa-android' },
+            { value: 'fab fa-apple', label: 'Apple', icon: 'fab fa-apple' },
+            { value: 'fas fa-database', label: 'Database', icon: 'fas fa-database' },
+            { value: 'fas fa-server', label: 'Server', icon: 'fas fa-server' },
+            { value: 'fas fa-code', label: 'Code', icon: 'fas fa-code' },
+            { value: 'fas fa-laptop-code', label: 'Laptop Code', icon: 'fas fa-laptop-code' },
+            { value: 'fas fa-mobile-alt', label: 'Mobile', icon: 'fas fa-mobile-alt' },
+            { value: 'fas fa-palette', label: 'Design', icon: 'fas fa-palette' },
+            { value: 'fas fa-chart-line', label: 'Analytics', icon: 'fas fa-chart-line' },
+            { value: 'fas fa-brain', label: 'AI/ML', icon: 'fas fa-brain' },
+            { value: 'fas fa-shield-alt', label: 'Security', icon: 'fas fa-shield-alt' },
+            { value: 'fas fa-cloud', label: 'Cloud', icon: 'fas fa-cloud' },
+            { value: 'fas fa-cog', label: 'Settings', icon: 'fas fa-cog' },
+            { value: 'fas fa-gamepad', label: 'Gaming', icon: 'fas fa-gamepad' },
+            { value: 'fas fa-graduation-cap', label: 'Education', icon: 'fas fa-graduation-cap' },
+            { value: 'fas fa-certificate', label: 'Certificate', icon: 'fas fa-certificate' },
+            { value: 'fas fa-award', label: 'Award', icon: 'fas fa-award' },
+            { value: 'fas fa-briefcase', label: 'Business', icon: 'fas fa-briefcase' },
+            { value: 'fas fa-project-diagram', label: 'Project', icon: 'fas fa-project-diagram' },
+        ];
+
+        // Color Presets
+        const COLOR_OPTIONS = [
+            { value: '#3B82F6', label: 'Blue', color: '#3B82F6' },
+            { value: '#EF4444', label: 'Red', color: '#EF4444' },
+            { value: '#10B981', label: 'Green', color: '#10B981' },
+            { value: '#F59E0B', label: 'Orange', color: '#F59E0B' },
+            { value: '#8B5CF6', label: 'Purple', color: '#8B5CF6' },
+            { value: '#EC4899', label: 'Pink', color: '#EC4899' },
+            { value: '#14B8A6', label: 'Teal', color: '#14B8A6' },
+            { value: '#F97316', label: 'Dark Orange', color: '#F97316' },
+            { value: '#06B6D4', label: 'Cyan', color: '#06B6D4' },
+            { value: '#84CC16', label: 'Lime', color: '#84CC16' },
+            { value: '#6366F1', label: 'Indigo', color: '#6366F1' },
+            { value: '#EAB308', label: 'Yellow', color: '#EAB308' },
+            { value: '#64748B', label: 'Slate', color: '#64748B' },
+            { value: '#DC2626', label: 'Dark Red', color: '#DC2626' },
+            { value: '#059669', label: 'Emerald', color: '#059669' },
+        ];
+
+        // Gradient Presets for Projects
+        const GRADIENT_OPTIONS = [
+            { value: 'from-blue-500 to-purple-600', label: 'Blue to Purple' },
+            { value: 'from-green-400 to-blue-500', label: 'Green to Blue' },
+            { value: 'from-pink-500 to-orange-500', label: 'Pink to Orange' },
+            { value: 'from-purple-500 to-pink-500', label: 'Purple to Pink' },
+            { value: 'from-yellow-400 to-red-500', label: 'Yellow to Red' },
+            { value: 'from-teal-400 to-blue-500', label: 'Teal to Blue' },
+            { value: 'from-indigo-500 to-purple-600', label: 'Indigo to Purple' },
+            { value: 'from-red-500 to-pink-500', label: 'Red to Pink' },
+            { value: 'from-cyan-400 to-blue-600', label: 'Cyan to Blue' },
+            { value: 'from-orange-400 to-red-500', label: 'Orange to Red' },
+        ];
+
+        // Category Presets
+        const SKILL_CATEGORIES = [
+            { value: 'Frontend', label: 'Frontend' },
+            { value: 'Backend', label: 'Backend' },
+            { value: 'Database', label: 'Database' },
+            { value: 'DevOps', label: 'DevOps' },
+            { value: 'Mobile', label: 'Mobile' },
+            { value: 'Design', label: 'Design' },
+            { value: 'Other', label: 'Other' },
+        ];
+
+        const PROJECT_CATEGORIES = [
+            { value: 'Web Application', label: 'Web Application' },
+            { value: 'Mobile App', label: 'Mobile App' },
+            { value: 'Desktop Application', label: 'Desktop Application' },
+            { value: 'API/Backend', label: 'API/Backend' },
+            { value: 'Machine Learning', label: 'Machine Learning' },
+            { value: 'Data Science', label: 'Data Science' },
+            { value: 'Game Development', label: 'Game Development' },
+            { value: 'Other', label: 'Other' },
+        ];
+
+        // Initialize Select2 for searchable dropdowns
+        function initializeSelect2(elementId, options, placeholder, templateFunc = null) {
+            setTimeout(() => {
+                const $element = $(`#${elementId}`);
+                if ($element.length && !$element.hasClass('select2-hidden-accessible')) {
+                    const config = {
+                        placeholder: placeholder,
+                        allowClear: true,
+                        width: '100%',
+                        data: options
+                    };
+
+                    if (templateFunc) {
+                        config.templateResult = templateFunc;
+                        config.templateSelection = templateFunc;
+                    }
+
+                    $element.select2(config);
+                }
+            }, 100);
+        }
+
+        // Template for icon options
+        function formatIconOption(option) {
+            if (!option.id) return option.text;
+            const iconClass = option.element?.dataset.icon || option.icon;
+            if (iconClass) {
+                return $(`<span><i class="${iconClass} icon-preview"></i>${option.text}</span>`);
+            }
+            return option.text;
+        }
+
+        // Template for color options
+        function formatColorOption(option) {
+            if (!option.id) return option.text;
+            const color = option.element?.dataset.color || option.color;
+            if (color) {
+                return $(`<span><span class="color-swatch" style="background-color: ${color};"></span>${option.text}</span>`);
+            }
+            return option.text;
+        }
+
+        function AdminPanel() {
+            const [token, setToken] = useState(localStorage.getItem('token'));
             const [activeTab, setActiveTab] = useState('profile');
-            const [isAuthenticated, setIsAuthenticated] = useState(false);
-            const [password, setPassword] = useState('');
             const [loading, setLoading] = useState(false);
-            const [data, setData] = useState({
-                profile: {},
-                skills: [],
-                projects: [],
-                experience: [],
-                certificates: []
-            });
-            const [editingItem, setEditingItem] = useState(null);
-            const [showModal, setShowModal] = useState(false);
+            const [message, setMessage] = useState({ type: '', text: '' });
 
-            const API_BASE = 'https://ahtisham-portfolio-five.vercel.app/api';
+            // State for all data
+            const [profile, setProfile] = useState(null);
+            const [skills, setSkills] = useState([]);
+            const [projects, setProjects] = useState([]);
+            const [experience, setExperience] = useState([]);
+            const [education, setEducation] = useState([]);
+            const [certificates, setCertificates] = useState([]);
 
-            // Check if user is authenticated on component mount
+            // Login state
+            const [loginData, setLoginData] = useState({ username: '', password: '' });
+
             useEffect(() => {
-                const token = localStorage.getItem('adminToken');
                 if (token) {
-                    setIsAuthenticated(true);
                     fetchAllData();
                 }
-            }, []);
-
-            const login = async () => {
-                setLoading(true);
-                try {
-                    const response = await fetch(`${API_BASE}/auth/login`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ password })
-                    });
-
-                    if (response.ok) {
-                        const { token } = await response.json();
-                        localStorage.setItem('adminToken', token);
-                        setIsAuthenticated(true);
-                        fetchAllData();
-                    } else {
-                        alert('Invalid password');
-                    }
-                } catch (error) {
-                    alert('Login failed');
-                } finally {
-                    setLoading(false);
-                }
-            };
-
-            const logout = () => {
-                localStorage.removeItem('adminToken');
-                setIsAuthenticated(false);
-                setPassword('');
-            };
+            }, [token]);
 
             const fetchAllData = async () => {
                 try {
-                    const [profileRes, skillsRes, projectsRes, experienceRes, certificatesRes] = await Promise.all([
-                        fetch(`${API_BASE}/profile`),
-                        fetch(`${API_BASE}/skills`),
-                        fetch(`${API_BASE}/projects`),
-                        fetch(`${API_BASE}/experience`),
-                        fetch(`${API_BASE}/certificates`)
+                    const headers = { 'Authorization': `Bearer ${token}` };
+
+                    const [profileRes, skillsRes, projectsRes, expRes, eduRes, certRes] = await Promise.all([
+                        fetch(`${API_BASE_URL}/profile`, { headers }),
+                        fetch(`${API_BASE_URL}/skills`, { headers }),
+                        fetch(`${API_BASE_URL}/projects`, { headers }),
+                        fetch(`${API_BASE_URL}/experience`, { headers }),
+                        fetch(`${API_BASE_URL}/education`, { headers }),
+                        fetch(`${API_BASE_URL}/certificates`, { headers })
                     ]);
 
-                    setData({
-                        profile: await profileRes.json(),
-                        skills: await skillsRes.json(),
-                        projects: await projectsRes.json(),
-                        experience: await experienceRes.json(),
-                        certificates: await certificatesRes.json()
-                    });
+                    if (profileRes.ok) setProfile(await profileRes.json());
+                    if (skillsRes.ok) setSkills(await skillsRes.json());
+                    if (projectsRes.ok) setProjects(await projectsRes.json());
+                    if (expRes.ok) setExperience(await expRes.json());
+                    if (eduRes.ok) setEducation(await eduRes.json());
+                    if (certRes.ok) setCertificates(await certRes.json());
                 } catch (error) {
                     console.error('Error fetching data:', error);
                 }
             };
 
-            const saveItem = async (type, item) => {
-                const token = localStorage.getItem('adminToken');
-
+            const handleLogin = async (e) => {
+                e.preventDefault();
+                setLoading(true);
                 try {
-                    let response;
-                    if (type === 'profile') {
-                        // Handle profile with possible image upload
-                        const formData = new FormData();
-
-                        // Add profile data
-                        formData.append('data', JSON.stringify(item));
-
-                        // Add image if present
-                        if (item.profileImageFile) {
-                            formData.append('profileImage', item.profileImageFile);
-                        }
-
-                        response = await fetch(`${API_BASE}/profile`, {
-                            method: 'PUT',
-                            headers: {
-                                'Authorization': `Bearer ${token}`
-                            },
-                            body: formData
-                        });
-                    } else {
-                        // Handle other data types
-                        const url = item._id ?
-                            `${API_BASE}/${type}/${item._id}` :
-                            `${API_BASE}/${type}`;
-
-                        response = await fetch(url, {
-                            method: item._id ? 'PUT' : 'POST',
-                            headers: {
-                                'Authorization': `Bearer ${token}`,
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify(item)
-                        });
-                    }
-
-                    if (response.ok) {
-                        await fetchAllData();
-                        setEditingItem(null);
-                        setShowModal(false);
-                        alert('Saved successfully!');
-                    } else {
-                        const errorData = await response.text();
-                        console.error('Save error:', errorData);
-                        alert('Save failed: ' + errorData);
-                    }
-                } catch (error) {
-                    console.error('Save error:', error);
-                    alert('Save failed: ' + error.message);
-                }
-            };
-
-            const deleteItem = async (type, id) => {
-                if (!confirm('Are you sure you want to delete this item?')) return;
-
-                const token = localStorage.getItem('adminToken');
-                const headers = { 'Authorization': `Bearer ${token}` };
-
-                try {
-                    const response = await fetch(`${API_BASE}/${type}/${id}`, {
-                        method: 'DELETE',
-                        headers
+                    const response = await fetch(`${API_BASE_URL}/auth/login`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(loginData)
                     });
 
                     if (response.ok) {
-                        await fetchAllData();
-                        alert('Deleted successfully!');
+                        const data = await response.json();
+                        localStorage.setItem('token', data.token);
+                        setToken(data.token);
+                        showMessage('success', 'Login successful!');
                     } else {
-                        alert('Delete failed');
+                        showMessage('error', 'Invalid credentials');
                     }
                 } catch (error) {
-                    alert('Delete failed');
+                    showMessage('error', 'Login failed');
                 }
+                setLoading(false);
             };
 
-            if (!isAuthenticated) {
-                return (
-                    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-                        <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-                            <div className="text-center mb-8">
-                                <i className="fas fa-lock text-purple-600 text-5xl mb-4"></i>
-                                <h2 className="text-2xl font-bold text-gray-900">Admin Login</h2>
-                                <p className="text-gray-600">Enter your password to access the admin panel</p>
-                            </div>
+            const handleLogout = () => {
+                localStorage.removeItem('token');
+                setToken(null);
+                showMessage('success', 'Logged out successfully');
+            };
 
-                            <div className="space-y-4">
-                                <input
-                                    type="password"
-                                    placeholder="Enter admin password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    onKeyPress={(e) => e.key === 'Enter' && login()}
-                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                                />
-                                <button
-                                    onClick={login}
-                                    disabled={loading || !password}
-                                    className="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed"
-                                >
-                                    {loading ? 'Logging in...' : 'Login'}
-                                </button>
-                                <a
-                                    href="./index.html"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-purple-600 hover:text-purple-700 flex items-center"
-                                >
-                                    <i className="fas fa-eye mr-1"></i>
-                                    View Portfolio
-                                </a>
-                            </div>
+            const showMessage = (type, text) => {
+                setMessage({ type, text });
+                setTimeout(() => setMessage({ type: '', text: '' }), 3000);
+            };
 
-                        </div>
-                    </div>
-                );
+            if (!token) {
+                return <LoginForm loginData={loginData} setLoginData={setLoginData} handleLogin={handleLogin} loading={loading} />;
             }
 
-            const tabs = [
-                { id: 'profile', label: 'Profile', icon: 'fas fa-user' },
-                { id: 'skills', label: 'Skills', icon: 'fas fa-code' },
-                { id: 'projects', label: 'Projects', icon: 'fas fa-briefcase' },
-                { id: 'experience', label: 'Experience', icon: 'fas fa-graduation-cap' },
-                { id: 'certificates', label: 'Certificates', icon: 'fas fa-award' }
-            ];
-
-            const ProfileForm = ({ profile }) => {
-                const [formData, setFormData] = useState(profile || {});
-                const [selectedFile, setSelectedFile] = useState(null);
-                const [previewUrl, setPreviewUrl] = useState(null);
-
-                useEffect(() => {
-                    setFormData(profile || {});
-                }, [profile]);
-
-                const handleFileChange = (e) => {
-                    const file = e.target.files[0];
-                    if (file) {
-                        setSelectedFile(file);
-                        const reader = new FileReader();
-                        reader.onload = (e) => setPreviewUrl(e.target.result);
-                        reader.readAsDataURL(file);
-                    }
-                };
-
-                const handleSave = () => {
-                    const dataToSave = { ...formData };
-                    if (selectedFile) {
-                        dataToSave.profileImageFile = selectedFile;
-                    }
-                    saveItem('profile', dataToSave);
-                };
-
-                return (
-                    <div className="space-y-6">
-                        {/* Profile Image Upload */}
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">Profile Image</label>
-                            <div className="flex items-center space-x-4">
-                                <div className="w-24 h-24 rounded-full overflow-hidden bg-gray-100 border-2 border-gray-300">
-                                    {previewUrl ? (
-                                        <img src={previewUrl} alt="Preview" className="w-full h-full object-cover" />
-                                    ) : profile?.profileImage ? (
-                                        <img src={`https://ahtisham-portfolio-five.vercel.app${profile.profileImage}`} alt="Current" className="w-full h-full object-cover" />
-                                    ) : (
-                                        <div className="w-full h-full flex items-center justify-center">
-                                            <i className="fas fa-user text-gray-400 text-2xl"></i>
-                                        </div>
-                                    )}
-                                </div>
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={handleFileChange}
-                                    className="px-3 py-2 border border-gray-300 rounded-md"
-                                />
-                            </div>
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Name</label>
-                                <input
-                                    type="text"
-                                    value={formData.name || ''}
-                                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-purple-500 focus:border-purple-500"
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Title</label>
-                                <input
-                                    type="text"
-                                    value={formData.title || ''}
-                                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-purple-500 focus:border-purple-500"
-                                />
-                            </div>
-                        </div>
-
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
-                            <textarea
-                                rows="4"
-                                value={formData.description || ''}
-                                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-purple-500 focus:border-purple-500"
-                            />
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                                <input
-                                    type="email"
-                                    value={formData.email || ''}
-                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-purple-500 focus:border-purple-500"
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Phone</label>
-                                <input
-                                    type="text"
-                                    value={formData.phone || ''}
-                                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-purple-500 focus:border-purple-500"
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Location</label>
-                                <input
-                                    type="text"
-                                    value={formData.location || ''}
-                                    onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-purple-500 focus:border-purple-500"
-                                />
-                            </div>
-                        </div>
-
-                        <div>
-                            <h3 className="text-lg font-medium text-gray-900 mb-4">Social Links</h3>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">LinkedIn</label>
-                                    <input
-                                        type="url"
-                                        value={formData.socialLinks?.linkedin || ''}
-                                        onChange={(e) => setFormData({
-                                            ...formData,
-                                            socialLinks: { ...(formData.socialLinks || {}), linkedin: e.target.value }
-                                        })}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-purple-500 focus:border-purple-500"
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">GitHub</label>
-                                    <input
-                                        type="url"
-                                        value={formData.socialLinks?.github || ''}
-                                        onChange={(e) => setFormData({
-                                            ...formData,
-                                            socialLinks: { ...(formData.socialLinks || {}), github: e.target.value }
-                                        })}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-purple-500 focus:border-purple-500"
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">Instagram</label>
-                                    <input
-                                        type="url"
-                                        value={formData.socialLinks?.instagram || ''}
-                                        onChange={(e) => setFormData({
-                                            ...formData,
-                                            socialLinks: { ...(formData.socialLinks || {}), instagram: e.target.value }
-                                        })}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-purple-500 focus:border-purple-500"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-
-                        <button
-                            onClick={handleSave}
-                            className="bg-purple-600 text-white px-6 py-2 rounded-md hover:bg-purple-700 flex items-center"
-                        >
-                            <i className="fas fa-save mr-2"></i>
-                            Save Profile
-                        </button>
-                    </div>
-                );
-            };
-
-            const ItemModal = ({ type, item, onClose, onSave }) => {
-                const [formData, setFormData] = useState(item || {});
-
-                const getFields = () => {
-                    switch (type) {
-                        case 'skills':
-                            return (
-                                <>
-                                    <input
-                                        type="text"
-                                        placeholder="Skill Name"
-                                        value={formData.name || ''}
-                                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
-                                    />
-                                    <input
-                                        type="number"
-                                        placeholder="Percentage (0-100)"
-                                        value={formData.percentage || ''}
-                                        onChange={(e) => setFormData({ ...formData, percentage: parseInt(e.target.value) || 0 })}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
-                                        min="0" max="100"
-                                    />
-                                    <input
-                                        type="text"
-                                        placeholder="Category (e.g., frontend, backend)"
-                                        value={formData.category || ''}
-                                        onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
-                                    />
-                                    <input
-                                        type="text"
-                                        placeholder="Icon (Font Awesome class)"
-                                        value={formData.icon || ''}
-                                        onChange={(e) => setFormData({ ...formData, icon: e.target.value })}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
-                                    />
-                                </>
-                            );
-                        case 'projects':
-                            return (
-                                <>
-                                    <input
-                                        type="text"
-                                        placeholder="Project Title"
-                                        value={formData.title || ''}
-                                        onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
-                                    />
-                                    <textarea
-                                        placeholder="Project Description"
-                                        value={formData.description || ''}
-                                        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
-                                        rows="3"
-                                    />
-                                    <input
-                                        type="text"
-                                        placeholder="Technologies (comma-separated)"
-                                        value={(formData.technologies || []).join(', ')}
-                                        onChange={(e) => setFormData({ ...formData, technologies: e.target.value.split(',').map(t => t.trim()).filter(t => t) })}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
-                                    />
-                                    <textarea
-                                        placeholder="Features (one per line)"
-                                        value={(formData.features || []).join('\n')}
-                                        onChange={(e) => setFormData({ ...formData, features: e.target.value.split('\n').map(f => f.trim()).filter(f => f) })}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
-                                        rows="3"
-                                    />
-                                    <input
-                                        type="text"
-                                        placeholder="Category"
-                                        value={formData.category || ''}
-                                        onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
-                                    />
-                                    <input
-                                        type="text"
-                                        placeholder="Icon (Font Awesome class)"
-                                        value={formData.icon || ''}
-                                        onChange={(e) => setFormData({ ...formData, icon: e.target.value })}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
-                                    />
-                                    <input
-                                        type="text"
-                                        placeholder="Gradient CSS (e.g., from-blue-400 to-purple-600)"
-                                        value={formData.gradient || ''}
-                                        onChange={(e) => setFormData({ ...formData, gradient: e.target.value })}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
-                                    />
-                                    <input
-                                        type="url"
-                                        placeholder="Project URL (optional)"
-                                        value={formData.projectUrl || ''}
-                                        onChange={(e) => setFormData({ ...formData, projectUrl: e.target.value })}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
-                                    />
-                                    <input
-                                        type="url"
-                                        placeholder="GitHub URL (optional)"
-                                        value={formData.githubUrl || ''}
-                                        onChange={(e) => setFormData({ ...formData, githubUrl: e.target.value })}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
-                                    />
-                                </>
-                            );
-                        case 'experience':
-                            return (
-                                <>
-                                    <input
-                                        type="text"
-                                        placeholder="Job Title / Degree"
-                                        value={formData.title || ''}
-                                        onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
-                                    />
-                                    <input
-                                        type="text"
-                                        placeholder="Company / Institution"
-                                        value={formData.company || ''}
-                                        onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
-                                    />
-                                    <input
-                                        type="text"
-                                        placeholder="Location"
-                                        value={formData.location || ''}
-                                        onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
-                                    />
-                                    <div className="grid grid-cols-2 gap-4 mb-4">
-                                        <input
-                                            type="text"
-                                            placeholder="Start Date (e.g., Jan 2023)"
-                                            value={formData.startDate || ''}
-                                            onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
-                                            className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                                        />
-                                        <input
-                                            type="text"
-                                            placeholder="End Date (leave empty if current)"
-                                            value={formData.endDate || ''}
-                                            onChange={(e) => setFormData({ ...formData, endDate: e.target.value, current: !e.target.value })}
-                                            className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                                        />
-                                    </div>
-                                    <div className="mb-4">
-                                        <label className="flex items-center">
-                                            <input
-                                                type="checkbox"
-                                                checked={formData.current || false}
-                                                onChange={(e) => setFormData({ ...formData, current: e.target.checked, endDate: e.target.checked ? '' : formData.endDate })}
-                                                className="mr-2"
-                                            />
-                                            Currently working/studying here
-                                        </label>
-                                    </div>
-                                    <textarea
-                                        placeholder="Description (one point per line)"
-                                        value={(formData.description || []).join('\n')}
-                                        onChange={(e) => setFormData({ ...formData, description: e.target.value.split('\n').map(d => d.trim()).filter(d => d) })}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
-                                        rows="4"
-                                    />
-                                    <select
-                                        value={formData.type || 'experience'}
-                                        onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
-                                    >
-                                        <option value="experience">Work Experience</option>
-                                        <option value="education">Education</option>
-                                    </select>
-                                </>
-                            );
-                        case 'certificates':
-                            return (
-                                <>
-                                    <input
-                                        type="text"
-                                        placeholder="Certificate Title"
-                                        value={formData.title || ''}
-                                        onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
-                                    />
-                                    <input
-                                        type="text"
-                                        placeholder="Issuer/Platform"
-                                        value={formData.issuer || ''}
-                                        onChange={(e) => setFormData({ ...formData, issuer: e.target.value })}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
-                                    />
-                                    <input
-                                        type="text"
-                                        placeholder="Date Obtained"
-                                        value={formData.date || ''}
-                                        onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
-                                    />
-                                    <input
-                                        type="text"
-                                        placeholder="Icon (Font Awesome class)"
-                                        value={formData.icon || ''}
-                                        onChange={(e) => setFormData({ ...formData, icon: e.target.value })}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
-                                    />
-                                    <input
-                                        type="url"
-                                        placeholder="Certificate URL (optional)"
-                                        value={formData.url || ''}
-                                        onChange={(e) => setFormData({ ...formData, url: e.target.value })}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
-                                    />
-                                </>
-                            );
-                        default:
-                            return null;
-                    }
-                };
-
-                return (
-                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                        <div className="bg-white rounded-lg p-6 w-full max-w-md max-h-screen overflow-y-auto">
-                            <div className="flex justify-between items-center mb-4">
-                                <h3 className="text-lg font-semibold">
-                                    {item ? 'Edit' : 'Add'} {type.slice(0, -1)}
-                                </h3>
-                                <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
-                                    <i className="fas fa-times"></i>
-                                </button>
-                            </div>
-
-                            {getFields()}
-
-                            <div className="flex gap-2 mt-6">
-                                <button
-                                    onClick={() => onSave(formData)}
-                                    className="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 flex items-center flex-1"
-                                >
-                                    <i className="fas fa-save mr-2"></i>
-                                    Save
-                                </button>
-                                <button
-                                    onClick={onClose}
-                                    className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400"
-                                >
-                                    Cancel
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                );
-            };
-
-            const DataTable = ({ type, items, onEdit, onDelete, onAdd }) => {
-                const getTableHeaders = () => {
-                    switch (type) {
-                        case 'skills': return ['Name', 'Category', 'Percentage', 'Actions'];
-                        case 'projects': return ['Title', 'Category', 'Technologies', 'Actions'];
-                        case 'experience': return ['Title', 'Company', 'Type', 'Date', 'Actions'];
-                        case 'certificates': return ['Title', 'Issuer', 'Date', 'Actions'];
-                        default: return [];
-                    }
-                };
-
-                const getTableRow = (item) => {
-                    switch (type) {
-                        case 'skills':
-                            return [
-                                item.name,
-                                item.category,
-                                `${item.percentage}%`
-                            ];
-                        case 'projects':
-                            return [
-                                item.title,
-                                item.category || 'General',
-                                (item.technologies || []).slice(0, 3).join(', ') + (item.technologies?.length > 3 ? '...' : '')
-                            ];
-                        case 'experience':
-                            return [
-                                item.title,
-                                item.company,
-                                item.type,
-                                `${item.startDate} - ${item.endDate || 'Present'}`
-                            ];
-                        case 'certificates':
-                            return [
-                                item.title,
-                                item.issuer,
-                                item.date || 'N/A'
-                            ];
-                        default:
-                            return [];
-                    }
-                };
-
-                return (
-                    <div>
-                        <div className="flex justify-between items-center mb-6">
-                            <h2 className="text-2xl font-bold text-gray-900 capitalize">{type}</h2>
-                            <button
-                                onClick={onAdd}
-                                className="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 flex items-center"
-                            >
-                                <i className="fas fa-plus mr-2"></i>
-                                Add {type.slice(0, -1)}
-                            </button>
-                        </div>
-
-                        <div className="bg-white rounded-lg shadow overflow-hidden">
-                            <table className="min-w-full divide-y divide-gray-200">
-                                <thead className="bg-gray-50">
-                                    <tr>
-                                        {getTableHeaders().map((header) => (
-                                            <th key={header} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                {header}
-                                            </th>
-                                        ))}
-                                    </tr>
-                                </thead>
-                                <tbody className="bg-white divide-y divide-gray-200">
-                                    {items.map((item) => (
-                                        <tr key={item._id}>
-                                            {getTableRow(item).map((cell, index) => (
-                                                <td key={index} className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                                    {cell}
-                                                </td>
-                                            ))}
-                                            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                <button
-                                                    onClick={() => onEdit(item)}
-                                                    className="text-indigo-600 hover:text-indigo-900 mr-4"
-                                                >
-                                                    <i className="fas fa-edit"></i>
-                                                </button>
-                                                <button
-                                                    onClick={() => onDelete(item._id)}
-                                                    className="text-red-600 hover:text-red-900"
-                                                >
-                                                    <i className="fas fa-trash"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-
-                            {items.length === 0 && (
-                                <div className="text-center py-8 text-gray-500">
-                                    No {type} found. Click "Add {type.slice(0, -1)}" to create your first entry.
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                );
-            };
-
             return (
-                <div className="min-h-screen bg-gray-50">
-                    {/* Header */}
-                    <div className="bg-white shadow-sm border-b">
+                <div className="min-h-screen bg-gray-100">
+                    <nav className="bg-white shadow-lg">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <div className="flex justify-between items-center py-4">
-                                <h1 className="text-2xl font-bold text-gray-900">Portfolio Admin Panel</h1>
-                                <div className="flex items-center space-x-4">
-                                    <a
-                                        href="./index.html"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="text-purple-600 hover:text-purple-700 flex items-center"
-                                    >
-                                        <i className="fas fa-eye mr-1"></i>
-                                        View Portfolio
-                                    </a>
-                                    <button
-                                        onClick={logout}
-                                        className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 flex items-center"
-                                    >
-                                        <i className="fas fa-sign-out-alt mr-2"></i>
+                            <div className="flex justify-between h-16">
+                                <div className="flex items-center">
+                                    <h1 className="text-2xl font-bold text-gray-800">Portfolio Admin Panel</h1>
+                                </div>
+                                <div className="flex items-center">
+                                    <button onClick={handleLogout} className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
                                         Logout
                                     </button>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </nav>
 
-                    {/* Navigation Tabs */}
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-                        <div className="border-b border-gray-200 mb-6">
-                            <nav className="-mb-px flex space-x-8">
-                                {tabs.map((tab) => (
-                                    <button
-                                        key={tab.id}
-                                        onClick={() => setActiveTab(tab.id)}
-                                        className={`${activeTab === tab.id
-                                                ? 'border-purple-500 text-purple-600'
-                                                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                                            } whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm flex items-center`}
-                                    >
-                                        <i className={`${tab.icon} mr-2`}></i>
-                                        {tab.label}
-                                    </button>
-                                ))}
-                            </nav>
+                    {message.text && (
+                        <div className={`max-w-7xl mx-auto mt-4 px-4 sm:px-6 lg:px-8`}>
+                            <div className={`p-4 rounded-lg ${message.type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                                {message.text}
+                            </div>
                         </div>
+                    )}
 
-                        {/* Content */}
-                        <div className="bg-white rounded-lg shadow p-6">
-                            {activeTab === 'profile' && <ProfileForm profile={data.profile} />}
+                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                        <div className="bg-white rounded-lg shadow">
+                            <div className="border-b border-gray-200">
+                                <nav className="flex -mb-px">
+                                    {['profile', 'skills', 'projects', 'experience', 'education', 'certificates'].map(tab => (
+                                        <button
+                                            key={tab}
+                                            onClick={() => setActiveTab(tab)}
+                                            className={`py-4 px-6 text-sm font-medium ${activeTab === tab ? 'border-b-2 border-blue-500 text-blue-600' : 'text-gray-500 hover:text-gray-700'}`}
+                                        >
+                                            {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                                        </button>
+                                    ))}
+                                </nav>
+                            </div>
 
-                            {activeTab !== 'profile' && (
-                                <DataTable
-                                    type={activeTab}
-                                    items={data[activeTab]}
-                                    onEdit={(item) => {
-                                        setEditingItem(item);
-                                        setShowModal(true);
-                                    }}
-                                    onDelete={(id) => deleteItem(activeTab, id)}
-                                    onAdd={() => {
-                                        setEditingItem(null);
-                                        setShowModal(true);
-                                    }}
-                                />
-                            )}
+                            <div className="p-6">
+                                {activeTab === 'profile' && <ProfileSection profile={profile} token={token} showMessage={showMessage} fetchAllData={fetchAllData} />}
+                                {activeTab === 'skills' && <SkillsSection skills={skills} token={token} showMessage={showMessage} fetchAllData={fetchAllData} />}
+                                {activeTab === 'projects' && <ProjectsSection projects={projects} token={token} showMessage={showMessage} fetchAllData={fetchAllData} />}
+                                {activeTab === 'experience' && <ExperienceSection experience={experience} token={token} showMessage={showMessage} fetchAllData={fetchAllData} />}
+                                {activeTab === 'education' && <EducationSection education={education} token={token} showMessage={showMessage} fetchAllData={fetchAllData} />}
+                                {activeTab === 'certificates' && <CertificatesSection certificates={certificates} token={token} showMessage={showMessage} fetchAllData={fetchAllData} />}
+                            </div>
                         </div>
-
-                        {/* Modal */}
-                        {showModal && (
-                            <ItemModal
-                                type={activeTab}
-                                item={editingItem}
-                                onClose={() => {
-                                    setShowModal(false);
-                                    setEditingItem(null);
-                                }}
-                                onSave={(item) => saveItem(activeTab, item)}
-                            />
-                        )}
                     </div>
                 </div>
             );
-        };
+        }
 
-        // Render the component
-        ReactDOM.render(React.createElement(AdminPanel), document.getElementById('root'));
+        function LoginForm({ loginData, setLoginData, handleLogin, loading }) {
+            return (
+                <div className="min-h-screen flex items-center justify-center bg-gray-100">
+                    <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+                        <h2 className="text-3xl font-bold text-center mb-6">Admin Login</h2>
+                        <form onSubmit={handleLogin}>
+                            <div className="mb-4">
+                                <label className="block text-gray-700 mb-2">Username</label>
+                                <input
+                                    type="text"
+                                    value={loginData.username}
+                                    onChange={(e) => setLoginData({ ...loginData, username: e.target.value })}
+                                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    required
+                                />
+                            </div>
+                            <div className="mb-6">
+                                <label className="block text-gray-700 mb-2">Password</label>
+                                <input
+                                    type="password"
+                                    value={loginData.password}
+                                    onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
+                                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    required
+                                />
+                            </div>
+                            <button
+                                type="submit"
+                                disabled={loading}
+                                className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 disabled:bg-gray-400"
+                            >
+                                {loading ? 'Logging in...' : 'Login'}
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            );
+        }
+
+        function ProfileSection({ profile, token, showMessage, fetchAllData }) {
+            const [formData, setFormData] = useState({
+                name: '',
+                title: '',
+                bio: '',
+                location: '',
+                email: '',
+                phone: '',
+                github: '',
+                linkedin: '',
+                twitter: '',
+            });
+
+            useEffect(() => {
+                if (profile) {
+                    setFormData({
+                        name: profile.name || '',
+                        title: profile.title || '',
+                        bio: profile.bio || '',
+                        location: profile.location || '',
+                        email: profile.email || '',
+                        phone: profile.phone || '',
+                        github: profile.socialLinks?.github || '',
+                        linkedin: profile.socialLinks?.linkedin || '',
+                        twitter: profile.socialLinks?.twitter || '',
+                    });
+                }
+            }, [profile]);
+
+            const handleSubmit = async (e) => {
+                e.preventDefault();
+                try {
+                    const payload = {
+                        name: formData.name,
+                        title: formData.title,
+                        bio: formData.bio,
+                        location: formData.location,
+                        email: formData.email,
+                        phone: formData.phone,
+                        socialLinks: {
+                            github: formData.github,
+                            linkedin: formData.linkedin,
+                            twitter: formData.twitter
+                        }
+                    };
+
+                    const response = await fetch(`${API_BASE_URL}/profile`, {
+                        method: profile ? 'PUT' : 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.ok) {
+                        showMessage('success', 'Profile updated successfully!');
+                        fetchAllData();
+                    } else {
+                        showMessage('error', 'Failed to update profile');
+                    }
+                } catch (error) {
+                    showMessage('error', 'Error updating profile');
+                }
+            };
+
+            return (
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                            <input
+                                type="text"
+                                value={formData.name}
+                                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Professional Title</label>
+                            <input
+                                type="text"
+                                value={formData.title}
+                                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                                placeholder="e.g., Full Stack Developer"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                required
+                            />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Bio</label>
+                        <textarea
+                            value={formData.bio}
+                            onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
+                            rows="4"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            required
+                        ></textarea>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <input
+                                type="email"
+                                value={formData.email}
+                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                            <input
+                                type="tel"
+                                value={formData.phone}
+                                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                            <input
+                                type="text"
+                                value={formData.location}
+                                onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                                placeholder="e.g., New York, USA"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">GitHub URL</label>
+                            <input
+                                type="url"
+                                value={formData.github}
+                                onChange={(e) => setFormData({ ...formData, github: e.target.value })}
+                                placeholder="https://github.com/username"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">LinkedIn URL</label>
+                            <input
+                                type="url"
+                                value={formData.linkedin}
+                                onChange={(e) => setFormData({ ...formData, linkedin: e.target.value })}
+                                placeholder="https://linkedin.com/in/username"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Twitter URL</label>
+                            <input
+                                type="url"
+                                value={formData.twitter}
+                                onChange={(e) => setFormData({ ...formData, twitter: e.target.value })}
+                                placeholder="https://twitter.com/username"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            />
+                        </div>
+                    </div>
+
+                    <button
+                        type="submit"
+                        className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors"
+                    >
+                        Update Profile
+                    </button>
+                </form>
+            );
+        }
+
+        function SkillsSection({ skills, token, showMessage, fetchAllData }) {
+            const [formData, setFormData] = useState({ name: '', category: '', proficiency: 80, icon: '', color: '' });
+            const [editingId, setEditingId] = useState(null);
+
+            useEffect(() => {
+                initializeSelect2('skill-icon', ICON_OPTIONS.map(opt => ({
+                    id: opt.value,
+                    text: opt.label,
+                    icon: opt.icon
+                })), 'Select an icon', formatIconOption);
+
+                initializeSelect2('skill-color', COLOR_OPTIONS.map(opt => ({
+                    id: opt.value,
+                    text: opt.label,
+                    color: opt.color
+                })), 'Select a color', formatColorOption);
+
+                initializeSelect2('skill-category', SKILL_CATEGORIES.map(opt => ({
+                    id: opt.value,
+                    text: opt.label
+                })), 'Select category');
+            }, [editingId]);
+
+            const handleSubmit = async (e) => {
+                e.preventDefault();
+
+                // Get values from Select2
+                const icon = $('#skill-icon').val();
+                const color = $('#skill-color').val();
+                const category = $('#skill-category').val();
+
+                const payload = {
+                    name: formData.name,
+                    category: category || 'Other',
+                    proficiency: parseInt(formData.proficiency),
+                    icon: icon || 'fas fa-code',
+                    color: color || '#3B82F6'
+                };
+
+                try {
+                    const url = editingId ? `${API_BASE_URL}/skills/${editingId}` : `${API_BASE_URL}/skills`;
+                    const method = editingId ? 'PUT' : 'POST';
+
+                    const response = await fetch(url, {
+                        method,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.ok) {
+                        showMessage('success', editingId ? 'Skill updated!' : 'Skill added!');
+                        resetForm();
+                        fetchAllData();
+                    } else {
+                        showMessage('error', 'Operation failed');
+                    }
+                } catch (error) {
+                    showMessage('error', 'Error saving skill');
+                }
+            };
+
+            const handleEdit = (skill) => {
+                setFormData({
+                    name: skill.name,
+                    category: skill.category,
+                    proficiency: skill.proficiency,
+                    icon: skill.icon,
+                    color: skill.color
+                });
+                setEditingId(skill._id);
+
+                // Set Select2 values after a short delay
+                setTimeout(() => {
+                    $('#skill-icon').val(skill.icon).trigger('change');
+                    $('#skill-color').val(skill.color).trigger('change');
+                    $('#skill-category').val(skill.category).trigger('change');
+                }, 150);
+            };
+
+            const handleDelete = async (id) => {
+                if (!confirm('Are you sure you want to delete this skill?')) return;
+
+                try {
+                    const response = await fetch(`${API_BASE_URL}/skills/${id}`, {
+                        method: 'DELETE',
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+
+                    if (response.ok) {
+                        showMessage('success', 'Skill deleted!');
+                        fetchAllData();
+                    }
+                } catch (error) {
+                    showMessage('error', 'Error deleting skill');
+                }
+            };
+
+            const resetForm = () => {
+                setFormData({ name: '', category: '', proficiency: 80, icon: '', color: '' });
+                setEditingId(null);
+                $('#skill-icon').val(null).trigger('change');
+                $('#skill-color').val(null).trigger('change');
+                $('#skill-category').val(null).trigger('change');
+            };
+
+            return (
+                <div>
+                    <form onSubmit={handleSubmit} className="mb-6 p-4 bg-gray-50 rounded-lg">
+                        <h3 className="text-lg font-semibold mb-4">{editingId ? 'Edit Skill' : 'Add New Skill'}</h3>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Skill Name</label>
+                                <input
+                                    type="text"
+                                    value={formData.name}
+                                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                    placeholder="e.g., React, Python, JavaScript"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                                    required
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                                <select id="skill-category" className="w-full" required></select>
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Icon</label>
+                                <select id="skill-icon" className="w-full" required></select>
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Color</label>
+                                <select id="skill-color" className="w-full" required></select>
+                            </div>
+
+                            <div className="md:col-span-2">
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Proficiency: {formData.proficiency}%</label>
+                                <input
+                                    type="range"
+                                    min="0"
+                                    max="100"
+                                    value={formData.proficiency}
+                                    onChange={(e) => setFormData({ ...formData, proficiency: e.target.value })}
+                                    className="w-full"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="flex gap-2 mt-4">
+                            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                                {editingId ? 'Update Skill' : 'Add Skill'}
+                            </button>
+                            {editingId && (
+                                <button type="button" onClick={resetForm} className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600">
+                                    Cancel
+                                </button>
+                            )}
+                        </div>
+                    </form>
+
+                    <div className="space-y-2">
+                        <h3 className="text-lg font-semibold mb-3">Your Skills</h3>
+                        {skills.map(skill => (
+                            <div key={skill._id} className="flex items-center justify-between p-3 bg-white border rounded-lg">
+                                <div className="flex items-center gap-3">
+                                    <i className={skill.icon} style={{ color: skill.color, fontSize: '24px' }}></i>
+                                    <div>
+                                        <div className="font-medium">{skill.name}</div>
+                                        <div className="text-sm text-gray-500">{skill.category} - {skill.proficiency}%</div>
+                                    </div>
+                                </div>
+                                <div className="flex gap-2">
+                                    <button onClick={() => handleEdit(skill)} className="text-blue-600 hover:text-blue-800">
+                                        <i className="fas fa-edit"></i>
+                                    </button>
+                                    <button onClick={() => handleDelete(skill._id)} className="text-red-600 hover:text-red-800">
+                                        <i className="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
+        function ProjectsSection({ projects, token, showMessage, fetchAllData }) {
+            const [formData, setFormData] = useState({
+                title: '',
+                description: '',
+                category: '',
+                technologies: '',
+                features: '',
+                githubUrl: '',
+                liveUrl: '',
+                gradient: ''
+            });
+            const [editingId, setEditingId] = useState(null);
+
+            useEffect(() => {
+                initializeSelect2('project-gradient', GRADIENT_OPTIONS.map(opt => ({
+                    id: opt.value,
+                    text: opt.label
+                })), 'Select gradient');
+
+                initializeSelect2('project-category', PROJECT_CATEGORIES.map(opt => ({
+                    id: opt.value,
+                    text: opt.label
+                })), 'Select category');
+            }, [editingId]);
+
+            const handleSubmit = async (e) => {
+                e.preventDefault();
+
+                const gradient = $('#project-gradient').val();
+                const category = $('#project-category').val();
+
+                const payload = {
+                    title: formData.title,
+                    description: formData.description,
+                    category: category || 'Other',
+                    technologies: formData.technologies.split(',').map(t => t.trim()).filter(t => t),
+                    features: formData.features.split('').map(f => f.trim()).filter(f => f),
+                    githubUrl: formData.githubUrl,
+                        liveUrl: formData.liveUrl,
+                        gradient: gradient || 'from-blue-500 to-purple-600'
+                };
+
+                try {
+                    const url = editingId ? `${API_BASE_URL}/projects/${editingId}` : `${API_BASE_URL}/projects`;
+                    const method = editingId ? 'PUT' : 'POST';
+
+                    const response = await fetch(url, {
+                        method,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.ok) {
+                        showMessage('success', editingId ? 'Project updated!' : 'Project added!');
+                        resetForm();
+                        fetchAllData();
+                    } else {
+                        showMessage('error', 'Operation failed');
+                    }
+                } catch (error) {
+                    showMessage('error', 'Error saving project');
+                }
+            };
+
+            const handleEdit = (project) => {
+                setFormData({
+                    title: project.title,
+                    description: project.description,
+                    category: project.category,
+                    technologies: Array.isArray(project.technologies) ? project.technologies.join(', ') : '',
+                    features: Array.isArray(project.features) ? project.features.join('') : '',
+                    githubUrl: project.githubUrl || '',
+                        liveUrl: project.liveUrl || '',
+                        gradient: project.gradient
+                });
+                setEditingId(project._id);
+
+                setTimeout(() => {
+                    $('#project-gradient').val(project.gradient).trigger('change');
+                    $('#project-category').val(project.category).trigger('change');
+                }, 150);
+            };
+
+            const handleDelete = async (id) => {
+                if (!confirm('Are you sure you want to delete this project?')) return;
+
+                try {
+                    const response = await fetch(`${API_BASE_URL}/projects/${id}`, {
+                        method: 'DELETE',
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+
+                    if (response.ok) {
+                        showMessage('success', 'Project deleted!');
+                        fetchAllData();
+                    }
+                } catch (error) {
+                    showMessage('error', 'Error deleting project');
+                }
+            };
+
+            const resetForm = () => {
+                setFormData({
+                    title: '',
+                    description: '',
+                    category: '',
+                    technologies: '',
+                    features: '',
+                    githubUrl: '',
+                    liveUrl: '',
+                    gradient: ''
+                });
+                setEditingId(null);
+                $('#project-gradient').val(null).trigger('change');
+                $('#project-category').val(null).trigger('change');
+            };
+
+            return (
+                <div>
+                    <form onSubmit={handleSubmit} className="mb-6 p-4 bg-gray-50 rounded-lg">
+                        <h3 className="text-lg font-semibold mb-4">{editingId ? 'Edit Project' : 'Add New Project'}</h3>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Project Title</label>
+                                <input
+                                    type="text"
+                                    value={formData.title}
+                                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                                    placeholder="e.g., E-commerce Platform"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                                    required
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                                <select id="project-category" className="w-full" required></select>
+                            </div>
+
+                            <div className="md:col-span-2">
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                                <textarea
+                                    value={formData.description}
+                                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                                    rows="3"
+                                    placeholder="Brief description of your project"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                                    required
+                                ></textarea>
+                            </div>
+
+                            <div className="md:col-span-2">
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Technologies (comma-separated)</label>
+                                <input
+                                    type="text"
+                                    value={formData.technologies}
+                                    onChange={(e) => setFormData({ ...formData, technologies: e.target.value })}
+                                    placeholder="e.g., React, Node.js, MongoDB"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                                    required
+                                />
+                            </div>
+
+                            <div className="md:col-span-2">
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Key Features (one per line)</label>
+                                <textarea
+                                    value={formData.features}
+                                    onChange={(e) => setFormData({ ...formData, features: e.target.value })}
+                                    rows="4"
+                                    placeholder="User authentication&#10;Real-time notifications&#10;Responsive design"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                                ></textarea>
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">GitHub URL (optional)</label>
+                                <input
+                                    type="url"
+                                    value={formData.githubUrl}
+                                    onChange={(e) => setFormData({ ...formData, githubUrl: e.target.value })}
+                                    placeholder="https://github.com/username/project"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Live URL (optional)</label>
+                                <input
+                                    type="url"
+                                    value={formData.liveUrl}
+                                    onChange={(e) => setFormData({ ...formData, liveUrl: e.target.value })}
+                                    placeholder="https://project-demo.com"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                                />
+                            </div>
+
+                            <div className="md:col-span-2">
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Gradient Theme</label>
+                                <select id="project-gradient" className="w-full" required></select>
+                            </div>
+                        </div>
+
+                        <div className="flex gap-2 mt-4">
+                            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                                {editingId ? 'Update Project' : 'Add Project'}
+                            </button>
+                            {editingId && (
+                                <button type="button" onClick={resetForm} className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600">
+                                    Cancel
+                                </button>
+                            )}
+                        </div>
+                    </form>
+
+                    <div className="space-y-3">
+                        <h3 className="text-lg font-semibold mb-3">Your Projects</h3>
+                        {projects.map(project => (
+                            <div key={project._id} className="p-4 bg-white border rounded-lg">
+                                <div className="flex justify-between items-start">
+                                    <div className="flex-1">
+                                        <h4 className="font-semibold text-lg">{project.title}</h4>
+                                        <p className="text-sm text-gray-600 mt-1">{project.description}</p>
+                                        <div className="flex flex-wrap gap-2 mt-2">
+                                            {project.technologies && project.technologies.map((tech, i) => (
+                                                <span key={i} className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                                                    {tech}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div className="flex gap-2 ml-4">
+                                        <button onClick={() => handleEdit(project)} className="text-blue-600 hover:text-blue-800">
+                                            <i className="fas fa-edit"></i>
+                                        </button>
+                                        <button onClick={() => handleDelete(project._id)} className="text-red-600 hover:text-red-800">
+                                            <i className="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
+        function ExperienceSection({ experience, token, showMessage, fetchAllData }) {
+            const [formData, setFormData] = useState({
+                title: '',
+                company: '',
+                location: '',
+                startDate: '',
+                endDate: '',
+                current: false,
+                description: ''
+            });
+            const [editingId, setEditingId] = useState(null);
+
+            const handleSubmit = async (e) => {
+                e.preventDefault();
+
+                const payload = {
+                    ...formData,
+                    description: formData.description.split('').map(d => d.trim()).filter(d => d)
+                };
+
+                try {
+                    const url = editingId ? `${API_BASE_URL}/experience/${editingId}` : `${API_BASE_URL}/experience`;
+                    const method = editingId ? 'PUT' : 'POST';
+
+                    const response = await fetch(url, {
+                        method,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.ok) {
+                        showMessage('success', editingId ? 'Experience updated!' : 'Experience added!');
+                        resetForm();
+                        fetchAllData();
+                    } else {
+                        showMessage('error', 'Operation failed');
+                    }
+                } catch (error) {
+                    showMessage('error', 'Error saving experience');
+                }
+            };
+
+            const handleEdit = (exp) => {
+                setFormData({
+                    title: exp.title,
+                    company: exp.company,
+                    location: exp.location || '',
+                    startDate: exp.startDate ? exp.startDate.split('T')[0] : '',
+                    endDate: exp.endDate ? exp.endDate.split('T')[0] : '',
+                    current: exp.current || false,
+                    description: Array.isArray(exp.description) ? exp.description.join('') : ''
+                });
+                setEditingId(exp._id);
+            };
+
+            const handleDelete = async (id) => {
+                if (!confirm('Are you sure you want to delete this experience?')) return;
+
+                try {
+                    const response = await fetch(`${API_BASE_URL}/experience/${id}`, {
+                        method: 'DELETE',
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+
+                    if (response.ok) {
+                        showMessage('success', 'Experience deleted!');
+                        fetchAllData();
+                    }
+                } catch (error) {
+                    showMessage('error', 'Error deleting experience');
+                }
+            };
+
+            const resetForm = () => {
+                setFormData({
+                    title: '',
+                    company: '',
+                    location: '',
+                    startDate: '',
+                    endDate: '',
+                    current: false,
+                    description: ''
+                });
+                setEditingId(null);
+            };
+
+            return (
+                <div>
+                    <form onSubmit={handleSubmit} className="mb-6 p-4 bg-gray-50 rounded-lg">
+                        <h3 className="text-lg font-semibold mb-4">{editingId ? 'Edit Experience' : 'Add New Experience'}</h3>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Job Title</label>
+                                <input
+                                    type="text"
+                                    value={formData.title}
+                                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                                    placeholder="e.g., Senior Developer"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                                    required
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Company</label>
+                                <input
+                                    type="text"
+                                    value={formData.company}
+                                    onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                                    placeholder="e.g., Tech Corp"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                                    required
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                                <input
+                                    type="text"
+                                    value={formData.location}
+                                    onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                                    placeholder="e.g., San Francisco, CA"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                                />
+                            </div>
+
+                            <div className="flex items-center gap-4">
+                                <label className="flex items-center gap-2">
+                                    <input
+                                        type="checkbox"
+                                        checked={formData.current}
+                                        onChange={(e) => setFormData({ ...formData, current: e.target.checked })}
+                                        className="w-4 h-4"
+                                    />
+                                    <span className="text-sm font-medium text-gray-700">Currently Working Here</span>
+                                </label>
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
+                                <input
+                                    type="date"
+                                    value={formData.startDate}
+                                    onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                                    required
+                                />
+                            </div>
+
+                            {!formData.current && (
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">End Date</label>
+                                    <input
+                                        type="date"
+                                        value={formData.endDate}
+                                        onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                                    />
+                                </div>
+                            )}
+
+                            <div className="md:col-span-2">
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Description (one responsibility per line)</label>
+                                <textarea
+                                    value={formData.description}
+                                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                                    rows="5"
+                                    placeholder="Led development team&#10;Implemented new features&#10;Improved performance"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                                ></textarea>
+                            </div>
+                        </div>
+
+                        <div className="flex gap-2 mt-4">
+                            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                                {editingId ? 'Update Experience' : 'Add Experience'}
+                            </button>
+                            {editingId && (
+                                <button type="button" onClick={resetForm} className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600">
+                                    Cancel
+                                </button>
+                            )}
+                        </div>
+                    </form>
+
+                    <div className="space-y-3">
+                        <h3 className="text-lg font-semibold mb-3">Your Experience</h3>
+                        {experience.map(exp => (
+                            <div key={exp._id} className="p-4 bg-white border rounded-lg">
+                                <div className="flex justify-between items-start">
+                                    <div>
+                                        <h4 className="font-semibold text-lg">{exp.title}</h4>
+                                        <p className="text-gray-600">{exp.company}</p>
+                                        <p className="text-sm text-gray-500">
+                                            {new Date(exp.startDate).toLocaleDateString()} - {exp.current ? 'Present' : new Date(exp.endDate).toLocaleDateString()}
+                                        </p>
+                                    </div>
+                                    <div className="flex gap-2">
+                                        <button onClick={() => handleEdit(exp)} className="text-blue-600 hover:text-blue-800">
+                                            <i className="fas fa-edit"></i>
+                                        </button>
+                                        <button onClick={() => handleDelete(exp._id)} className="text-red-600 hover:text-red-800">
+                                            <i className="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
+        function EducationSection({ education, token, showMessage, fetchAllData }) {
+            const [formData, setFormData] = useState({
+                degree: '',
+                institution: '',
+                location: '',
+                startDate: '',
+                endDate: '',
+                description: ''
+            });
+            const [editingId, setEditingId] = useState(null);
+
+            const handleSubmit = async (e) => {
+                e.preventDefault();
+
+                try {
+                    const url = editingId ? `${API_BASE_URL}/education/${editingId}` : `${API_BASE_URL}/education`;
+                    const method = editingId ? 'PUT' : 'POST';
+
+                    const response = await fetch(url, {
+                        method,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify(formData)
+                    });
+
+                    if (response.ok) {
+                        showMessage('success', editingId ? 'Education updated!' : 'Education added!');
+                        resetForm();
+                        fetchAllData();
+                    } else {
+                        showMessage('error', 'Operation failed');
+                    }
+                } catch (error) {
+                    showMessage('error', 'Error saving education');
+                }
+            };
+
+            const handleEdit = (edu) => {
+                setFormData({
+                    degree: edu.degree,
+                    institution: edu.institution,
+                    location: edu.location || '',
+                    startDate: edu.startDate ? edu.startDate.split('T')[0] : '',
+                    endDate: edu.endDate ? edu.endDate.split('T')[0] : '',
+                    description: edu.description || ''
+                });
+                setEditingId(edu._id);
+            };
+
+            const handleDelete = async (id) => {
+                if (!confirm('Are you sure you want to delete this education?')) return;
+
+                try {
+                    const response = await fetch(`${API_BASE_URL}/education/${id}`, {
+                        method: 'DELETE',
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+
+                    if (response.ok) {
+                        showMessage('success', 'Education deleted!');
+                        fetchAllData();
+                    }
+                } catch (error) {
+                    showMessage('error', 'Error deleting education');
+                }
+            };
+
+            const resetForm = () => {
+                setFormData({
+                    degree: '',
+                    institution: '',
+                    location: '',
+                    startDate: '',
+                    endDate: '',
+                    description: ''
+                });
+                setEditingId(null);
+            };
+
+            return (
+                <div>
+                    <form onSubmit={handleSubmit} className="mb-6 p-4 bg-gray-50 rounded-lg">
+                        <h3 className="text-lg font-semibold mb-4">{editingId ? 'Edit Education' : 'Add New Education'}</h3>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Degree/Program</label>
+                                <input
+                                    type="text"
+                                    value={formData.degree}
+                                    onChange={(e) => setFormData({ ...formData, degree: e.target.value })}
+                                    placeholder="e.g., Bachelor of Computer Science"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                                    required
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Institution</label>
+                                <input
+                                    type="text"
+                                    value={formData.institution}
+                                    onChange={(e) => setFormData({ ...formData, institution: e.target.value })}
+                                    placeholder="e.g., University Name"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                                    required
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                                <input
+                                    type="text"
+                                    value={formData.location}
+                                    onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                                    placeholder="e.g., New York, USA"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                                />
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
+                                    <input
+                                        type="date"
+                                        value={formData.startDate}
+                                        onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                                        required
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">End Date</label>
+                                    <input
+                                        type="date"
+                                        value={formData.endDate}
+                                        onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="md:col-span-2">
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Description (optional)</label>
+                                <textarea
+                                    value={formData.description}
+                                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                                    rows="3"
+                                    placeholder="e.g., GPA, Honors, Key courses"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                                ></textarea>
+                            </div>
+                        </div>
+
+                        <div className="flex gap-2 mt-4">
+                            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                                {editingId ? 'Update Education' : 'Add Education'}
+                            </button>
+                            {editingId && (
+                                <button type="button" onClick={resetForm} className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600">
+                                    Cancel
+                                </button>
+                            )}
+                        </div>
+                    </form>
+
+                    <div className="space-y-3">
+                        <h3 className="text-lg font-semibold mb-3">Your Education</h3>
+                        {education.map(edu => (
+                            <div key={edu._id} className="p-4 bg-white border rounded-lg">
+                                <div className="flex justify-between items-start">
+                                    <div>
+                                        <h4 className="font-semibold text-lg">{edu.degree}</h4>
+                                        <p className="text-gray-600">{edu.institution}</p>
+                                        <p className="text-sm text-gray-500">
+                                            {new Date(edu.startDate).toLocaleDateString()} - {new Date(edu.endDate).toLocaleDateString()}
+                                        </p>
+                                    </div>
+                                    <div className="flex gap-2">
+                                        <button onClick={() => handleEdit(edu)} className="text-blue-600 hover:text-blue-800">
+                                            <i className="fas fa-edit"></i>
+                                        </button>
+                                        <button onClick={() => handleDelete(edu._id)} className="text-red-600 hover:text-red-800">
+                                            <i className="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
+        function CertificatesSection({ certificates, token, showMessage, fetchAllData }) {
+            const [formData, setFormData] = useState({
+                name: '',
+                issuer: '',
+                date: '',
+                credentialUrl: ''
+            });
+            const [editingId, setEditingId] = useState(null);
+
+            const handleSubmit = async (e) => {
+                e.preventDefault();
+
+                try {
+                    const url = editingId ? `${API_BASE_URL}/certificates/${editingId}` : `${API_BASE_URL}/certificates`;
+                    const method = editingId ? 'PUT' : 'POST';
+
+                    const response = await fetch(url, {
+                        method,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify(formData)
+                    });
+
+                    if (response.ok) {
+                        showMessage('success', editingId ? 'Certificate updated!' : 'Certificate added!');
+                        resetForm();
+                        fetchAllData();
+                    } else {
+                        showMessage('error', 'Operation failed');
+                    }
+                } catch (error) {
+                    showMessage('error', 'Error saving certificate');
+                }
+            };
+
+            const handleEdit = (cert) => {
+                setFormData({
+                    name: cert.name,
+                    issuer: cert.issuer,
+                    date: cert.date ? cert.date.split('T')[0] : '',
+                    credentialUrl: cert.credentialUrl || ''
+                });
+                setEditingId(cert._id);
+            };
+
+            const handleDelete = async (id) => {
+                if (!confirm('Are you sure you want to delete this certificate?')) return;
+
+                try {
+                    const response = await fetch(`${API_BASE_URL}/certificates/${id}`, {
+                        method: 'DELETE',
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+
+                    if (response.ok) {
+                        showMessage('success', 'Certificate deleted!');
+                        fetchAllData();
+                    }
+                } catch (error) {
+                    showMessage('error', 'Error deleting certificate');
+                }
+            };
+
+            const resetForm = () => {
+                setFormData({
+                    name: '',
+                    issuer: '',
+                    date: '',
+                    credentialUrl: ''
+                });
+                setEditingId(null);
+            };
+
+            return (
+                <div>
+                    <form onSubmit={handleSubmit} className="mb-6 p-4 bg-gray-50 rounded-lg">
+                        <h3 className="text-lg font-semibold mb-4">{editingId ? 'Edit Certificate' : 'Add New Certificate'}</h3>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Certificate Name</label>
+                                <input
+                                    type="text"
+                                    value={formData.name}
+                                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                    placeholder="e.g., AWS Certified Developer"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                                    required
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Issuer/Organization</label>
+                                <input
+                                    type="text"
+                                    value={formData.issuer}
+                                    onChange={(e) => setFormData({ ...formData, issuer: e.target.value })}
+                                    placeholder="e.g., Amazon Web Services"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                                    required
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Issue Date</label>
+                                <input
+                                    type="date"
+                                    value={formData.date}
+                                    onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                                    required
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Credential URL (optional)</label>
+                                <input
+                                    type="url"
+                                    value={formData.credentialUrl}
+                                    onChange={(e) => setFormData({ ...formData, credentialUrl: e.target.value })}
+                                    placeholder="https://credential-verification-url.com"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="flex gap-2 mt-4">
+                            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                                {editingId ? 'Update Certificate' : 'Add Certificate'}
+                            </button>
+                            {editingId && (
+                                <button type="button" onClick={resetForm} className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600">
+                                    Cancel
+                                </button>
+                            )}
+                        </div>
+                    </form>
+
+                    <div className="space-y-3">
+                        <h3 className="text-lg font-semibold mb-3">Your Certificates</h3>
+                        {certificates.map(cert => (
+                            <div key={cert._id} className="p-4 bg-white border rounded-lg">
+                                <div className="flex justify-between items-start">
+                                    <div>
+                                        <h4 className="font-semibold text-lg">{cert.name}</h4>
+                                        <p className="text-gray-600">{cert.issuer}</p>
+                                        <p className="text-sm text-gray-500">{new Date(cert.date).toLocaleDateString()}</p>
+                                        {cert.credentialUrl && (
+                                            <a href={cert.credentialUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 text-sm hover:underline">
+                                                View Credential
+                                            </a>
+                                        )}
+                                    </div>
+                                    <div className="flex gap-2">
+                                        <button onClick={() => handleEdit(cert)} className="text-blue-600 hover:text-blue-800">
+                                            <i className="fas fa-edit"></i>
+                                        </button>
+                                        <button onClick={() => handleDelete(cert._id)} className="text-red-600 hover:text-red-800">
+                                            <i className="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<AdminPanel />, document.getElementById('root'));
     </script>
 </body>
 
