@@ -102,23 +102,14 @@
                 try {
                     let response;
                     if (type === 'profile') {
-                        // Handle profile with possible image upload
-                        const formData = new FormData();
-
-                        // Add profile data
-                        formData.append('data', JSON.stringify(item));
-
-                        // Add image if present
-                        if (item.profileImageFile) {
-                            formData.append('profileImage', item.profileImageFile);
-                        }
-
+                        // Simplified for no image
                         response = await fetch(`${API_BASE}/profile`, {
                             method: 'PUT',
                             headers: {
-                                'Authorization': `Bearer ${token}`
+                                'Authorization': `Bearer ${token}`,
+                                'Content-Type': 'application/json'
                             },
-                            body: formData
+                            body: JSON.stringify(item)
                         });
                     } else {
                         // Handle other data types
@@ -227,57 +218,17 @@
 
             const ProfileForm = ({ profile }) => {
                 const [formData, setFormData] = useState(profile || {});
-                const [selectedFile, setSelectedFile] = useState(null);
-                const [previewUrl, setPreviewUrl] = useState(null);
 
                 useEffect(() => {
                     setFormData(profile || {});
                 }, [profile]);
 
-                const handleFileChange = (e) => {
-                    const file = e.target.files[0];
-                    if (file) {
-                        setSelectedFile(file);
-                        const reader = new FileReader();
-                        reader.onload = (e) => setPreviewUrl(e.target.result);
-                        reader.readAsDataURL(file);
-                    }
-                };
-
                 const handleSave = () => {
-                    const dataToSave = { ...formData };
-                    if (selectedFile) {
-                        dataToSave.profileImageFile = selectedFile;
-                    }
-                    saveItem('profile', dataToSave);
+                    saveItem('profile', formData);
                 };
 
                 return (
                     <div className="space-y-6">
-                        {/* Profile Image Upload */}
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">Profile Image</label>
-                            <div className="flex items-center space-x-4">
-                                <div className="w-24 h-24 rounded-full overflow-hidden bg-gray-100 border-2 border-gray-300">
-                                    {previewUrl ? (
-                                        <img src={previewUrl} alt="Preview" className="w-full h-full object-cover" />
-                                    ) : profile?.profileImage ? (
-                                        <img src={`https://ahtisham-portfolio-five.vercel.app${profile.profileImage}`} alt="Current" className="w-full h-full object-cover" />
-                                    ) : (
-                                        <div className="w-full h-full flex items-center justify-center">
-                                            <i className="fas fa-user text-gray-400 text-2xl"></i>
-                                        </div>
-                                    )}
-                                </div>
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={handleFileChange}
-                                    className="px-3 py-2 border border-gray-300 rounded-md"
-                                />
-                            </div>
-                        </div>
-
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">Name</label>
@@ -392,8 +343,107 @@
                 );
             };
 
+            const SearchableDropdown = ({ label, value, onChange, options }) => {
+                const [searchTerm, setSearchTerm] = useState('');
+                const [filteredOptions, setFilteredOptions] = useState(options);
+
+                useEffect(() => {
+                    setFilteredOptions(
+                        options.filter(option =>
+                            option.toLowerCase().includes(searchTerm.toLowerCase())
+                        )
+                    );
+                }, [searchTerm, options]);
+
+                return (
+                    <div className="mb-4">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">{label}</label>
+                        <input
+                            type="text"
+                            placeholder="Search..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md mb-2"
+                        />
+                        <select
+                            value={value || ''}
+                            onChange={onChange}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                        >
+                            <option value="">Select an option</option>
+                            {filteredOptions.map((option) => (
+                                <option key={option} value={option}>
+                                    {option}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                );
+            };
+
+            const PresetGradientPicker = ({ label, value, onChange }) => {
+                const presets = [
+                    'from-blue-400 to-purple-600',
+                    'from-green-400 to-blue-500',
+                    'from-red-400 to-orange-600',
+                    'from-purple-400 to-pink-600',
+                    'from-indigo-400 to-blue-600',
+                    'from-yellow-400 to-orange-600',
+                    'from-teal-400 to-cyan-600',
+                    // Add more presets as needed
+                ];
+
+                return (
+                    <SearchableDropdown
+                        label={label}
+                        value={value}
+                        onChange={onChange}
+                        options={presets}
+                    />
+                );
+            };
+
+            const IconPicker = ({ label, value, onChange }) => {
+                const icons = [
+                    'fas fa-user',
+                    'fas fa-code',
+                    'fas fa-briefcase',
+                    'fas fa-graduation-cap',
+                    'fas fa-award',
+                    'fas fa-laptop-code',
+                    'fas fa-database',
+                    'fas fa-server',
+                    'fas fa-cloud',
+                    'fas fa-robot',
+                    'fas fa-chart-line',
+                    'fas fa-bug',
+                    'fas fa-tools',
+                    'fas fa-mobile-alt',
+                    'fas fa-desktop',
+                    'fas fa-palette',
+                    'fas fa-pencil-ruler',
+                    'fas fa-brain',
+                    'fas fa-rocket',
+                    'fas fa-shield-alt',
+                    // Add more Font Awesome icons as needed
+                ];
+
+                return (
+                    <SearchableDropdown
+                        label={label}
+                        value={value}
+                        onChange={onChange}
+                        options={icons}
+                    />
+                );
+            };
+
             const ItemModal = ({ type, item, onClose, onSave }) => {
                 const [formData, setFormData] = useState(item || {});
+
+                const handleChange = (field, value) => {
+                    setFormData({ ...formData, [field]: value });
+                };
 
                 const getFields = () => {
                     switch (type) {
@@ -404,14 +454,14 @@
                                         type="text"
                                         placeholder="Skill Name"
                                         value={formData.name || ''}
-                                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                        onChange={(e) => handleChange('name', e.target.value)}
                                         className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
                                     />
                                     <input
                                         type="number"
-                                        placeholder="Percentage (0-100)"
+                                        placeholder="Proficiency Level (0-100)"
                                         value={formData.percentage || ''}
-                                        onChange={(e) => setFormData({ ...formData, percentage: parseInt(e.target.value) || 0 })}
+                                        onChange={(e) => handleChange('percentage', parseInt(e.target.value) || 0)}
                                         className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
                                         min="0" max="100"
                                     />
@@ -419,15 +469,13 @@
                                         type="text"
                                         placeholder="Category (e.g., frontend, backend)"
                                         value={formData.category || ''}
-                                        onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                                        onChange={(e) => handleChange('category', e.target.value)}
                                         className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
                                     />
-                                    <input
-                                        type="text"
-                                        placeholder="Icon (Font Awesome class)"
-                                        value={formData.icon || ''}
-                                        onChange={(e) => setFormData({ ...formData, icon: e.target.value })}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
+                                    <IconPicker
+                                        label="Icon"
+                                        value={formData.icon}
+                                        onChange={(e) => handleChange('icon', e.target.value)}
                                     />
                                 </>
                             );
@@ -436,29 +484,29 @@
                                 <>
                                     <input
                                         type="text"
-                                        placeholder="Project Title"
+                                        placeholder="Project Name"
                                         value={formData.title || ''}
-                                        onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                                        onChange={(e) => handleChange('title', e.target.value)}
                                         className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
                                     />
                                     <textarea
                                         placeholder="Project Description"
                                         value={formData.description || ''}
-                                        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                                        onChange={(e) => handleChange('description', e.target.value)}
                                         className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
                                         rows="3"
                                     />
                                     <input
                                         type="text"
-                                        placeholder="Technologies (comma-separated)"
+                                        placeholder="Technologies Used (comma-separated)"
                                         value={(formData.technologies || []).join(', ')}
-                                        onChange={(e) => setFormData({ ...formData, technologies: e.target.value.split(',').map(t => t.trim()).filter(t => t) })}
+                                        onChange={(e) => handleChange('technologies', e.target.value.split(',').map(t => t.trim()).filter(t => t))}
                                         className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
                                     />
                                     <textarea
                                         placeholder="Features (one per line)"
                                         value={(formData.features || []).join('\n')}
-                                        onChange={(e) => setFormData({ ...formData, features: e.target.value.split('\n').map(f => f.trim()).filter(f => f) })}
+                                        onChange={(e) => handleChange('features', e.target.value.split('\n').map(f => f.trim()).filter(f => f))}
                                         className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
                                         rows="3"
                                     />
@@ -466,35 +514,31 @@
                                         type="text"
                                         placeholder="Category"
                                         value={formData.category || ''}
-                                        onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                                        onChange={(e) => handleChange('category', e.target.value)}
                                         className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
                                     />
-                                    <input
-                                        type="text"
-                                        placeholder="Icon (Font Awesome class)"
-                                        value={formData.icon || ''}
-                                        onChange={(e) => setFormData({ ...formData, icon: e.target.value })}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
+                                    <IconPicker
+                                        label="Icon"
+                                        value={formData.icon}
+                                        onChange={(e) => handleChange('icon', e.target.value)}
                                     />
-                                    <input
-                                        type="text"
-                                        placeholder="Gradient CSS (e.g., from-blue-400 to-purple-600)"
-                                        value={formData.gradient || ''}
-                                        onChange={(e) => setFormData({ ...formData, gradient: e.target.value })}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
+                                    <PresetGradientPicker
+                                        label="Gradient Preset"
+                                        value={formData.gradient}
+                                        onChange={(e) => handleChange('gradient', e.target.value)}
                                     />
                                     <input
                                         type="url"
-                                        placeholder="Project URL (optional)"
+                                        placeholder="Live Project URL (optional)"
                                         value={formData.projectUrl || ''}
-                                        onChange={(e) => setFormData({ ...formData, projectUrl: e.target.value })}
+                                        onChange={(e) => handleChange('projectUrl', e.target.value)}
                                         className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
                                     />
                                     <input
                                         type="url"
                                         placeholder="GitHub URL (optional)"
                                         value={formData.githubUrl || ''}
-                                        onChange={(e) => setFormData({ ...formData, githubUrl: e.target.value })}
+                                        onChange={(e) => handleChange('githubUrl', e.target.value)}
                                         className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
                                     />
                                 </>
@@ -506,21 +550,21 @@
                                         type="text"
                                         placeholder="Job Title / Degree"
                                         value={formData.title || ''}
-                                        onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                                        onChange={(e) => handleChange('title', e.target.value)}
                                         className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
                                     />
                                     <input
                                         type="text"
                                         placeholder="Company / Institution"
                                         value={formData.company || ''}
-                                        onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                                        onChange={(e) => handleChange('company', e.target.value)}
                                         className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
                                     />
                                     <input
                                         type="text"
                                         placeholder="Location"
                                         value={formData.location || ''}
-                                        onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                                        onChange={(e) => handleChange('location', e.target.value)}
                                         className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
                                     />
                                     <div className="grid grid-cols-2 gap-4 mb-4">
@@ -528,14 +572,14 @@
                                             type="text"
                                             placeholder="Start Date (e.g., Jan 2023)"
                                             value={formData.startDate || ''}
-                                            onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
+                                            onChange={(e) => handleChange('startDate', e.target.value)}
                                             className="w-full px-3 py-2 border border-gray-300 rounded-md"
                                         />
                                         <input
                                             type="text"
                                             placeholder="End Date (leave empty if current)"
                                             value={formData.endDate || ''}
-                                            onChange={(e) => setFormData({ ...formData, endDate: e.target.value, current: !e.target.value })}
+                                            onChange={(e) => handleChange('endDate', e.target.value)}
                                             className="w-full px-3 py-2 border border-gray-300 rounded-md"
                                         />
                                     </div>
@@ -553,13 +597,13 @@
                                     <textarea
                                         placeholder="Description (one point per line)"
                                         value={(formData.description || []).join('\n')}
-                                        onChange={(e) => setFormData({ ...formData, description: e.target.value.split('\n').map(d => d.trim()).filter(d => d) })}
+                                        onChange={(e) => handleChange('description', e.target.value.split('\n').map(d => d.trim()).filter(d => d))}
                                         className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
                                         rows="4"
                                     />
                                     <select
                                         value={formData.type || 'experience'}
-                                        onChange={(e) => setFormData({ ...formData, type: e.target.value })}
+                                        onChange={(e) => handleChange('type', e.target.value)}
                                         className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
                                     >
                                         <option value="experience">Work Experience</option>
@@ -574,35 +618,33 @@
                                         type="text"
                                         placeholder="Certificate Title"
                                         value={formData.title || ''}
-                                        onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                                        onChange={(e) => handleChange('title', e.target.value)}
                                         className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
                                     />
                                     <input
                                         type="text"
                                         placeholder="Issuer/Platform"
                                         value={formData.issuer || ''}
-                                        onChange={(e) => setFormData({ ...formData, issuer: e.target.value })}
+                                        onChange={(e) => handleChange('issuer', e.target.value)}
                                         className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
                                     />
                                     <input
                                         type="text"
                                         placeholder="Date Obtained"
                                         value={formData.date || ''}
-                                        onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                                        onChange={(e) => handleChange('date', e.target.value)}
                                         className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
                                     />
-                                    <input
-                                        type="text"
-                                        placeholder="Icon (Font Awesome class)"
-                                        value={formData.icon || ''}
-                                        onChange={(e) => setFormData({ ...formData, icon: e.target.value })}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
+                                    <IconPicker
+                                        label="Icon"
+                                        value={formData.icon}
+                                        onChange={(e) => handleChange('icon', e.target.value)}
                                     />
                                     <input
                                         type="url"
                                         placeholder="Certificate URL (optional)"
                                         value={formData.url || ''}
-                                        onChange={(e) => setFormData({ ...formData, url: e.target.value })}
+                                        onChange={(e) => handleChange('url', e.target.value)}
                                         className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
                                     />
                                 </>
