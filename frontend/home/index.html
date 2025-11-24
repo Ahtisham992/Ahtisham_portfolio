@@ -9,8 +9,68 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
-    <!-- Lottie animation for the robot -->
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    
+    <style>
+        /* Interactive Robot Styles */
+        #robotContainer {
+            width: 420px;
+            height: 420px;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        #cursorRobot {
+            width: 100%;
+            height: 100%;
+            background: url('https://i.ibb.co/5YdR2nK/black-robot-transparent.png') center/contain no-repeat;
+            transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.4, 1);
+            pointer-events: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+
+        /* Glow on hover */
+        #robotContainer:hover #cursorRobot {
+            filter: drop-shadow(0 0 40px rgba(147, 51, 234, 0.9)) drop-shadow(0 0 80px rgba(167, 139, 250, 0.6));
+        }
+
+        /* Name & Title reveal on hover */
+        .robot-info {
+            position: absolute;
+            bottom: -90px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        #robotContainer:hover .robot-info {
+            opacity: 1;
+        }
+
+        @media (max-width: 1024px) {
+            #robotContainer {
+                width: 340px;
+                height: 340px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            #robotContainer {
+                width: 280px;
+                height: 280px;
+            }
+            .robot-info {
+                bottom: -70px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
 </head>
 
 <body class="bg-gray-50 overflow-x-hidden">
@@ -35,7 +95,7 @@
         <i class="fas fa-cog text-lg"></i>
     </a>
 
-    <!-- Scroll Progress Indicator -->
+    <!-- Scroll Progress -->
     <div class="scroll-indicator" id="scrollIndicator"></div>
 
     <!-- Navigation -->
@@ -45,8 +105,6 @@
                 <div class="animate-fadeInLeft">
                     <a href="#" class="text-2xl font-bold gradient-text" id="navName">Loading...</a>
                 </div>
-
-                <!-- Desktop Menu -->
                 <div class="hidden md:flex space-x-8 animate-fadeInUp">
                     <a href="#home" class="nav-link text-gray-700 hover:text-purple-600 font-medium transition-colors">Home</a>
                     <a href="#about" class="nav-link text-gray-700 hover:text-purple-600 font-medium transition-colors">About</a>
@@ -55,38 +113,36 @@
                     <a href="#experience" class="nav-link text-gray-700 hover:text-purple-600 font-medium transition-colors">Experience</a>
                     <a href="#contact" class="nav-link text-gray-700 hover:text-purple-600 font-medium transition-colors">Contact</a>
                 </div>
-
-                <!-- Mobile Menu Button -->
                 <button class="md:hidden text-gray-700 hover:text-purple-600 transition-colors" onclick="toggleMobileMenu()">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
-
-        <!-- Mobile Menu -->
-        <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 h-full w-80 bg-white shadow-2xl md:hidden">
-            <div class="flex justify-between items-center p-6 border-b">
-                <span class="text-xl font-bold gradient-text">Menu</span>
-                <button onclick="toggleMobileMenu()" class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-times text-xl"></i>
-                </button>
-            </div>
-            <div class="flex flex-col space-y-4 p-6">
-                <a href="#home" class="text-gray-700 hover:text-purple-600 font-medium transition-colors py-2" onclick="toggleMobileMenu()">Home</a>
-                <a href="#about" class="text-gray-700 hover:text-purple-600 font-medium transition-colors py-2" onclick="toggleMobileMenu()">About</a>
-                <a href="#skills" class="text-gray-700 hover:text-purple-600 font-medium transition-colors py-2" onclick="toggleMobileMenu()">Skills</a>
-                <a href="#projects" class="text-gray-700 hover:text-purple-600 font-medium transition-colors py-2" onclick="toggleMobileMenu()">Projects</a>
-                <a href="#experience" class="text-gray-700 hover:text-purple-600 font-medium transition-colors py-2" onclick="toggleMobileMenu()">Experience</a>
-                <a href="#contact" class="text-gray-700 hover:text-purple-600 font-medium transition-colors py-2" onclick="toggleMobileMenu()">Contact</a>
-            </div>
-        </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero-bg min-h-screen flex items-center relative">
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 h-full w-80 bg-white shadow-2xl md:hidden">
+        <div class="flex justify-between items-center p-6 border-b">
+            <span class="text-xl font-bold gradient-text">Menu</span>
+            <button onclick="toggleMobileMenu()" class="text-gray-500 hover:text-gray-700">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+        <div class="flex flex-col space-y-4 p-6">
+            <a href="#home" class="text-gray-700 hover:text-purple-600 font-medium transition-colors py-2" onclick="toggleMobileMenu()">Home</a>
+            <a href="#about" class="text-gray-700 hover:text-purple-600 font-medium transition-colors py-2" onclick="toggleMobileMenu()">About</a>
+            <a href="#skills" class="text-gray-700 hover:text-purple-600 font-medium transition-colors py-2" onclick="toggleMobileMenu()">Skills</a>
+            <a href="#projects" class="text-gray-700 hover:text-purple-600 font-medium transition-colors py-2" onclick="toggleMobileMenu()">Projects</a>
+            <a href="#experience" class="text-gray-700 hover:text-purple-600 font-medium transition-colors py-2" onclick="toggleMobileMenu()">Experience</a>
+            <a href="#contact" class="text-gray-700 hover:text-purple-600 font-medium transition-colors py-2" onclick="toggleMobileMenu()">Contact</a>
+        </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="hero-bg min-h-screen flex items-center relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <!-- Text side -->
+                <!-- Text Content -->
                 <div class="text-white animate-fadeInLeft">
                     <p class="text-lg text-purple-200 mb-4 font-medium">Hello, I'm</p>
                     <h1 class="text-5xl lg:text-7xl font-bold mb-6 leading-tight" id="heroName">Loading...</h1>
@@ -97,40 +153,28 @@
 
                     <div class="flex flex-col sm:flex-row gap-4 mb-12">
                         <a href="#contact" class="bg-white text-purple-600 px-8 py-4 rounded-full font-semibold hover:bg-purple-50 transition-all transform hover:scale-105 inline-flex items-center justify-center shadow-lg">
-                            <i class="fas fa-paper-plane mr-2"></i>
-                            Get In Touch
+                            <i class="fas fa-paper-plane mr-2"></i> Get In Touch
                         </a>
                         <a href="#projects" class="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-purple-600 transition-all transform hover:scale-105 inline-flex items-center justify-center">
-                            <i class="fas fa-code mr-2"></i>
-                            View Projects
+                            <i class="fas fa-code mr-2"></i> View Projects
                         </a>
                     </div>
 
                     <div class="flex space-x-6" id="socialLinks"></div>
                 </div>
 
-                <!-- Interactive Robot (replaces profile image) -->
+                <!-- Interactive Robot -->
                 <div class="flex justify-center lg:justify-end animate-fadeInRight">
-                    <div class="relative cursor-pointer group" id="robotContainer">
-                        <!-- Lottie Robot Animation -->
-                        <lottie-player
-                            id="robotLottie"
-                            src="https://assets10.lottiefiles.com/packages/lf20_kkflmtur.json"
-                            background="transparent"
-                            speed="1"
-                            style="width: 420px; height: 420px;"
-                            hover
-                            loop
-                            autoplay>
-                        </lottie-player>
+                    <div id="robotContainer" class="relative">
+                        <div id="cursorRobot"></div>
 
-                        <!-- Floating name & title under the robot -->
-                        <div class="absolute inset-x-0 bottom-0 text-center transform translate-y-12 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                            <h3 class="text-3xl font-bold text-white" id="robotName">Loading...</h3>
-                            <p class="text-xl text-purple-200" id="robotTitle">Loading...</p>
+                        <!-- Name & Title on Hover -->
+                        <div class="robot-info">
+                            <h3 class="text-3xl font-bold text-white drop-shadow-lg" id="robotName">Loading...</h3>
+                            <p class="text-xl text-purple-200 drop-shadow" id="robotTitle">Loading...</p>
                         </div>
 
-                        <!-- Decorative floating code icon -->
+                        <!-- Floating Code Icon -->
                         <div class="absolute -top-6 -right-6 w-20 h-20 bg-yellow-400 rounded-full flex items-center justify-center shadow-lg animate-bounce">
                             <i class="fas fa-code text-3xl text-purple-600"></i>
                         </div>
@@ -139,7 +183,7 @@
             </div>
         </div>
 
-        <!-- Scroll Indicator -->
+        <!-- Scroll Down -->
         <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
             <div class="flex flex-col items-center">
                 <span class="text-sm mb-2">Scroll Down</span>
@@ -148,7 +192,6 @@
         </div>
     </section>
 
-    <!-- ==== THE REST OF YOUR SECTIONS (About, Skills, Projects, etc.) REMAIN EXACTLY THE SAME ==== -->
     <!-- About Section -->
     <section id="about" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -156,45 +199,33 @@
                 <h2 class="text-4xl lg:text-5xl font-bold gradient-text mb-4">About Me</h2>
                 <div class="w-24 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full"></div>
             </div>
-
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div class="animate-fadeInLeft">
                     <h3 class="text-3xl font-bold text-gray-800 mb-6">Crafting Digital Excellence</h3>
                     <p class="text-gray-600 text-lg leading-relaxed mb-6" id="aboutDescription">Loading...</p>
-
-                    <div class="grid grid-cols-2 gap-6" id="aboutStats">
-                        <!-- Stats will be populated dynamically -->
-                    </div>
+                    <div class="grid grid-cols-2 gap-6" id="aboutStats"></div>
                 </div>
-
                 <div class="animate-fadeInRight">
-                    <div class="grid grid-cols-2 gap-4" id="aboutCards">
-                        <!-- About cards will be populated dynamically -->
-                    </div>
+                    <div class="grid grid-cols-2 gap-4" id="aboutCards"></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Skills Section -->
+    <!-- Skills, Projects, Experience, Contact, Footer (unchanged) -->
+    <!-- Skills -->
     <section id="skills" class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16 animate-fadeInUp">
                 <h2 class="text-4xl lg:text-5xl font-bold gradient-text mb-4">Skills & Technologies</h2>
                 <div class="w-24 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full"></div>
             </div>
-
-            <div id="skillsGrid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 mb-16">
-                <!-- Skills icons will be populated dynamically -->
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="skillsBars">
-                <!-- Skill progress bars will be populated dynamically -->
-            </div>
+            <div id="skillsGrid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 mb-16"></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="skillsBars"></div>
         </div>
     </section>
 
-    <!-- Projects Section -->
+    <!-- Projects -->
     <section id="projects" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16 animate-fadeInUp">
@@ -202,55 +233,38 @@
                 <div class="w-24 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full"></div>
                 <p class="text-gray-600 text-lg mt-4">Showcasing my latest work and technical achievements</p>
             </div>
-
-            <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Projects will be populated dynamically -->
-            </div>
-
-            <div class="text-center mt-12" id="githubLink">
-                <!-- GitHub link will be populated dynamically -->
-            </div>
+            <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+            <div class="text-center mt-12" id="githubLink"></div>
         </div>
     </section>
 
-    <!-- Experience Section -->
+    <!-- Experience -->
     <section id="experience" class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16 animate-fadeInUp">
                 <h2 class="text-4xl lg:text-5xl font-bold gradient-text mb-4">Experience & Education</h2>
                 <div class="w-24 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full"></div>
             </div>
-
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
                 <div class="animate-fadeInLeft">
                     <h3 class="text-2xl font-bold text-gray-800 mb-8 flex items-center">
-                        <i class="fas fa-briefcase mr-3 text-purple-600"></i>
-                        Professional Experience
+                        <i class="fas fa-briefcase mr-3 text-purple-600"></i> Professional Experience
                     </h3>
-                    <div id="experienceTimeline">
-                        <!-- Experience items will be populated dynamically -->
-                    </div>
+                    <div id="experienceTimeline"></div>
                 </div>
-
                 <div class="animate-fadeInRight">
                     <h3 class="text-2xl font-bold text-gray-800 mb-8 flex items-center">
-                        <i class="fas fa-graduation-cap mr-3 text-purple-600"></i>
-                        Education & Certifications
+                        <i class="fas fa-graduation-cap mr-3 text-purple-600"></i> Education & Certifications
                     </h3>
-                    <div id="educationTimeline">
-                        <!-- Education items will be populated dynamically -->
-                    </div>
-
+                    <div id="educationTimeline"></div>
                     <h4 class="text-lg font-bold text-gray-800 mb-4 mt-8">Certifications</h4>
-                    <div id="certificatesList" class="space-y-4">
-                        <!-- Certificates will be populated dynamically -->
-                    </div>
+                    <div id="certificatesList" class="space-y-4"></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Contact -->
     <section id="contact" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16 animate-fadeInUp">
@@ -258,51 +272,29 @@
                 <div class="w-24 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full"></div>
                 <p class="text-gray-600 text-lg mt-4">Ready to collaborate? Let's discuss your next project!</p>
             </div>
-
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-                <!-- Contact Information -->
                 <div class="animate-fadeInLeft">
                     <h3 class="text-2xl font-bold text-gray-800 mb-8">Let's Connect</h3>
-                    <p class="text-gray-600 text-lg mb-8">
-                        I'm always interested in new opportunities and challenging projects.
-                        Whether you're looking for a developer, have a question, or just want to connect, feel free to reach out!
-                    </p>
-
-                    <div class="space-y-6" id="contactInfo">
-                        <!-- Contact info will be populated dynamically -->
-                    </div>
-
+                    <p class="text-gray-600 text-lg mb-8">I'm always interested in new opportunities and challenging projects.</p>
+                    <div class="space-y-6" id="contactInfo"></div>
                     <div class="mt-8">
                         <h4 class="text-lg font-bold text-gray-800 mb-4">Follow Me</h4>
-                        <div class="flex space-x-4" id="contactSocialLinks">
-                            <!-- Social links will be populated dynamically -->
-                        </div>
+                        <div class="flex space-x-4" id="contactSocialLinks"></div>
                     </div>
                 </div>
-
-                <!-- Contact Form -->
                 <div class="animate-fadeInRight">
-                    <div id="successMessage" class="success-message">
-                        <i class="fas fa-check-circle mr-2"></i>
-                        Thank you for your message! I'll get back to you soon.
-                    </div>
-
-                    <div id="errorMessage" class="error-message">
-                        <i class="fas fa-exclamation-triangle mr-2"></i>
-                        Something went wrong. Please try again or contact me directly.
-                    </div>
-
+                    <div id="successMessage" class="success-message"><i class="fas fa-check-circle mr-2"></i> Thank you! I'll get back soon.</div>
+                    <div id="errorMessage" class="error-message"><i class="fas fa-exclamation-triangle mr-2"></i> Something went wrong. Try again.</div>
                     <form id="contactForm" class="bg-gray-50 p-8 rounded-2xl shadow-lg">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                            <div><label class="block text-gray-700 font-semibold mb-2">First Name</label><input type="text" name="firstName" class="form-input w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-purple-500 focus:outline-none" placeholder="John" required></div>
-                            <div><label class="block text-gray-700 font-semibold mb-2">Last Name</label><input type="text" name="lastName" class="form-input w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-purple-500 focus:outline-none" placeholder="Doe" required></div>
+                            <div><label class="block text-gray-700 font-semibold mb-2">First Name</label><input type="text" name="firstName" class="form-input w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-purple-500" placeholder="John" required></div>
+                            <div><label class="block text-gray-700 font-semibold mb-2">Last Name</label><input type="text" name="lastName" class="form-input w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-purple-500" placeholder="Doe" required></div>
                         </div>
-                        <div class="mb-6"><label class="block text-gray-700 font-semibold mb-2">Email Address</label><input type="email" name="email" class="form-input w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-purple-500 focus:outline-none" placeholder="john@example.com" required></div>
-                        <div class="mb-6"><label class="block text-gray-700 font-semibold mb-2">Subject</label><input type="text" name="subject" class="form-input w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-purple-500 focus:outline-none" placeholder="Project Collaboration" required></div>
-                        <div class="mb-6"><label class="block text-gray-700 font-semibold mb-2">Message</label><textarea name="message" rows="5" class="form-input w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-purple-500 focus:outline-none resize-none" placeholder="Tell me about your project..." required></textarea></div>
+                        <div class="mb-6"><label class="block text-gray-700 font-semibold mb-2">Email</label><input type="email" name="email" class="form-input w-full px-4 py-3 rounded-xl" placeholder="john@example.com" required></div>
+                        <div class="mb-6"><label class="block text-gray-700 font-semibold mb-2">Subject</label><input type="text" name="subject" class="form-input w-full px-4 py-3 rounded-xl" placeholder="Project Collaboration" required></div>
+                        <div class="mb-6"><label class="block text-gray-700 font-semibold mb-2">Message</label><textarea name="message" rows="5" class="form-input w-full px-4 py-3 rounded-xl resize-none" placeholder="Tell me about your project..." required></textarea></div>
                         <button type="submit" id="submitBtn" class="btn-submit w-full text-white font-semibold py-4 rounded-xl flex items-center justify-center">
-                            <i class="fas fa-paper-plane mr-2"></i>
-                            <span id="submitText">Send Message</span>
+                            <i class="fas fa-paper-plane mr-2"></i> <span id="submitText">Send Message</span>
                         </button>
                     </form>
                 </div>
@@ -319,18 +311,16 @@
                     <p class="text-gray-400 mb-4" id="footerDescription">Loading...</p>
                     <div class="flex space-x-4" id="footerSocialLinks"></div>
                 </div>
-
                 <div>
                     <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
                     <ul class="space-y-2">
-                        <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">About</a></li>
-                        <li><a href="#skills" class="text-gray-400 hover:text-white transition-colors">Skills</a></li>
-                        <li><a href="#projects" class="text-gray-400 hover:text-white transition-colors">Projects</a></li>
-                        <li><a href="#experience" class="text-gray-400 hover:text-white transition-colors">Experience</a></li>
-                        <li><a href="#contact" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white">About</a></li>
+                        <li><a href="#skills" class="text-gray-400 hover:text-white">Skills</a></li>
+                        <li><a href="#projects" class="text-gray-400 hover:text-white">Projects</a></li>
+                        <li><a href="#experience" class="text-gray-400 hover:text-white">Experience</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white">Contact</a></li>
                     </ul>
                 </div>
-
                 <div>
                     <h4 class="text-lg font-semibold mb-4">Services</h4>
                     <ul class="space-y-2 text-gray-400">
@@ -343,33 +333,51 @@
                     </ul>
                 </div>
             </div>
-
             <div class="border-t border-gray-800 mt-8 pt-8 text-center">
-                <p class="text-gray-400">
-                    © 2024 <span id="copyrightName">Loading...</span>. All rights reserved. Built with passion and dedication.
-                </p>
+                <p class="text-gray-400">© 2024 <span id="copyrightName">Loading...</span>. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <script src="scripts.js"></script>
-    <!-- Small script to inject name/title under the robot -->
-    <script>
-        // Update robot name/title once profile is loaded
-        const updateRobotText = () => {
-            const profile = window.portfolioData?.profile;
-            if (!profile) return;
-            document.getElementById('robotName').textContent = profile.name;
-            document.getElementById('robotTitle').textContent = profile.title;
-        };
 
-        // Hook into existing renderProfile (scripts.js already has this function)
-        const originalRenderProfile = window.renderProfile || (() => {});
-        window.renderProfile = function () {
-            originalRenderProfile.apply(this, arguments);
-            updateRobotText();
-        };
+    <!-- Robot Cursor Follow Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const robot = document.getElementById('cursorRobot');
+            const container = document.getElementById('robotContainer');
+            const hero = document.getElementById('home');
+
+            // Update name/title when profile loads
+            const updateRobotText = () => {
+                if (window.portfolioData?.profile) {
+                    document.getElementById('robotName').textContent = window.portfolioData.profile.name;
+                    document.getElementById('robotTitle').textContent = window.portfolioData.profile.title || 'Developer';
+                }
+            };
+
+            const oldRender = window.renderProfile || (() => {});
+            window.renderProfile = function() {
+                oldRender.apply(this, arguments);
+                updateRobotText();
+            };
+
+            // Mouse follow
+            hero.addEventListener('mousemove', (e) => {
+                const rect = container.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+
+                const moveX = Math.max(-50, Math.min(50, x * 0.1));
+                const moveY = Math.max(-50, Math.min(50, y * 0.1));
+
+                robot.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            });
+
+            hero.addEventListener('mouseleave', () => {
+                robot.style.transform = 'translate(0, 0)';
+            });
+        });
     </script>
 </body>
-
 </html>
