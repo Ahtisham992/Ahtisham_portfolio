@@ -11,7 +11,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-    origin: ['https://your-netlify-site.netlify.app', 'http://localhost:3000'],
+    origin: ['https://ahtisham05-portfolio.netlify.app', 'http://localhost:3000'],
     credentials: true
 }));
 app.use(express.json());
