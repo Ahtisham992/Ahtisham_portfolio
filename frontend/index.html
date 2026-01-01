@@ -4,137 +4,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="pageTitle">Loading...</title>
+    <title>M. Ahtisham - Software Engineer</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="styles.css" rel="stylesheet">
-    <!-- Lottie animation for the robot -->
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <link rel="stylesheet" href="styles.css">
+
 </head>
 
-<body class="bg-gray-50 overflow-x-hidden">
-    <!-- Loading Screen -->
-    <div id="loadingScreen" class="fixed inset-0 bg-white z-50 flex items-center justify-center">
-        <div class="text-center">
-            <div class="spinner mb-4"></div>
-            <p class="text-gray-600">Loading portfolio...</p>
-        </div>
-    </div>
-
-    <!-- Refresh Indicator -->
-    <div id="refreshIndicator" class="refresh-indicator">
-        <div class="flex items-center">
-            <div class="spinner mr-2" style="width: 20px; height: 20px; border-width: 2px;"></div>
-            Updating content...
-        </div>
-    </div>
-
-    <!-- Admin Link -->
-    <a href="./admin.html" class="admin-link" title="Admin Panel">
-        <i class="fas fa-cog text-lg"></i>
-    </a>
-
+<body class="bg-gray-50">
     <!-- Scroll Progress Indicator -->
     <div class="scroll-indicator" id="scrollIndicator"></div>
 
     <!-- Navigation -->
-    <nav class="fixed w-full top-0 z-50 glass-morphism">
+    <nav class="fixed w-full top-0 z-50 glass-morphism transition-all duration-300 rounded-b-2xl">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center py-4">
                 <div class="animate-fadeInLeft">
-                    <a href="#" class="text-2xl font-bold gradient-text" id="navName">Loading...</a>
+                    <a href="#" class="text-2xl font-bold gradient-text">M. Ahtisham</a>
                 </div>
 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex space-x-8 animate-fadeInUp">
-                    <a href="#home" class="nav-link text-gray-700 hover:text-purple-600 font-medium transition-colors">Home</a>
-                    <a href="#about" class="nav-link text-gray-700 hover:text-purple-600 font-medium transition-colors">About</a>
-                    <a href="#skills" class="nav-link text-gray-700 hover:text-purple-600 font-medium transition-colors">Skills</a>
-                    <a href="#projects" class="nav-link text-gray-700 hover:text-purple-600 font-medium transition-colors">Projects</a>
-                    <a href="#experience" class="nav-link text-gray-700 hover:text-purple-600 font-medium transition-colors">Experience</a>
-                    <a href="#contact" class="nav-link text-gray-700 hover:text-purple-600 font-medium transition-colors">Contact</a>
+                    <a href="#home" class="nav-link text-gray-700 hover:text-purple-600 font-medium">Home</a>
+                    <a href="#about" class="nav-link text-gray-700 hover:text-purple-600 font-medium">About</a>
+                    <a href="#skills" class="nav-link text-gray-700 hover:text-purple-600 font-medium">Skills</a>
+                    <a href="#projects" class="nav-link text-gray-700 hover:text-purple-600 font-medium">Projects</a>
+                    <a href="#experience"
+                        class="nav-link text-gray-700 hover:text-purple-600 font-medium">Experience</a>
+                    <a href="#contact" class="nav-link text-gray-700 hover:text-purple-600 font-medium">Contact</a>
                 </div>
 
                 <!-- Mobile Menu Button -->
-                <button class="md:hidden text-gray-700 hover:text-purple-600 transition-colors" onclick="toggleMobileMenu()">
+                <button class="md:hidden text-gray-700 hover:text-purple-600" onclick="toggleMobileMenu()">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
 
+        <!-- Mobile Menu Overlay -->
+        <div id="menuOverlay" class="menu-overlay" onclick="toggleMobileMenu()"></div>
+        
         <!-- Mobile Menu -->
-        <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 h-full w-80 bg-white shadow-2xl md:hidden">
-            <div class="flex justify-between items-center p-6 border-b">
+        <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 h-full w-80 md:hidden z-50">
+            <div class="flex justify-between items-center p-6 border-b border-gray-200 bg-white">
                 <span class="text-xl font-bold gradient-text">Menu</span>
-                <button onclick="toggleMobileMenu()" class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-times text-xl"></i>
+                <button onclick="toggleMobileMenu()" class="text-gray-600 hover:text-purple-600 transition-colors">
+                    <i class="fas fa-times text-2xl"></i>
                 </button>
             </div>
-            <div class="flex flex-col space-y-4 p-6">
-                <a href="#home" class="text-gray-700 hover:text-purple-600 font-medium transition-colors py-2" onclick="toggleMobileMenu()">Home</a>
-                <a href="#about" class="text-gray-700 hover:text-purple-600 font-medium transition-colors py-2" onclick="toggleMobileMenu()">About</a>
-                <a href="#skills" class="text-gray-700 hover:text-purple-600 font-medium transition-colors py-2" onclick="toggleMobileMenu()">Skills</a>
-                <a href="#projects" class="text-gray-700 hover:text-purple-600 font-medium transition-colors py-2" onclick="toggleMobileMenu()">Projects</a>
-                <a href="#experience" class="text-gray-700 hover:text-purple-600 font-medium transition-colors py-2" onclick="toggleMobileMenu()">Experience</a>
-                <a href="#contact" class="text-gray-700 hover:text-purple-600 font-medium transition-colors py-2" onclick="toggleMobileMenu()">Contact</a>
+            <div class="flex flex-col p-6 bg-white h-full">
+                <a href="#home" class="mobile-menu-link text-gray-800 hover:text-purple-600 font-medium py-4 px-4 rounded-lg transition-all bg-white"
+                    onclick="toggleMobileMenu()">
+                    <i class="fas fa-home mr-3 text-purple-500"></i>Home
+                </a>
+                <a href="#about" class="mobile-menu-link text-gray-800 hover:text-purple-600 font-medium py-4 px-4 rounded-lg transition-all bg-white"
+                    onclick="toggleMobileMenu()">
+                    <i class="fas fa-user mr-3 text-purple-500"></i>About
+                </a>
+                <a href="#skills" class="mobile-menu-link text-gray-800 hover:text-purple-600 font-medium py-4 px-4 rounded-lg transition-all bg-white"
+                    onclick="toggleMobileMenu()">
+                    <i class="fas fa-code mr-3 text-purple-500"></i>Skills
+                </a>
+                <a href="#projects" class="mobile-menu-link text-gray-800 hover:text-purple-600 font-medium py-4 px-4 rounded-lg transition-all bg-white"
+                    onclick="toggleMobileMenu()">
+                    <i class="fas fa-project-diagram mr-3 text-purple-500"></i>Projects
+                </a>
+                <a href="#experience" class="mobile-menu-link text-gray-800 hover:text-purple-600 font-medium py-4 px-4 rounded-lg transition-all bg-white"
+                    onclick="toggleMobileMenu()">
+                    <i class="fas fa-briefcase mr-3 text-purple-500"></i>Experience
+                </a>
+                <a href="#contact" class="mobile-menu-link text-gray-800 hover:text-purple-600 font-medium py-4 px-4 rounded-lg transition-all bg-white"
+                    onclick="toggleMobileMenu()">
+                    <i class="fas fa-envelope mr-3 text-purple-500"></i>Contact
+                </a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero Section with Particle Animation -->
     <section id="home" class="hero-bg min-h-screen flex items-center relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <canvas id="particleCanvas"></canvas>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full hero-content">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <!-- Text side -->
                 <div class="text-white animate-fadeInLeft">
                     <p class="text-lg text-purple-200 mb-4 font-medium">Hello, I'm</p>
-                    <h1 class="text-5xl lg:text-7xl font-bold mb-6 leading-tight" id="heroName">Loading...</h1>
+                    <h1 class="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
+                        M. <span class="text-yellow-400">Ahtisham</span>
+                    </h1>
                     <div class="text-xl lg:text-2xl mb-8 h-16">
-                        <span class="typing-animation" id="heroTitle">Loading...</span>
+                        <span class="typing-animation" id="heroTitle">Software Engineer</span>
                     </div>
-                    <p class="text-lg text-purple-100 mb-8 leading-relaxed max-w-lg" id="heroDescription">Loading...</p>
+                    <p class="text-lg text-purple-100 mb-8 leading-relaxed max-w-lg">
+                        Passionate BS Software Engineering student at FAST-NUCES Islamabad with expertise in
+                        full-stack web and cross-platform mobile development. Building innovative solutions
+                        with modern technologies.
+                    </p>
 
                     <div class="flex flex-col sm:flex-row gap-4 mb-12">
-                        <a href="#contact" class="bg-white text-purple-600 px-8 py-4 rounded-full font-semibold hover:bg-purple-50 transition-all transform hover:scale-105 inline-flex items-center justify-center shadow-lg">
+                        <a href="#contact"
+                            class="bg-white text-purple-600 px-8 py-4 rounded-full font-semibold hover:bg-purple-50 transition-all transform hover:scale-105 inline-flex items-center justify-center shadow-lg">
                             <i class="fas fa-paper-plane mr-2"></i>
                             Get In Touch
                         </a>
-                        <a href="#projects" class="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-purple-600 transition-all transform hover:scale-105 inline-flex items-center justify-center">
+                        <a href="#projects"
+                            class="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-purple-600 transition-all transform hover:scale-105 inline-flex items-center justify-center">
                             <i class="fas fa-code mr-2"></i>
                             View Projects
                         </a>
                     </div>
 
-                    <div class="flex space-x-6" id="socialLinks"></div>
-                </div>
-
-                <!-- Interactive Robot (replaces profile image) -->
-                <div class="flex justify-center lg:justify-end animate-fadeInRight">
-                    <div class="relative cursor-pointer group" id="robotContainer">
-                        <!-- Lottie Robot Animation -->
-                        <lottie-player
-                            id="robotLottie"
-                            src="https://assets10.lottiefiles.com/packages/lf20_kkflmtur.json"
-                            background="transparent"
-                            speed="1"
-                            style="width: 420px; height: 420px;"
-                            hover
-                            loop
-                            autoplay>
-                        </lottie-player>
-
-                        <!-- Decorative floating code icon -->
-                        <div class="absolute -top-6 -right-6 w-20 h-20 bg-yellow-400 rounded-full flex items-center justify-center shadow-lg animate-bounce">
-                            <i class="fas fa-code text-3xl text-purple-600"></i>
-                        </div>
+                    <div class="flex space-x-6">
+                        <a href="https://www.linkedin.com/in/m-ahtisham-6116ba2b2/" target="_blank"
+                            class="text-white hover:text-yellow-400 transition-all transform hover:scale-110">
+                            <i class="fab fa-linkedin text-2xl"></i>
+                        </a>
+                        <a href="https://github.com/Ahtisham992" target="_blank"
+                            class="text-white hover:text-yellow-400 transition-all transform hover:scale-110">
+                            <i class="fab fa-github text-2xl"></i>
+                        </a>
+                        <a href="https://www.instagram.com/_m_ahtish.05/" target="_blank"
+                            class="text-white hover:text-yellow-400 transition-all transform hover:scale-110">
+                            <i class="fab fa-instagram text-2xl"></i>
+                        </a>
                     </div>
                 </div>
+
+                <!-- Right side - Interactive space for particles -->
+                <div class="hidden lg:block"></div>
             </div>
         </div>
 
         <!-- Scroll Indicator -->
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce z-10">
             <div class="flex flex-col items-center">
                 <span class="text-sm mb-2">Scroll Down</span>
                 <i class="fas fa-chevron-down"></i>
@@ -142,7 +145,6 @@
         </div>
     </section>
 
-    <!-- ==== THE REST OF YOUR SECTIONS (About, Skills, Projects, etc.) REMAIN EXACTLY THE SAME ==== -->
     <!-- About Section -->
     <section id="about" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -154,16 +156,68 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div class="animate-fadeInLeft">
                     <h3 class="text-3xl font-bold text-gray-800 mb-6">Crafting Digital Excellence</h3>
-                    <p class="text-gray-600 text-lg leading-relaxed mb-6" id="aboutDescription">Loading...</p>
+                    <p class="text-gray-600 text-lg leading-relaxed mb-6">
+                        I'm a passionate final year BS Software Engineering student at FAST-NUCES Islamabad,
+                        eager to apply my growing expertise in software development and web technologies to real-world
+                        challenges.
+                        I specialize in building practical, user-centered applications using modern frameworks and
+                        technologies.
+                    </p>
+                    <p class="text-gray-600 text-lg leading-relaxed mb-6">
+                        With experience in MERN Stack, AWS, AI/ML and various other technologies, I thrive on solving
+                        complex problems through clean, efficient code. My goal is to create innovative solutions that
+                        make a positive impact.
+                    </p>
 
-                    <div class="grid grid-cols-2 gap-6" id="aboutStats">
-                        <!-- Stats will be populated dynamically -->
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="text-center p-4 bg-purple-50 rounded-lg">
+                            <i class="fas fa-briefcase text-3xl text-purple-600 mb-2"></i>
+                            <p class="text-2xl font-bold text-gray-800">2+</p>
+                            <p class="text-gray-600">Internships</p>
+                        </div>
+                        <div class="text-center p-4 bg-blue-50 rounded-lg">
+                            <i class="fas fa-project-diagram text-3xl text-blue-600 mb-2"></i>
+                            <p class="text-2xl font-bold text-gray-800">10+</p>
+                            <p class="text-gray-600">Projects</p>
+                        </div>
+                        <div class="text-center p-4 bg-green-50 rounded-lg">
+                            <i class="fas fa-award text-3xl text-green-600 mb-2"></i>
+                            <p class="text-2xl font-bold text-gray-800">5+</p>
+                            <p class="text-gray-600">Certificates</p>
+                        </div>
+                        <div class="text-center p-4 bg-yellow-50 rounded-lg">
+                            <i class="fas fa-code text-3xl text-yellow-600 mb-2"></i>
+                            <p class="text-2xl font-bold text-gray-800">15+</p>
+                            <p class="text-gray-600">Technologies</p>
+                        </div>
                     </div>
                 </div>
 
                 <div class="animate-fadeInRight">
-                    <div class="grid grid-cols-2 gap-4" id="aboutCards">
-                        <!-- About cards will be populated dynamically -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div
+                            class="card-hover bg-gradient-to-br from-purple-400 to-purple-600 p-6 rounded-2xl text-white">
+                            <i class="fas fa-mobile-alt text-4xl mb-4"></i>
+                            <h4 class="text-xl font-bold mb-2">Mobile Development</h4>
+                            <p class="text-purple-100">ReactNative & Flutter for cross-platform apps</p>
+                        </div>
+                        <div class="card-hover bg-gradient-to-br from-blue-400 to-blue-600 p-6 rounded-2xl text-white">
+                            <i class="fas fa-globe text-4xl mb-4"></i>
+                            <h4 class="text-xl font-bold mb-2">Web Development</h4>
+                            <p class="text-blue-100">MERN Stack</p>
+                        </div>
+                        <div
+                            class="card-hover bg-gradient-to-br from-green-400 to-green-600 p-6 rounded-2xl text-white">
+                            <i class="fas fa-database text-4xl mb-4"></i>
+                            <h4 class="text-xl font-bold mb-2">Database Design</h4>
+                            <p class="text-green-100">MongoDB, MySQL & SQL Server</p>
+                        </div>
+                        <div class="card-hover bg-gradient-to-br from-pink-400 to-pink-600 p-6 rounded-2xl text-white">
+                            <i class="fas fa-brain text-4xl mb-4"></i>
+                            <h4 class="text-xl font-bold mb-2">AI / Machine Learning</h4>
+                            <p class="text-pink-100">Building smart applications using AI & Machine Learning</p>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -178,13 +232,150 @@
                 <div class="w-24 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full"></div>
             </div>
 
-            <div id="skillsGrid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 mb-16">
-                <!-- Skills icons will be populated dynamically -->
-            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 mb-16">
+                <div class="tech-icon bg-white p-6 rounded-2xl shadow-lg text-center card-hover">
+                    <i class="fab fa-react text-4xl text-blue-500 mb-2"></i>
+                    <div class="font-semibold text-gray-700">React.js</div>
+                </div>
+                <div class="tech-icon bg-white p-6 rounded-2xl shadow-lg text-center card-hover">
+                    <i class="fab fa-node text-4xl text-green-600 mb-2"></i>
+                    <div class="font-semibold text-gray-700">Node.js</div>
+                </div>
+                <div class="tech-icon bg-white p-6 rounded-2xl shadow-lg text-center card-hover">
+                    <i class="fas fa-mobile-alt text-4xl text-purple-500 mb-2"></i>
+                    <div class="font-semibold text-gray-700">Flutter</div>
+                </div>
+                <div class="tech-icon bg-white p-6 rounded-2xl shadow-lg text-center card-hover">
+                    <i class="fab fa-python text-4xl text-blue-500 mb-2"></i>
+                    <div class="font-semibold text-gray-700">Python</div>
+                </div>
+                <div class="tech-icon bg-white p-6 rounded-2xl shadow-lg text-center card-hover">
+                    <i class="fab fa-js-square text-4xl text-yellow-400 mb-2"></i>
+                    <div class="font-semibold text-gray-700">JavaScript</div>
+                </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="skillsBars">
-                <!-- Skill progress bars will be populated dynamically -->
+                <div class="tech-icon bg-white p-6 rounded-2xl shadow-lg text-center card-hover">
+                    <i class="fab fa-aws text-4xl text-orange-500 mb-2"></i>
+                    <div class="font-semibold text-gray-700">AWS</div>
+                </div>
             </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                <!-- Frontend Development -->
+                <div class="animate-fadeInLeft">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Frontend Development</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700">React.js</span>
+                                <span class="text-gray-600">90%</span>
+                            </div>
+                            <div class="bg-gray-200 rounded-full h-2">
+                                <div class="skill-bar" style="width: 90%;"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700">Flutter</span>
+                                <span class="text-gray-600">85%</span>
+                            </div>
+                            <div class="bg-gray-200 rounded-full h-2">
+                                <div class="skill-bar" style="width: 85%; animation-delay: 0.2s;"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700">HTML / CSS / JavaScript</span>
+                                <span class="text-gray-600">95%</span>
+                            </div>
+                            <div class="bg-gray-200 rounded-full h-2">
+                                <div class="skill-bar" style="width: 95%; animation-delay: 0.4s;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backend Development -->
+                <div class="animate-fadeInRight">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Backend Development</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700">Node.js / Express</span>
+                                <span class="text-gray-600">88%</span>
+                            </div>
+                            <div class="bg-gray-200 rounded-full h-2">
+                                <div class="skill-bar" style="width: 88%;"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700">MongoDB</span>
+                                <span class="text-gray-600">82%</span>
+                            </div>
+                            <div class="bg-gray-200 rounded-full h-2">
+                                <div class="skill-bar" style="width: 82%; animation-delay: 0.2s;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Engine -->
+                <div class="animate-fadeInLeft">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">AI Engine</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700">Python (AI / ML)</span>
+                                <span class="text-gray-600">78%</span>
+                            </div>
+                            <div class="bg-gray-200 rounded-full h-2">
+                                <div class="skill-bar" style="width: 78%;"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700">Machine Learning Models</span>
+                                <span class="text-gray-600">72%</span>
+                            </div>
+                            <div class="bg-gray-200 rounded-full h-2">
+                                <div class="skill-bar" style="width: 72%; animation-delay: 0.2s;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cloud Services -->
+                <div class="animate-fadeInRight">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Cloud Services</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700">AWS (Foundational)</span>
+                                <span class="text-gray-600">70%</span>
+                            </div>
+                            <div class="bg-gray-200 rounded-full h-2">
+                                <div class="skill-bar" style="width: 70%;"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700">Cloud Deployment & APIs</span>
+                                <span class="text-gray-600">68%</span>
+                            </div>
+                            <div class="bg-gray-200 rounded-full h-2">
+                                <div class="skill-bar" style="width: 68%; animation-delay: 0.2s;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         </div>
     </section>
 
@@ -197,12 +388,135 @@
                 <p class="text-gray-600 text-lg mt-4">Showcasing my latest work and technical achievements</p>
             </div>
 
-            <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Projects will be populated dynamically -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card-hover bg-white rounded-2xl shadow-lg overflow-hidden">
+
+                    <!-- Header -->
+                    <div class="bg-gradient-to-br from-pink-500 to-purple-600 p-6">
+                        <i class="fas fa-brain text-4xl text-white mb-4"></i>
+                        <h3 class="text-xl font-bold text-white">
+                            AI-Powered Code Assistant
+                        </h3>
+                    </div>
+
+                    <!-- Body -->
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-4">
+                            An intelligent AI-powered tool for Python developers that provides
+                            code explanation, automatic documentation generation, bug detection
+                            & fixing, performance optimization, and unit test generation using
+                            a fine-tuned transformer model (CodeT5).
+                        </p>
+
+                        <!-- Tech Stack -->
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">Python</span>
+                            <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm">PyTorch</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">Transformers</span>
+                            <span class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">CodeT5</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">Google Colab</span>
+                        </div>
+
+                        <!-- Features -->
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• Natural language code explanations</li>
+                            <li>• Automatic docstring generation</li>
+                            <li>• Intelligent bug detection & fixes</li>
+                            <li>• Code optimization suggestions</li>
+                            <li>• Automated unit test generation</li>
+                            <li>• Interactive CLI interface</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card-hover bg-white rounded-2xl shadow-lg overflow-hidden">
+
+                    <!-- Header -->
+                    <div class="bg-gradient-to-br from-blue-500 to-indigo-600 p-6">
+                        <i class="fas fa-cloud-upload-alt text-4xl text-white mb-4"></i>
+                        <h3 class="text-xl font-bold text-white">
+                            Photo Gallery Application
+                        </h3>
+                    </div>
+
+                    <!-- Body -->
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-4">
+                            A full-stack cloud-native photo gallery application deployed on AWS,
+                            featuring secure authentication, photo uploads, RESTful APIs, and
+                            scalable cloud architecture using EC2, RDS, S3, and Elastic Beanstalk.
+                        </p>
+
+                        <!-- Tech Stack -->
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">React 18</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">Node.js</span>
+                            <span class="px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-sm">Express</span>
+                            <span class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">AWS</span>
+                            <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">Docker</span>
+                            <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm">MySQL / RDS</span>
+                        </div>
+
+                        <!-- Features -->
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• JWT-based authentication & protected routes</li>
+                            <li>• Secure photo upload with validation (S3)</li>
+                            <li>• Full CRUD operations for photos</li>
+                            <li>• RESTful API with Sequelize ORM</li>
+                            <li>• Dockerized backend deployed on AWS EC2</li>
+                            <li>• Responsive React frontend on Elastic Beanstalk</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-hover bg-white rounded-2xl shadow-lg overflow-hidden">
+
+                    <!-- Header -->
+                    <div class="bg-gradient-to-br from-red-500 to-yellow-600 p-6">
+                        <i class="fas fa-university text-4xl text-white mb-4"></i>
+                        <h3 class="text-xl font-bold text-white">
+                            University Management System
+                        </h3>
+                    </div>
+
+                    <!-- Body -->
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-4">
+                            A role-based web application designed to streamline university
+                            administration by managing classes, subjects, attendance, notices,
+                            and user communication through dedicated dashboards for admins,
+                            teachers, and students.
+                        </p>
+
+                        <!-- Tech Stack -->
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">React</span>
+                            <span class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">Redux</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">Node.js</span>
+                            <span class="px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-sm">Express</span>
+                            <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">MongoDB</span>
+                            <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm">Material
+                                UI</span>
+                        </div>
+
+                        <!-- Features -->
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• Role-based authentication (Admin, Teacher, Student)</li>
+                            <li>• Class, subject & user management</li>
+                            <li>• Attendance tracking & grade management</li>
+                            <li>• Notice board & announcements</li>
+                            <li>• Student complaints handling system</li>
+                            <li>• Secure authentication & data handling</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
 
-            <div class="text-center mt-12" id="githubLink">
-                <!-- GitHub link will be populated dynamically -->
+            <div class="text-center mt-12">
+                <a href="https://github.com/Ahtisham992" target="_blank"
+                    class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-full hover:shadow-lg transition-all transform hover:scale-105">
+                    <i class="fab fa-github mr-2"></i>
+                    View More Projects on GitHub
+                </a>
             </div>
         </div>
     </section>
@@ -221,23 +535,121 @@
                         <i class="fas fa-briefcase mr-3 text-purple-600"></i>
                         Professional Experience
                     </h3>
-                    <div id="experienceTimeline">
-                        <!-- Experience items will be populated dynamically -->
+
+                    <div class="timeline-item mb-8">
+                        <div class="bg-white p-6 rounded-2xl shadow-lg">
+                            <div class="flex items-start justify-between mb-4">
+                                <div>
+                                    <h4 class="text-xl font-bold text-gray-800">Software Engineer Intern</h4>
+                                    <p class="text-purple-600 font-semibold">Turing Intelligence</p>
+                                </div>
+                                <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">
+                                    Jun 2024 - Aug 2024
+                                </span>
+                            </div>
+                            <ul class="text-gray-600 space-y-2">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                    Developed AI-powered applications
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                    Collaborated with cross-functional teams
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                    Implemented modern development practices
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item mb-8">
+                        <div class="bg-white p-6 rounded-2xl shadow-lg">
+                            <div class="flex items-start justify-between mb-4">
+                                <div>
+                                    <h4 class="text-xl font-bold text-gray-800">Web Development Intern</h4>
+                                    <p class="text-purple-600 font-semibold">eaccounting360</p>
+                                    <p class="text-gray-600">Islamabad, Pakistan</p>
+                                </div>
+                                <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">
+                                    Jun 2023 - Aug 2023
+                                </span>
+                            </div>
+                            <ul class="text-gray-600 space-y-2">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                    Front-end development with HTML, CSS, JavaScript
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                    MERN stack project implementation
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                    MySQL integration for backend
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
                 <div class="animate-fadeInRight">
                     <h3 class="text-2xl font-bold text-gray-800 mb-8 flex items-center">
                         <i class="fas fa-graduation-cap mr-3 text-purple-600"></i>
-                        Education & Certifications
+                        Education
                     </h3>
-                    <div id="educationTimeline">
-                        <!-- Education items will be populated dynamically -->
+
+                    <div class="timeline-item mb-6">
+                        <div class="bg-white p-6 rounded-2xl shadow-lg">
+                            <div class="flex items-start justify-between mb-4">
+                                <div>
+                                    <h4 class="text-xl font-bold text-gray-800">Bachelor's in Software Engineering</h4>
+                                    <p class="text-purple-600 font-semibold">FAST-NUCES</p>
+                                    <p class="text-gray-600">Islamabad, Pakistan</p>
+                                </div>
+                                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                                    2022 - 2026
+                                </span>
+                            </div>
+                            <ul class="text-gray-600 space-y-1">
+                                <li>• Currently in Final year</li>
+                                <li>• Focus on full-stack development</li>
+                                <li>• Active in coding competitions</li>
+                            </ul>
+                        </div>
                     </div>
 
                     <h4 class="text-lg font-bold text-gray-800 mb-4 mt-8">Certifications</h4>
-                    <div id="certificatesList" class="space-y-4">
-                        <!-- Certificates will be populated dynamically -->
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded-xl shadow-md flex items-center">
+                            <i class="fas fa-certificate text-2xl text-blue-600 mr-4"></i>
+                            <div class="flex-1">
+                                <p class="font-semibold text-gray-800">Developing Front-End Apps with React</p>
+                                <p class="text-sm text-gray-600">IBM</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-md flex items-center">
+                            <i class="fas fa-certificate text-2xl text-orange-600 mr-4"></i>
+                            <div class="flex-1">
+                                <p class="font-semibold text-gray-800">AWS Academy Cloud Foundations</p>
+                                <p class="text-sm text-gray-600">Amazon Web Services</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-md flex items-center">
+                            <i class="fas fa-certificate text-2xl text-purple-600 mr-4"></i>
+                            <div class="flex-1">
+                                <p class="font-semibold text-gray-800">Flutter & Dart Development</p>
+                                <p class="text-sm text-gray-600">Udemy</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-md flex items-center">
+                            <i class="fas fa-certificate text-2xl text-green-600 mr-4"></i>
+                            <div class="flex-1">
+                                <p class="font-semibold text-gray-800">User Experience Design</p>
+                                <p class="text-sm text-gray-600">Coursera</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -259,17 +671,59 @@
                     <h3 class="text-2xl font-bold text-gray-800 mb-8">Let's Connect</h3>
                     <p class="text-gray-600 text-lg mb-8">
                         I'm always interested in new opportunities and challenging projects.
-                        Whether you're looking for a developer, have a question, or just want to connect, feel free to reach out!
+                        Whether you're looking for a developer, have a question, or just want to connect, feel free to
+                        reach out!
                     </p>
 
-                    <div class="space-y-6" id="contactInfo">
-                        <!-- Contact info will be populated dynamically -->
+                    <div class="space-y-6">
+                        <div class="flex items-center">
+                            <div
+                                class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-envelope text-white"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-800">Email</p>
+                                <a href="mailto:shamimuhammad77@gmail.com"
+                                    class="text-purple-600 hover:text-purple-700">shamimuhammad77@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div
+                                class="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-phone text-white"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-800">Phone</p>
+                                <p class="text-gray-600">+92 320 5999041</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div
+                                class="w-12 h-12 bg-gradient-to-br from-green-500 to-teal-500 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-map-marker-alt text-white"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-800">Location</p>
+                                <p class="text-gray-600">Satellite Town, Rawalpindi, Pakistan</p>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="mt-8">
                         <h4 class="text-lg font-bold text-gray-800 mb-4">Follow Me</h4>
-                        <div class="flex space-x-4" id="contactSocialLinks">
-                            <!-- Social links will be populated dynamically -->
+                        <div class="flex space-x-4">
+                            <a href="https://www.linkedin.com/in/m-ahtisham-6116ba2b2/" target="_blank"
+                                class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white hover:shadow-lg transform hover:scale-110 transition-all">
+                                <i class="fab fa-linkedin text-xl"></i>
+                            </a>
+                            <a href="https://github.com/Ahtisham992" target="_blank"
+                                class="w-12 h-12 bg-gradient-to-br from-gray-700 to-gray-900 rounded-full flex items-center justify-center text-white hover:shadow-lg transform hover:scale-110 transition-all">
+                                <i class="fab fa-github text-xl"></i>
+                            </a>
+                            <a href="https://www.instagram.com/_m_ahtish.05/" target="_blank"
+                                class="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center text-white hover:shadow-lg transform hover:scale-110 transition-all">
+                                <i class="fab fa-instagram text-xl"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -286,15 +740,42 @@
                         Something went wrong. Please try again or contact me directly.
                     </div>
 
-                    <form id="contactForm" class="bg-gray-50 p-8 rounded-2xl shadow-lg">
+                    <form id="contactForm" action="https://formspree.io/f/xgovozge" method="POST"
+                        class="bg-gray-50 p-8 rounded-2xl shadow-lg">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                            <div><label class="block text-gray-700 font-semibold mb-2">First Name</label><input type="text" name="firstName" class="form-input w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-purple-500 focus:outline-none" placeholder="John" required></div>
-                            <div><label class="block text-gray-700 font-semibold mb-2">Last Name</label><input type="text" name="lastName" class="form-input w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-purple-500 focus:outline-none" placeholder="Doe" required></div>
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">First Name</label>
+                                <input type="text" name="firstName"
+                                    class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-purple-500 focus:outline-none transition-all"
+                                    placeholder="John" required>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Last Name</label>
+                                <input type="text" name="lastName"
+                                    class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-purple-500 focus:outline-none transition-all"
+                                    placeholder="Doe" required>
+                            </div>
                         </div>
-                        <div class="mb-6"><label class="block text-gray-700 font-semibold mb-2">Email Address</label><input type="email" name="email" class="form-input w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-purple-500 focus:outline-none" placeholder="john@example.com" required></div>
-                        <div class="mb-6"><label class="block text-gray-700 font-semibold mb-2">Subject</label><input type="text" name="subject" class="form-input w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-purple-500 focus:outline-none" placeholder="Project Collaboration" required></div>
-                        <div class="mb-6"><label class="block text-gray-700 font-semibold mb-2">Message</label><textarea name="message" rows="5" class="form-input w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-purple-500 focus:outline-none resize-none" placeholder="Tell me about your project..." required></textarea></div>
-                        <button type="submit" id="submitBtn" class="btn-submit w-full text-white font-semibold py-4 rounded-xl flex items-center justify-center">
+                        <div class="mb-6">
+                            <label class="block text-gray-700 font-semibold mb-2">Email Address</label>
+                            <input type="email" name="email"
+                                class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-purple-500 focus:outline-none transition-all"
+                                placeholder="john@example.com" required>
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-gray-700 font-semibold mb-2">Subject</label>
+                            <input type="text" name="subject"
+                                class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-purple-500 focus:outline-none transition-all"
+                                placeholder="Project Collaboration" required>
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-gray-700 font-semibold mb-2">Message</label>
+                            <textarea name="message" rows="5"
+                                class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-purple-500 focus:outline-none resize-none transition-all"
+                                placeholder="Tell me about your project..." required></textarea>
+                        </div>
+                        <button type="submit" id="submitBtn"
+                            class="btn-submit w-full text-white font-semibold py-4 rounded-xl flex items-center justify-center">
                             <i class="fas fa-paper-plane mr-2"></i>
                             <span id="submitText">Send Message</span>
                         </button>
@@ -309,9 +790,25 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>
-                    <h3 class="text-2xl font-bold gradient-text mb-4" id="footerName">Loading...</h3>
-                    <p class="text-gray-400 mb-4" id="footerDescription">Loading...</p>
-                    <div class="flex space-x-4" id="footerSocialLinks"></div>
+                    <h3 class="text-2xl font-bold gradient-text mb-4">M. Ahtisham</h3>
+                    <p class="text-gray-400 mb-4">
+                        Software Engineer passionate about creating innovative solutions and delivering exceptional user
+                        experiences.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.linkedin.com/in/m-ahtisham-6116ba2b2/" target="_blank"
+                            class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                        <a href="https://github.com/Ahtisham992" target="_blank"
+                            class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                        <a href="https://www.instagram.com/_m_ahtish.05/" target="_blank"
+                            class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                    </div>
                 </div>
 
                 <div>
@@ -319,8 +816,10 @@
                     <ul class="space-y-2">
                         <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">About</a></li>
                         <li><a href="#skills" class="text-gray-400 hover:text-white transition-colors">Skills</a></li>
-                        <li><a href="#projects" class="text-gray-400 hover:text-white transition-colors">Projects</a></li>
-                        <li><a href="#experience" class="text-gray-400 hover:text-white transition-colors">Experience</a></li>
+                        <li><a href="#projects" class="text-gray-400 hover:text-white transition-colors">Projects</a>
+                        </li>
+                        <li><a href="#experience"
+                                class="text-gray-400 hover:text-white transition-colors">Experience</a></li>
                         <li><a href="#contact" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
                     </ul>
                 </div>
@@ -329,8 +828,8 @@
                     <h4 class="text-lg font-semibold mb-4">Services</h4>
                     <ul class="space-y-2 text-gray-400">
                         <li>• Web Development (MERN Stack)</li>
-                        <li>• Mobile App Development (Flutter)</li>
-                        <li>• Desktop Applications (Java, C#)</li>
+                        <li>• Mobile App Development (Flutter, ReactNative)</li>
+                        <li>• AI/Machine Learning</li>
                         <li>• Database Design & Management</li>
                         <li>• UI/UX Design</li>
                         <li>• API Development</li>
@@ -340,13 +839,13 @@
 
             <div class="border-t border-gray-800 mt-8 pt-8 text-center">
                 <p class="text-gray-400">
-                    © 2024 <span id="copyrightName">Loading...</span>. All rights reserved. Built with passion and dedication.
+                    © 2024 M. Ahtisham. All rights reserved. Built with passion and dedication.
                 </p>
             </div>
         </div>
     </footer>
 
-    <script src="scripts.js"></script>
+  <script src="scripts.js"></script>
 </body>
 
 </html>
