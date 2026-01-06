@@ -1,21 +1,34 @@
 // ========================================
 // FILE: src/theme/theme.js
 // ========================================
-// Professional Blue Theme - Clean, Modern, Trustworthy
+// Professional Vibrant Purple Theme - Tech-Forward & Modern
 export const theme = {
   colors: {
-    // Primary brand color - Professional Blue
+    // Primary brand color - Vibrant Tech Purple
     primary: {
-      50: '#eff6ff',
-      100: '#dbeafe',
-      200: '#bfdbfe',
-      300: '#93c5fd',
-      400: '#60a5fa',
-      500: '#3b82f6',  // Main brand color
-      600: '#2563eb',
-      700: '#1d4ed8',
-      800: '#1e40af',
-      900: '#1e3a8a',
+      50: '#faf5ff',
+      100: '#f3e8ff',
+      200: '#e9d5ff',
+      300: '#d8b4fe',
+      400: '#c084fc',
+      500: '#a855f7',  // Main vibrant purple
+      600: '#9333ea',  // Rich tech purple
+      700: '#7e22ce',
+      800: '#6b21a8',
+      900: '#581c87',
+    },
+    // Accent - Electric Purple/Pink for highlights
+    accent: {
+      50: '#fdf4ff',
+      100: '#fae8ff',
+      200: '#f5d0fe',
+      300: '#f0abfc',
+      400: '#e879f9',
+      500: '#d946ef',  // Electric purple-pink
+      600: '#c026d3',
+      700: '#a21caf',
+      800: '#86198f',
+      900: '#701a75',
     },
     // Neutral grays
     gray: {
@@ -34,7 +47,7 @@ export const theme = {
     success: '#10b981',
     warning: '#f59e0b',
     error: '#ef4444',
-    info: '#3b82f6',
+    info: '#a855f7',
   },
   
   // Consistent spacing
@@ -52,6 +65,7 @@ export const theme = {
     md: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
     lg: '0 10px 15px -3px rgb(0 0 0 / 0.1)',
     xl: '0 20px 25px -5px rgb(0 0 0 / 0.1)',
+    purple: '0 10px 40px -10px rgba(168, 85, 247, 0.5)',
   },
   
   // Consistent animations
@@ -85,9 +99,9 @@ export const getThemeClasses = () => ({
   border: 'border-gray-200 dark:border-gray-700',
   borderAccent: 'border-primary-500 dark:border-primary-400',
   
-  // Gradients - Using single brand color
-  gradient: 'bg-gradient-to-r from-primary-600 to-primary-500',
-  gradientText: 'bg-gradient-to-r from-primary-600 to-primary-500 bg-clip-text text-transparent',
+  // Gradients - Vibrant tech purple
+  gradient: 'bg-gradient-to-r from-primary-600 via-primary-500 to-accent-500',
+  gradientText: 'bg-gradient-to-r from-primary-600 via-primary-500 to-accent-500 bg-clip-text text-transparent',
   
   // Buttons
   btnPrimary: 'bg-primary-600 hover:bg-primary-700 text-white',

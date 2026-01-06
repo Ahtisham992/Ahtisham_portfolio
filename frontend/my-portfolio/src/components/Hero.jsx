@@ -30,14 +30,23 @@ const Hero = () => {
   };
 
   const socialLinks = [
-    { icon: Linkedin, href: personalInfo.social.linkedin, color: 'hover:text-primary-300' },
+    { icon: Linkedin, href: personalInfo.social.linkedin, color: 'hover:text-blue-300' },
     { icon: Github, href: personalInfo.social.github, color: 'hover:text-gray-300' },
-    { icon: Instagram, href: personalInfo.social.instagram, color: 'hover:text-primary-400' },
+    { icon: Instagram, href: personalInfo.social.instagram, color: 'hover:text-pink-300' },
   ];
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center bg-gradient-to-br from-primary-600 to-primary-700 overflow-hidden">
+    <section id="home" className="relative min-h-screen flex items-center bg-gradient-to-br from-primary-600 via-primary-700 to-accent-600 overflow-hidden">
       <ParticleBackground />
+      
+      {/* Animated tech grid overlay */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+                           linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px)`,
+          backgroundSize: '50px 50px'
+        }} />
+      </div>
       
       <div className="container-custom relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -48,13 +57,15 @@ const Hero = () => {
             animate="visible"
             className="text-white"
           >
-            <motion.p variants={itemVariants} className="text-lg text-primary-100 mb-4 font-medium">
+            <motion.p variants={itemVariants} className="text-lg text-purple-200 mb-4 font-medium tracking-wide">
               Hello, I'm
             </motion.p>
             
-            <motion.h1 variants={itemVariants} className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+            <motion.h1 variants={itemVariants} className="text-5xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight">
               {personalInfo.name.split(' ')[0]}{' '}
-              <span className="text-primary-200">{personalInfo.name.split(' ')[1]}</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-200 via-pink-200 to-purple-100">
+                {personalInfo.name.split(' ')[1]}
+              </span>
             </motion.h1>
 
             <motion.div variants={itemVariants} className="text-xl md:text-2xl mb-8 h-16">
@@ -65,20 +76,20 @@ const Hero = () => {
                 wrapper="span"
                 speed={50}
                 repeat={Infinity}
-                className="text-primary-50"
+                className="text-purple-100 font-semibold"
               />
             </motion.div>
 
-            <motion.p variants={itemVariants} className="text-lg text-primary-100 mb-8 leading-relaxed max-w-2xl">
+            <motion.p variants={itemVariants} className="text-lg text-purple-100 mb-8 leading-relaxed max-w-2xl">
               {personalInfo.bio}
             </motion.p>
 
             <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 mb-12">
               <motion.a
                 href="#contact"
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(255,255,255,0.5)" }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-white text-primary-700 px-8 py-4 rounded-full font-semibold hover:shadow-xl transition-all inline-flex items-center justify-center group"
+                className="bg-white text-primary-700 px-8 py-4 rounded-full font-bold hover:shadow-2xl transition-all inline-flex items-center justify-center group"
               >
                 <Send className="w-5 h-5 mr-2 group-hover:translate-x-1 transition-transform" />
                 Get In Touch
@@ -88,7 +99,7 @@ const Hero = () => {
                 href="#projects"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-primary-700 transition-all inline-flex items-center justify-center"
+                className="border-2 border-white text-white px-8 py-4 rounded-full font-bold hover:bg-white hover:text-primary-700 transition-all inline-flex items-center justify-center backdrop-blur-sm"
               >
                 <Code className="w-5 h-5 mr-2" />
                 View Projects
@@ -104,9 +115,9 @@ const Hero = () => {
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.2, y: -5 }}
                   whileTap={{ scale: 0.9 }}
-                  className={`text-white ${social.color} transition-colors duration-300`}
+                  className={`text-white ${social.color} transition-colors duration-300 p-2 rounded-full backdrop-blur-sm bg-white/10 hover:bg-white/20`}
                 >
-                  <social.icon className="w-7 h-7" />
+                  <social.icon className="w-6 h-6" />
                 </motion.a>
               ))}
             </motion.div>
@@ -125,7 +136,7 @@ const Hero = () => {
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white z-10"
       >
         <div className="flex flex-col items-center">
-          <span className="text-sm mb-2">Scroll Down</span>
+          <span className="text-sm mb-2 font-medium">Scroll Down</span>
           <ChevronDown className="w-6 h-6" />
         </div>
       </motion.div>

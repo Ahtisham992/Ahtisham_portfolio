@@ -58,11 +58,15 @@ const Navbar = () => {
       >
         <div className="container-custom">
           <div className="flex justify-between items-center h-20">
-            {/* Logo */}
+            {/* Logo - Clean and professional visibility */}
             <motion.a
               href="#home"
               onClick={(e) => handleNavClick(e, '#home')}
-              className="text-2xl font-bold text-gradient"
+              className={`text-2xl font-black relative ${
+                !isScrolled 
+                  ? 'text-white px-4 py-2 rounded-lg bg-white/10 backdrop-blur-md border border-white/20 shadow-lg' 
+                  : 'text-gradient'
+              }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -76,23 +80,33 @@ const Navbar = () => {
                   key={item.name}
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.href)}
-                  className={`${themeClasses.textSecondary} hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors relative group`}
+                  className={`${
+                    !isScrolled 
+                      ? 'text-white font-semibold drop-shadow-lg' 
+                      : `${themeClasses.textSecondary} hover:text-primary-600 dark:hover:text-primary-400`
+                  } font-medium transition-colors relative group`}
                   whileHover={{ y: -2 }}
                 >
                   {item.name}
-                  <span className={`absolute bottom-0 left-0 w-0 h-0.5 ${themeClasses.gradient} group-hover:w-full transition-all duration-300`} />
+                  <span className={`absolute bottom-0 left-0 w-0 h-0.5 ${
+                    !isScrolled ? 'bg-white' : themeClasses.gradient
+                  } group-hover:w-full transition-all duration-300`} />
                 </motion.a>
               ))}
               
               {/* Theme Toggle */}
               <motion.button
                 onClick={toggleTheme}
-                className={`p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors ${themeClasses.textSecondary}`}
+                className={`p-2 rounded-full transition-colors ${
+                  !isScrolled
+                    ? 'hover:bg-white/20 text-white'
+                    : `hover:bg-gray-200 dark:hover:bg-gray-800 ${themeClasses.textSecondary}`
+                }`}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
                 {isDark ? (
-                  <Sun className="w-5 h-5 text-yellow-500" />
+                  <Sun className="w-5 h-5 text-yellow-400" />
                 ) : (
                   <Moon className="w-5 h-5" />
                 )}
@@ -100,18 +114,26 @@ const Navbar = () => {
             </div>
 
             {/* Mobile Menu Button */}
-            <div className="md:hidden flex items-center space-x-4">
+            <div className="md:hidden flex items-center space-x-2 sm:space-x-4">
               <motion.button
                 onClick={toggleTheme}
-                className={`p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 ${themeClasses.textSecondary}`}
+                className={`p-2 rounded-full transition-colors ${
+                  !isScrolled
+                    ? 'hover:bg-white/20 text-white'
+                    : `hover:bg-gray-200 dark:hover:bg-gray-800 ${themeClasses.textSecondary}`
+                }`}
                 whileTap={{ scale: 0.9 }}
               >
-                {isDark ? <Sun className="w-5 h-5 text-yellow-500" /> : <Moon className="w-5 h-5" />}
+                {isDark ? <Sun className="w-5 h-5 text-yellow-400" /> : <Moon className="w-5 h-5" />}
               </motion.button>
               
               <motion.button
                 onClick={() => setIsOpen(!isOpen)}
-                className={`p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 ${themeClasses.textPrimary}`}
+                className={`p-2 rounded-lg transition-colors ${
+                  !isScrolled
+                    ? 'hover:bg-white/20 text-white'
+                    : `hover:bg-gray-200 dark:hover:bg-gray-800 ${themeClasses.textPrimary}`
+                }`}
                 whileTap={{ scale: 0.9 }}
               >
                 {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -137,17 +159,20 @@ const Navbar = () => {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'tween', duration: 0.3 }}
-              className={`fixed top-0 right-0 h-full w-80 ${themeClasses.bgCard} z-50 md:hidden shadow-2xl`}
+              className={`fixed top-0 right-0 h-full w-[85vw] max-w-sm ${themeClasses.bgCard} z-50 md:hidden shadow-2xl overflow-y-auto`}
             >
               <div className="flex flex-col h-full p-6">
                 <div className="flex justify-between items-center mb-8">
                   <span className="text-xl font-bold text-gradient">Menu</span>
-                  <button onClick={() => setIsOpen(false)} className={`p-2 ${themeClasses.textPrimary}`}>
+                  <button 
+                    onClick={() => setIsOpen(false)} 
+                    className={`p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors ${themeClasses.textPrimary}`}
+                  >
                     <X className="w-6 h-6" />
                   </button>
                 </div>
                 
-                <nav className="flex flex-col space-y-4">
+                <nav className="flex flex-col space-y-2">
                   {navItems.map((item, index) => (
                     <motion.a
                       key={item.name}
@@ -157,6 +182,7 @@ const Navbar = () => {
                       initial={{ opacity: 0, x: 50 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.1 }}
+                      whileTap={{ scale: 0.98 }}
                     >
                       {item.name}
                     </motion.a>
