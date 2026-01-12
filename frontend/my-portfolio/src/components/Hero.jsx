@@ -1,14 +1,18 @@
 // ========================================
-// FILE: src/components/Hero.jsx
+// FILE: src/components/Hero.jsx - UPDATED
 // ========================================
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
-import { Github, Linkedin, Instagram, Send, Code, ChevronDown } from 'lucide-react';
+import { Github, Linkedin, Instagram, Send, Code, ChevronDown, Terminal as TerminalIcon, Download } from 'lucide-react';
 import { personalInfo } from '../data/portfolio';
 import ParticleBackground from './ParticleBackground';
+import ResumeDownload from './ResumeDownload';
+import InteractiveTerminal from './InteractiveTerminal';
 
 const Hero = () => {
+  const [showTerminal, setShowTerminal] = useState(false);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -36,111 +40,143 @@ const Hero = () => {
   ];
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center bg-gradient-to-br from-primary-600 via-primary-700 to-accent-600 overflow-hidden">
-      <ParticleBackground />
-      
-      {/* Animated tech grid overlay */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
-                           linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px)`,
-          backgroundSize: '50px 50px'
-        }} />
-      </div>
-      
-      <div className="container-custom relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Text Content */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="text-white"
-          >
-            <motion.p variants={itemVariants} className="text-lg text-purple-200 mb-4 font-medium tracking-wide">
-              Hello, I'm
-            </motion.p>
-            
-            <motion.h1 variants={itemVariants} className="text-5xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight">
-              {personalInfo.name.split(' ')[0]}{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-200 via-pink-200 to-purple-100">
-                {personalInfo.name.split(' ')[1]}
-              </span>
-            </motion.h1>
-
-            <motion.div variants={itemVariants} className="text-xl md:text-2xl mb-8 h-16">
-              <TypeAnimation
-                sequence={[
-                  ...personalInfo.titles.flatMap(title => [title, 2000])
-                ]}
-                wrapper="span"
-                speed={50}
-                repeat={Infinity}
-                className="text-purple-100 font-semibold"
-              />
-            </motion.div>
-
-            <motion.p variants={itemVariants} className="text-lg text-purple-100 mb-8 leading-relaxed max-w-2xl">
-              {personalInfo.bio}
-            </motion.p>
-
-            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 mb-12">
-              <motion.a
-                href="#contact"
-                whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(255,255,255,0.5)" }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-white text-primary-700 px-8 py-4 rounded-full font-bold hover:shadow-2xl transition-all inline-flex items-center justify-center group"
-              >
-                <Send className="w-5 h-5 mr-2 group-hover:translate-x-1 transition-transform" />
-                Get In Touch
-              </motion.a>
+    <>
+      <section id="home" className="relative min-h-screen flex items-center bg-gradient-to-br from-primary-600 via-primary-700 to-accent-600 overflow-hidden">
+        <ParticleBackground />
+        
+        {/* Animated tech grid overlay */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+                             linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px)`,
+            backgroundSize: '50px 50px'
+          }} />
+        </div>
+        
+        <div className="container-custom relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Text Content */}
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              className="text-white"
+            >
+              <motion.p variants={itemVariants} className="text-lg text-purple-200 mb-4 font-medium tracking-wide">
+                Hello, I'm
+              </motion.p>
               
-              <motion.a
-                href="#projects"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="border-2 border-white text-white px-8 py-4 rounded-full font-bold hover:bg-white hover:text-primary-700 transition-all inline-flex items-center justify-center backdrop-blur-sm"
-              >
-                <Code className="w-5 h-5 mr-2" />
-                View Projects
-              </motion.a>
-            </motion.div>
+              <motion.h1 variants={itemVariants} className="text-5xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight">
+                {personalInfo.name.split(' ')[0]}{' '}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-200 via-pink-200 to-purple-100">
+                  {personalInfo.name.split(' ')[1]}
+                </span>
+              </motion.h1>
 
-            <motion.div variants={itemVariants} className="flex space-x-6">
-              {socialLinks.map((social, index) => (
+              <motion.div variants={itemVariants} className="text-xl md:text-2xl mb-8 h-16">
+                <TypeAnimation
+                  sequence={[
+                    ...personalInfo.titles.flatMap(title => [title, 2000])
+                  ]}
+                  wrapper="span"
+                  speed={50}
+                  repeat={Infinity}
+                  className="text-purple-100 font-semibold"
+                />
+              </motion.div>
+
+              <motion.p variants={itemVariants} className="text-lg text-purple-100 mb-8 leading-relaxed max-w-2xl">
+                {personalInfo.bio}
+              </motion.p>
+
+              <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 mb-8">
                 <motion.a
-                  key={index}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.2, y: -5 }}
-                  whileTap={{ scale: 0.9 }}
-                  className={`text-white ${social.color} transition-colors duration-300 p-2 rounded-full backdrop-blur-sm bg-white/10 hover:bg-white/20`}
+                  href="#contact"
+                  whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(255,255,255,0.5)" }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-white text-primary-700 px-8 py-4 rounded-full font-bold hover:shadow-2xl transition-all inline-flex items-center justify-center group"
                 >
-                  <social.icon className="w-6 h-6" />
+                  <Send className="w-5 h-5 mr-2 group-hover:translate-x-1 transition-transform" />
+                  Get In Touch
                 </motion.a>
-              ))}
+                
+                <motion.a
+                  href="#projects"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="border-2 border-white text-white px-8 py-4 rounded-full font-bold hover:bg-white hover:text-primary-700 transition-all inline-flex items-center justify-center backdrop-blur-sm"
+                >
+                  <Code className="w-5 h-5 mr-2" />
+                  View Projects
+                </motion.a>
+              </motion.div>
+
+              {/* Resume Download & Terminal */}
+              <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 mb-8">
+                <motion.a
+                  href={personalInfo.resumeUrl}
+                  download
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="border-2 border-purple-200 text-white px-6 py-3 rounded-full font-bold hover:bg-white hover:text-primary-700 transition-all inline-flex items-center justify-center backdrop-blur-sm"
+                >
+                  <Download className="w-5 h-5 mr-2" />
+                  Download Resume
+                </motion.a>
+
+                <motion.button
+                  onClick={() => setShowTerminal(true)}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="border-2 border-green-300 text-white px-6 py-3 rounded-full font-bold hover:bg-green-400 hover:text-gray-900 transition-all inline-flex items-center justify-center backdrop-blur-sm group"
+                >
+                  <TerminalIcon className="w-5 h-5 mr-2 group-hover:animate-pulse" />
+                  Open Terminal
+                </motion.button>
+              </motion.div>
+
+              <motion.div variants={itemVariants} className="flex space-x-6">
+                {socialLinks.map((social, index) => (
+                  <motion.a
+                    key={index}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.2, y: -5 }}
+                    whileTap={{ scale: 0.9 }}
+                    className={`text-white ${social.color} transition-colors duration-300 p-2 rounded-full backdrop-blur-sm bg-white/10 hover:bg-white/20`}
+                  >
+                    <social.icon className="w-6 h-6" />
+                  </motion.a>
+                ))}
+              </motion.div>
             </motion.div>
-          </motion.div>
 
-          {/* Right side - Interactive space for particles */}
-          <div className="hidden lg:block" />
+            {/* Right side - Interactive space for particles */}
+            <div className="hidden lg:block" />
+          </div>
         </div>
-      </div>
 
-      {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1, duration: 1, repeat: Infinity, repeatType: 'reverse' }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white z-10"
-      >
-        <div className="flex flex-col items-center">
-          <span className="text-sm mb-2 font-medium">Scroll Down</span>
-          <ChevronDown className="w-6 h-6" />
-        </div>
-      </motion.div>
-    </section>
+        {/* Scroll Indicator */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1, duration: 1, repeat: Infinity, repeatType: 'reverse' }}
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white z-10"
+        >
+          <div className="flex flex-col items-center">
+            <span className="text-sm mb-2 font-medium">Scroll Down</span>
+            <ChevronDown className="w-6 h-6" />
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Interactive Terminal */}
+      <InteractiveTerminal 
+        isOpen={showTerminal} 
+        onClose={() => setShowTerminal(false)} 
+      />
+    </>
   );
 };
 

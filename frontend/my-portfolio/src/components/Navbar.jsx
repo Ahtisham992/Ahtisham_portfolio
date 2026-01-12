@@ -1,25 +1,29 @@
 // ========================================
-// FILE: src/components/Navbar.jsx
+// FILE: src/components/Navbar.jsx - UPDATED
 // ========================================
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, X, Sun, Moon, Home, User, Code2, Briefcase, Mail, FolderOpen, Video } from 'lucide-react';
 import { useTheme } from '../theme/ThemeContext';
 import { getThemeClasses } from '../theme/theme';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { isDark, toggleTheme } = useTheme();
   const themeClasses = getThemeClasses();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const navItems = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Home', href: '/', icon: Home, type: 'route' },
+    { name: 'Video Intro', href: '/intro', icon: Video, type: 'route' },
+    { name: 'Projects Gallery', href: '/projects', icon: FolderOpen, type: 'route' },
+    { name: 'About', href: '#about', icon: User, type: 'scroll' },
+    { name: 'Skills', href: '#skills', icon: Code2, type: 'scroll' },
+    { name: 'Experience', href: '#experience', icon: Briefcase, type: 'scroll' },
+    { name: 'Contact', href: '#contact', icon: Mail, type: 'scroll' },
   ];
 
   useEffect(() => {
@@ -30,9 +34,27 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleNavClick = (e, href) => {
+  const handleNavClick = (e, item) => {
     e.preventDefault();
     setIsOpen(false);
+
+    if (item.type === 'route') {
+      navigate(item.href);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      // If not on home page, navigate there first
+      if (location.pathname !== '/') {
+        navigate('/');
+        setTimeout(() => {
+          scrollToSection(item.href);
+        }, 100);
+      } else {
+        scrollToSection(item.href);
+      }
+    }
+  };
+
+  const scrollToSection = (href) => {
     const element = document.querySelector(href);
     if (element) {
       const offset = 80;
@@ -43,6 +65,13 @@ const Navbar = () => {
         behavior: 'smooth'
       });
     }
+  };
+
+  const isActive = (item) => {
+    if (item.type === 'route') {
+      return location.pathname === item.href;
+    }
+    return false;
   };
 
   return (
@@ -58,10 +87,9 @@ const Navbar = () => {
       >
         <div className="container-custom">
           <div className="flex justify-between items-center h-20">
-            {/* Logo - Clean and professional visibility */}
-            <motion.a
-              href="#home"
-              onClick={(e) => handleNavClick(e, '#home')}
+            {/* Logo */}
+            <motion.button
+              onClick={(e) => handleNavClick(e, { href: '/', type: 'route' })}
               className={`text-2xl font-black relative ${
                 !isScrolled 
                   ? 'text-white px-4 py-2 rounded-lg bg-white/10 backdrop-blur-md border border-white/20 shadow-lg' 
@@ -71,28 +99,38 @@ const Navbar = () => {
               whileTap={{ scale: 0.95 }}
             >
               M. Ahtisham
-            </motion.a>
+            </motion.button>
 
             {/* Desktop Menu */}
-            <div className="hidden md:flex items-center space-x-8">
-              {navItems.map((item) => (
-                <motion.a
-                  key={item.name}
-                  href={item.href}
-                  onClick={(e) => handleNavClick(e, item.href)}
-                  className={`${
-                    !isScrolled 
-                      ? 'text-white font-semibold drop-shadow-lg' 
-                      : `${themeClasses.textSecondary} hover:text-primary-600 dark:hover:text-primary-400`
-                  } font-medium transition-colors relative group`}
-                  whileHover={{ y: -2 }}
-                >
-                  {item.name}
-                  <span className={`absolute bottom-0 left-0 w-0 h-0.5 ${
-                    !isScrolled ? 'bg-white' : themeClasses.gradient
-                  } group-hover:w-full transition-all duration-300`} />
-                </motion.a>
-              ))}
+            <div className="hidden lg:flex items-center space-x-6">
+              {navItems.map((item) => {
+                const Icon = item.icon;
+                const active = isActive(item);
+                
+                return (
+                  <motion.a
+                    key={item.name}
+                    href={item.href}
+                    onClick={(e) => handleNavClick(e, item)}
+                    className={`${
+                      active
+                        ? 'text-primary-600 dark:text-primary-400'
+                        : !isScrolled 
+                          ? 'text-white font-semibold drop-shadow-lg' 
+                          : `${themeClasses.textSecondary} hover:text-primary-600 dark:hover:text-primary-400`
+                    } font-medium transition-colors relative group flex items-center gap-2`}
+                    whileHover={{ y: -2 }}
+                  >
+                    <Icon className="w-4 h-4" />
+                    {item.name}
+                    <span className={`absolute bottom-0 left-0 ${
+                      active ? 'w-full' : 'w-0'
+                    } h-0.5 ${
+                      !isScrolled ? 'bg-white' : themeClasses.gradient
+                    } group-hover:w-full transition-all duration-300`} />
+                  </motion.a>
+                );
+              })}
               
               {/* Theme Toggle */}
               <motion.button
@@ -114,7 +152,7 @@ const Navbar = () => {
             </div>
 
             {/* Mobile Menu Button */}
-            <div className="md:hidden flex items-center space-x-2 sm:space-x-4">
+            <div className="lg:hidden flex items-center space-x-2 sm:space-x-4">
               <motion.button
                 onClick={toggleTheme}
                 className={`p-2 rounded-full transition-colors ${
@@ -152,14 +190,14 @@ const Navbar = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden"
+              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden"
             />
             <motion.div
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'tween', duration: 0.3 }}
-              className={`fixed top-0 right-0 h-full w-[85vw] max-w-sm ${themeClasses.bgCard} z-50 md:hidden shadow-2xl overflow-y-auto`}
+              className={`fixed top-0 right-0 h-full w-[85vw] max-w-sm ${themeClasses.bgCard} z-50 lg:hidden shadow-2xl overflow-y-auto`}
             >
               <div className="flex flex-col h-full p-6">
                 <div className="flex justify-between items-center mb-8">
@@ -173,20 +211,30 @@ const Navbar = () => {
                 </div>
                 
                 <nav className="flex flex-col space-y-2">
-                  {navItems.map((item, index) => (
-                    <motion.a
-                      key={item.name}
-                      href={item.href}
-                      onClick={(e) => handleNavClick(e, item.href)}
-                      className={`text-lg font-medium py-3 px-4 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors ${themeClasses.textPrimary}`}
-                      initial={{ opacity: 0, x: 50 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      {item.name}
-                    </motion.a>
-                  ))}
+                  {navItems.map((item, index) => {
+                    const Icon = item.icon;
+                    const active = isActive(item);
+                    
+                    return (
+                      <motion.a
+                        key={item.name}
+                        href={item.href}
+                        onClick={(e) => handleNavClick(e, item)}
+                        className={`text-lg font-medium py-3 px-4 rounded-lg transition-colors flex items-center gap-3 ${
+                          active
+                            ? 'bg-primary-100 dark:bg-primary-900/40 text-primary-600 dark:text-primary-400'
+                            : `hover:bg-primary-50 dark:hover:bg-primary-900/20 ${themeClasses.textPrimary}`
+                        }`}
+                        initial={{ opacity: 0, x: 50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        <Icon className="w-5 h-5" />
+                        {item.name}
+                      </motion.a>
+                    );
+                  })}
                 </nav>
               </div>
             </motion.div>
