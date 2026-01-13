@@ -15,7 +15,7 @@ export const personalInfo = {
   phone: "+92 320 5999041",
   location: "Satellite Town, Rawalpindi, Pakistan",
   bio: "Passionate BS Software Engineering student at FAST-NUCES Islamabad with expertise in full-stack web and cross-platform mobile development. Building innovative solutions with modern technologies.",
-  resumeUrl: "/resume.pdf", // Place your resume.pdf in public folder
+  resumeUrl: "/Muhammad_Ahtisham_Resume.pdf", // Place your resume.pdf in public folder
   introVideoUrl: "/intro-video.mp4", // Place your intro video in public folder
   social: {
     linkedin: "https://www.linkedin.com/in/m-ahtisham-6116ba2b2/",
