@@ -75,7 +75,7 @@ export const projects = [
         "https://images.unsplash.com/photo-1589903308904-1010c2294adc?w=1200&q=80",
         "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=1200&q=80",
       ],
-      video: "https://photos.app.goo.gl/oDJES1LRMNobV6xT6", // Demo video
+      video: "/prismora-project.mp4", // Demo video
     },
     github: "https://github.com/Ahtisham992",
     liveDemo: null,
