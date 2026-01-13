@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Play, Pause, Volume2, VolumeX, Maximize, ChevronDown, Download } from 'lucide-react';
 import { personalInfo } from '../data/portfolio';
@@ -11,6 +11,19 @@ const VideoIntro = () => {
   const [duration, setDuration] = useState(0);
   const videoRef = useRef(null);
   const themeClasses = getThemeClasses();
+
+  // Handle spacebar for play/pause
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (e.code === 'Space' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+        togglePlay();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [isPlaying]);
 
   const togglePlay = () => {
     if (videoRef.current) {
@@ -57,174 +70,174 @@ const VideoIntro = () => {
   };
 
   const scrollToPortfolio = () => {
-    window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
+    const videoSection = document.getElementById('video-section');
+    if (videoSection) {
+      const offset = videoSection.offsetHeight + 100;
+      window.scrollTo({ top: offset, behavior: 'smooth' });
+    }
   };
 
   return (
-    <div className={`min-h-screen ${themeClasses.bgPrimary}`}>
-      {/* Hero Video Section */}
-      <div className="relative h-screen overflow-hidden">
-        {/* Video Background */}
-        <video
-          ref={videoRef}
-          className="absolute inset-0 w-full h-full object-cover"
-          onTimeUpdate={handleTimeUpdate}
-          onLoadedMetadata={handleLoadedMetadata}
-          onEnded={() => setIsPlaying(false)}
-          poster="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=1920&q=80"
+    <div className={`${themeClasses.bgPrimary} pt-20`}>
+      {/* Video Section with proper spacing */}
+      <div id="video-section" className="container mx-auto px-4 py-8 max-w-6xl">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
         >
-          <source src={personalInfo.introVideoUrl} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-
-        {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
-
-        {/* Content Overlay */}
-        <div className="relative z-10 h-full flex flex-col justify-between p-8">
-          {/* Top Section - Title */}
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="text-white"
-          >
-            <h1 className="text-4xl md:text-6xl font-bold mb-2">
+          {/* Header */}
+          <div className="text-center mb-8">
+            <h1 className="text-4xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               Welcome, I'm {personalInfo.name}
             </h1>
-            <p className="text-xl md:text-2xl text-white/90">
+            <p className="text-xl md:text-2xl text-gray-700">
               {personalInfo.title}
             </p>
-          </motion.div>
+          </div>
 
-          {/* Center - Play Button (when paused) */}
-          {!isPlaying && (
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              className="absolute inset-0 flex items-center justify-center"
-            >
-              <motion.button
-                onClick={togglePlay}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                className="bg-white/20 backdrop-blur-md p-8 rounded-full hover:bg-white/30 transition-all group"
+          {/* Video Player Container */}
+          <div className="relative bg-black rounded-2xl overflow-hidden shadow-2xl border-4 border-gray-800">
+            {/* Video */}
+            <div className="relative aspect-video">
+              <video
+                ref={videoRef}
+                className="w-full h-full object-cover"
+                onTimeUpdate={handleTimeUpdate}
+                onLoadedMetadata={handleLoadedMetadata}
+                onEnded={() => setIsPlaying(false)}
               >
-                <Play className="w-16 h-16 text-white fill-white" />
-              </motion.button>
-            </motion.div>
-          )}
+                <source src={personalInfo.introVideoUrl} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
 
-          {/* Bottom Section - Controls */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="space-y-4"
-          >
-            {/* Progress Bar */}
-            <div
-              onClick={handleSeek}
-              className="w-full h-2 bg-white/20 backdrop-blur-sm rounded-full cursor-pointer group"
-            >
-              <div
-                className="h-full bg-gradient-to-r from-primary-400 to-primary-600 rounded-full transition-all group-hover:h-3"
-                style={{ width: `${(currentTime / duration) * 100}%` }}
-              />
-            </div>
+              {/* Dark Overlay when paused */}
+              {!isPlaying && (
+                <div className="absolute inset-0 bg-black/40" />
+              )}
 
-            {/* Control Buttons */}
-            <div className="flex items-center justify-between text-white">
-              <div className="flex items-center gap-4">
-                <button
+              {/* Center Play Button */}
+              {!isPlaying && (
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  className="absolute inset-0 flex items-center justify-center"
+                >
+                  <motion.button
+                    onClick={togglePlay}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    className="bg-white/20 backdrop-blur-md p-6 rounded-full hover:bg-white/30 transition-all"
+                  >
+                    <Play className="w-12 h-12 text-white fill-white" />
+                  </motion.button>
+                </motion.div>
+              )}
+
+              {/* Click to pause when playing */}
+              {isPlaying && (
+                <div
                   onClick={togglePlay}
-                  className="p-2 hover:bg-white/20 rounded-full transition-all"
-                >
-                  {isPlaying ? (
-                    <Pause className="w-6 h-6" />
-                  ) : (
-                    <Play className="w-6 h-6" />
-                  )}
-                </button>
+                  className="absolute inset-0 cursor-pointer"
+                />
+              )}
+            </div>
 
-                <button
-                  onClick={toggleMute}
-                  className="p-2 hover:bg-white/20 rounded-full transition-all"
-                >
-                  {isMuted ? (
-                    <VolumeX className="w-6 h-6" />
-                  ) : (
-                    <Volume2 className="w-6 h-6" />
-                  )}
-                </button>
-
-                <span className="text-sm font-medium">
-                  {formatTime(currentTime)} / {formatTime(duration)}
-                </span>
+            {/* Video Controls */}
+            <div className="bg-gradient-to-t from-black/90 to-transparent absolute bottom-0 left-0 right-0 p-4">
+              {/* Progress Bar */}
+              <div
+                onClick={handleSeek}
+                className="w-full h-1.5 bg-white/20 rounded-full cursor-pointer group mb-3"
+              >
+                <div
+                  className="h-full bg-gradient-to-r from-blue-500 to-purple-600 rounded-full transition-all group-hover:h-2"
+                  style={{ width: `${(currentTime / duration) * 100}%` }}
+                />
               </div>
 
-              <div className="flex items-center gap-4">
-                <button
-                  onClick={scrollToPortfolio}
-                  className="px-6 py-2 bg-white/20 backdrop-blur-md hover:bg-white/30 rounded-full font-medium transition-all flex items-center gap-2"
-                >
-                  Skip to Portfolio
-                  <ChevronDown className="w-4 h-4" />
-                </button>
+              {/* Control Buttons */}
+              <div className="flex items-center justify-between text-white">
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={togglePlay}
+                    className="p-2 hover:bg-white/20 rounded-full transition-all"
+                  >
+                    {isPlaying ? (
+                      <Pause className="w-5 h-5" />
+                    ) : (
+                      <Play className="w-5 h-5" />
+                    )}
+                  </button>
 
-                <button
-                  onClick={() => videoRef.current?.requestFullscreen()}
-                  className="p-2 hover:bg-white/20 rounded-full transition-all"
-                >
-                  <Maximize className="w-6 h-6" />
-                </button>
+                  <button
+                    onClick={toggleMute}
+                    className="p-2 hover:bg-white/20 rounded-full transition-all"
+                  >
+                    {isMuted ? (
+                      <VolumeX className="w-5 h-5" />
+                    ) : (
+                      <Volume2 className="w-5 h-5" />
+                    )}
+                  </button>
+
+                  <span className="text-sm font-medium">
+                    {formatTime(currentTime)} / {formatTime(duration)}
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => videoRef.current?.requestFullscreen()}
+                    className="p-2 hover:bg-white/20 rounded-full transition-all"
+                  >
+                    <Maximize className="w-5 h-5" />
+                  </button>
+                </div>
               </div>
             </div>
-          </motion.div>
-        </div>
+          </div>
 
-        {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 1, repeat: Infinity, repeatType: 'reverse' }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white cursor-pointer"
-          onClick={scrollToPortfolio}
-        >
-          <div className="flex flex-col items-center">
-            <span className="text-sm mb-2">Scroll to explore</span>
-            <ChevronDown className="w-6 h-6 animate-bounce" />
+          {/* Skip Button */}
+          <div className="text-center mt-6">
+            <button
+              onClick={scrollToPortfolio}
+              className="px-6 py-3 bg-white hover:bg-gray-100 text-gray-700 rounded-full font-medium transition-all inline-flex items-center gap-2 shadow-md hover:shadow-lg"
+            >
+              Skip to Portfolio
+              <ChevronDown className="w-4 h-4" />
+            </button>
           </div>
         </motion.div>
       </div>
 
-      {/* About Section Below Video */}
-      <div className="section-padding">
-        <div className="container-custom">
+      {/* About Section */}
+      <div className="py-16">
+        <div className="container mx-auto px-4 max-w-6xl">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="max-w-4xl mx-auto text-center"
+            className="text-center"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gradient mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-6">
               A Little About Me
             </h2>
             <div className={`w-24 h-1 ${themeClasses.gradient} mx-auto rounded-full mb-8`} />
             
-            <p className={`${themeClasses.textSecondary} text-lg leading-relaxed mb-8`}>
+            <p className={`${themeClasses.textSecondary} text-lg leading-relaxed mb-12 max-w-3xl mx-auto`}>
               {personalInfo.bio}
             </p>
 
             {/* Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
               {Object.entries(personalInfo.stats).map(([key, value]) => (
                 <motion.div
                   key={key}
                   whileHover={{ scale: 1.05 }}
                   className={`${themeClasses.card} p-6`}
                 >
-                  <div className="text-4xl font-bold text-gradient mb-2">
+                  <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
                     {value}
                   </div>
                   <div className={`${themeClasses.textSecondary} text-sm capitalize`}>
@@ -237,7 +250,7 @@ const VideoIntro = () => {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.a
-                href="#contact"
+                href="../#contact"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className={`px-8 py-4 ${themeClasses.gradient} text-white rounded-full font-bold shadow-lg hover:shadow-xl transition-all inline-flex items-center justify-center`}
