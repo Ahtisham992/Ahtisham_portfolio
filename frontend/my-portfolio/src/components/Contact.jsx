@@ -1,25 +1,35 @@
 // ========================================
 // FILE: src/components/Contact.jsx
 // ========================================
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { useInView } from '../hooks/useInView';
-import { Mail, Phone, MapPin, Send, Linkedin, Github, Instagram, CheckCircle, AlertCircle } from 'lucide-react';
-import { personalInfo } from '../data/portfolio';
-import emailjs from 'emailjs-com';
-import { getThemeClasses } from '../theme/theme';
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { useInView } from "../hooks/useInView";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Send,
+  Linkedin,
+  Github,
+  Instagram,
+  CheckCircle,
+  AlertCircle,
+} from "lucide-react";
+import { personalInfo } from "../data/portfolio";
+import emailjs from "emailjs-com";
+import { getThemeClasses } from "../theme/theme";
 
 const Contact = () => {
   const [ref, isInView] = useInView();
   const themeClasses = getThemeClasses();
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    subject: '',
-    message: ''
+    firstName: "",
+    lastName: "",
+    email: "",
+    subject: "",
+    message: "",
   });
-  const [status, setStatus] = useState({ type: '', message: '' });
+  const [status, setStatus] = useState({ type: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
@@ -29,31 +39,37 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setStatus({ type: '', message: '' });
+    setStatus({ type: "", message: "" });
 
     try {
-      // Replace with your EmailJS credentials
       await emailjs.send(
-        'YOUR_SERVICE_ID',
-        'YOUR_TEMPLATE_ID',
+        "service_ntd8qaa", // Your Service ID
+        "template_we8jt3l", // Your Template ID
         {
           from_name: `${formData.firstName} ${formData.lastName}`,
           from_email: formData.email,
           subject: formData.subject,
           message: formData.message,
         },
-        'YOUR_PUBLIC_KEY'
+        "HF9NDuUkZ7bfuNXto" // Your Public Key
       );
 
       setStatus({
-        type: 'success',
-        message: 'Thank you for your message! I\'ll get back to you soon.'
+        type: "success",
+        message: "Thank you for your message! I'll get back to you soon.",
       });
-      setFormData({ firstName: '', lastName: '', email: '', subject: '', message: '' });
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
     } catch (error) {
       setStatus({
-        type: 'error',
-        message: 'Something went wrong. Please try again or contact me directly.'
+        type: "error",
+        message:
+          "Something went wrong. Please try again or contact me directly.",
       });
     } finally {
       setIsSubmitting(false);
@@ -61,9 +77,14 @@ const Contact = () => {
   };
 
   const contactInfo = [
-    { icon: Mail, label: 'Email', value: personalInfo.email, href: `mailto:${personalInfo.email}` },
-    { icon: Phone, label: 'Phone', value: personalInfo.phone },
-    { icon: MapPin, label: 'Location', value: personalInfo.location },
+    {
+      icon: Mail,
+      label: "Email",
+      value: personalInfo.email,
+      href: `mailto:${personalInfo.email}`,
+    },
+    { icon: Phone, label: "Phone", value: personalInfo.phone },
+    { icon: MapPin, label: "Location", value: personalInfo.location },
   ];
 
   const socialLinks = [
@@ -73,7 +94,10 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className={`section-padding ${themeClasses.bgPrimary}`}>
+    <section
+      id="contact"
+      className={`section-padding ${themeClasses.bgPrimary}`}
+    >
       <div className="container-custom">
         <motion.div
           ref={ref}
@@ -85,7 +109,9 @@ const Contact = () => {
           <h2 className="text-4xl md:text-5xl font-bold text-gradient mb-4">
             Get In Touch
           </h2>
-          <div className={`w-24 h-1 ${themeClasses.gradient} mx-auto rounded-full`} />
+          <div
+            className={`w-24 h-1 ${themeClasses.gradient} mx-auto rounded-full`}
+          />
           <p className={`${themeClasses.textSecondary} text-lg mt-4`}>
             Ready to collaborate? Let's discuss your next project!
           </p>
@@ -98,12 +124,15 @@ const Contact = () => {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <h3 className={`text-2xl font-bold ${themeClasses.textPrimary} mb-6`}>
+            <h3
+              className={`text-2xl font-bold ${themeClasses.textPrimary} mb-6`}
+            >
               Let's Connect
             </h3>
             <p className={`${themeClasses.textSecondary} text-lg mb-8`}>
-              I'm always interested in new opportunities and challenging projects.
-              Whether you're looking for a developer, have a question, or just want to connect, feel free to reach out!
+              I'm always interested in new opportunities and challenging
+              projects. Whether you're looking for a developer, have a question,
+              or just want to connect, feel free to reach out!
             </p>
 
             <div className="space-y-6 mb-8">
@@ -115,13 +144,20 @@ const Contact = () => {
                   transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
                   className="flex items-center gap-4"
                 >
-                  <div className={`w-12 h-12 bg-gradient-to-br ${themeClasses.gradient} rounded-full flex items-center justify-center flex-shrink-0`}>
+                  <div
+                    className={`w-12 h-12 bg-gradient-to-br ${themeClasses.gradient} rounded-full flex items-center justify-center flex-shrink-0`}
+                  >
                     <info.icon className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <p className={`font-semibold ${themeClasses.textPrimary}`}>{info.label}</p>
+                    <p className={`font-semibold ${themeClasses.textPrimary}`}>
+                      {info.label}
+                    </p>
                     {info.href ? (
-                      <a href={info.href} className={`${themeClasses.textAccent} hover:underline`}>
+                      <a
+                        href={info.href}
+                        className={`${themeClasses.textAccent} hover:underline`}
+                      >
                         {info.value}
                       </a>
                     ) : (
@@ -133,7 +169,11 @@ const Contact = () => {
             </div>
 
             <div>
-              <h4 className={`text-lg font-bold ${themeClasses.textPrimary} mb-4`}>Follow Me</h4>
+              <h4
+                className={`text-lg font-bold ${themeClasses.textPrimary} mb-4`}
+              >
+                Follow Me
+              </h4>
               <div className="flex gap-4">
                 {socialLinks.map((social, index) => (
                   <motion.a
@@ -163,12 +203,12 @@ const Contact = () => {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 className={`mb-6 p-4 rounded-xl flex items-center gap-3 ${
-                  status.type === 'success'
-                    ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300'
-                    : 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300'
+                  status.type === "success"
+                    ? "bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300"
+                    : "bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300"
                 }`}
               >
-                {status.type === 'success' ? (
+                {status.type === "success" ? (
                   <CheckCircle className="w-5 h-5" />
                 ) : (
                   <AlertCircle className="w-5 h-5" />
@@ -177,10 +217,15 @@ const Contact = () => {
               </motion.div>
             )}
 
-            <form onSubmit={handleSubmit} className={`${themeClasses.bgSecondary} p-8 rounded-2xl shadow-lg space-y-6`}>
+            <form
+              onSubmit={handleSubmit}
+              className={`${themeClasses.bgSecondary} p-8 rounded-2xl shadow-lg space-y-6`}
+            >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className={`block ${themeClasses.textPrimary} font-semibold mb-2`}>
+                  <label
+                    className={`block ${themeClasses.textPrimary} font-semibold mb-2`}
+                  >
                     First Name
                   </label>
                   <input
@@ -194,7 +239,9 @@ const Contact = () => {
                   />
                 </div>
                 <div>
-                  <label className={`block ${themeClasses.textPrimary} font-semibold mb-2`}>
+                  <label
+                    className={`block ${themeClasses.textPrimary} font-semibold mb-2`}
+                  >
                     Last Name
                   </label>
                   <input
@@ -210,7 +257,9 @@ const Contact = () => {
               </div>
 
               <div>
-                <label className={`block ${themeClasses.textPrimary} font-semibold mb-2`}>
+                <label
+                  className={`block ${themeClasses.textPrimary} font-semibold mb-2`}
+                >
                   Email Address
                 </label>
                 <input
@@ -225,7 +274,9 @@ const Contact = () => {
               </div>
 
               <div>
-                <label className={`block ${themeClasses.textPrimary} font-semibold mb-2`}>
+                <label
+                  className={`block ${themeClasses.textPrimary} font-semibold mb-2`}
+                >
                   Subject
                 </label>
                 <input
@@ -240,7 +291,9 @@ const Contact = () => {
               </div>
 
               <div>
-                <label className={`block ${themeClasses.textPrimary} font-semibold mb-2`}>
+                <label
+                  className={`block ${themeClasses.textPrimary} font-semibold mb-2`}
+                >
                   Message
                 </label>
                 <textarea
@@ -262,7 +315,7 @@ const Contact = () => {
                 className={`w-full ${themeClasses.gradient} text-white font-semibold py-4 rounded-xl flex items-center justify-center gap-2 hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed`}
               >
                 <Send className="w-5 h-5" />
-                {isSubmitting ? 'Sending...' : 'Send Message'}
+                {isSubmitting ? "Sending..." : "Send Message"}
               </motion.button>
             </form>
           </motion.div>
