@@ -18,7 +18,7 @@ export const personalInfo = {
   resumeUrl: "/Muhammad_Ahtisham_Resume.pdf", // Place your resume.pdf in public folder
   introVideoUrl: "/intro-video.mp4", // Place your intro video in public folder
   social: {
-    linkedin: "https://www.linkedin.com/in/m-ahtisham-6116ba2b2/",
+    linkedin: "https://www.linkedin.com/in/muhammad-ahtisham-6116ba2b2/",
     github: "https://github.com/Ahtisham992",
     instagram: "https://www.instagram.com/_m_ahtish.05/"
   },
