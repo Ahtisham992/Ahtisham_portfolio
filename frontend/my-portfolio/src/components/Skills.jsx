@@ -15,7 +15,7 @@ const Skills = () => {
   const techIcons = [
     { name: 'React.js', icon: Code, color: 'text-primary-600 dark:text-primary-400', bgColor: 'bg-primary-100 dark:bg-primary-900/30' },
     { name: 'Node.js', icon: Database, color: 'text-accent-600 dark:text-accent-400', bgColor: 'bg-accent-100 dark:bg-accent-900/30' },
-    { name: 'Flutter', icon: Smartphone, color: 'text-primary-500 dark:text-primary-400', bgColor: 'bg-primary-100 dark:bg-primary-900/30' },
+    { name: 'React Native', icon: Smartphone, color: 'text-primary-500 dark:text-primary-400', bgColor: 'bg-primary-100 dark:bg-primary-900/30' },
     { name: 'Python', icon: Code, color: 'text-accent-500 dark:text-accent-400', bgColor: 'bg-accent-100 dark:bg-accent-900/30' },
     { name: 'JavaScript', icon: Globe, color: 'text-primary-600 dark:text-primary-400', bgColor: 'bg-primary-100 dark:bg-primary-900/30' },
     { name: 'AWS', icon: Cloud, color: 'text-accent-600 dark:text-accent-400', bgColor: 'bg-accent-100 dark:bg-accent-900/30' },
