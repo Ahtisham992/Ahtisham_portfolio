@@ -32,8 +32,8 @@ export const personalInfo = {
 
 export const skills = {
   frontend: [
-    { name: "React.js", level: 90 },
-    { name: "Flutter", level: 85 },
+    { name: "React.js", level: 80 },
+    { name: "React Native", level: 70 },
     { name: "HTML / CSS / JavaScript", level: 95 }
   ],
   backend: [
