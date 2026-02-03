@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from '../hooks/useInView';
-import { Brain, CloudUpload, School, ExternalLink, Github } from 'lucide-react';
+import { Brain, CloudUpload, School, Building2, Smartphone, ExternalLink, Github } from 'lucide-react';
 import { projects, personalInfo } from '../data/portfolio';
 import { getThemeClasses } from '../theme/theme';
 
@@ -17,6 +17,8 @@ const Projects = () => {
     Brain: Brain,
     CloudUpload: CloudUpload,
     School: School,
+    Building2: Building2,
+    Smartphone: Smartphone,
   };
 
   const projectGradients = [
@@ -40,7 +42,7 @@ const Projects = () => {
       >
         {/* Header with Gradient */}
         <div className={`bg-gradient-to-br ${gradient} p-6`}>
-          <Icon className="w-12 h-12 text-white mb-4" />
+          {Icon && <Icon className="w-12 h-12 text-white mb-4" />}
           <h3 className="text-2xl font-bold text-white">
             {project.title}
           </h3>
@@ -161,7 +163,7 @@ const Projects = () => {
                 <div className={`bg-gradient-to-br ${selectedProject.gradient} p-8 text-white`}>
                   {(() => {
                     const Icon = iconMap[selectedProject.icon];
-                    return <Icon className="w-16 h-16 mb-4" />;
+                    return Icon ? <Icon className="w-16 h-16 mb-4" /> : null;
                   })()}
                   <h2 className="text-3xl font-bold mb-2">{selectedProject.title}</h2>
                   <p className="text-white/90">{selectedProject.description}</p>
