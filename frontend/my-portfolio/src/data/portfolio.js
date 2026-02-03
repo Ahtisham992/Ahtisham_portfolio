@@ -24,21 +24,22 @@ export const personalInfo = {
   },
   stats: {
     internships: "2+",
-    projects: "10+",
+    projects: "12+", // Updated from 10+
     certificates: "5+",
-    technologies: "15+"
+    technologies: "20+" // Updated from 15+
   }
 };
 
 export const skills = {
   frontend: [
     { name: "React.js", level: 80 },
-    { name: "React Native", level: 70 },
+    { name: "React Native", level: 75 }, // Updated
     { name: "HTML / CSS / JavaScript", level: 95 }
   ],
   backend: [
     { name: "Node.js / Express", level: 88 },
-    { name: "MongoDB", level: 82 }
+    { name: "MongoDB", level: 82 },
+    { name: "PostgreSQL", level: 85 } // Added
   ],
   ai: [
     { name: "Python (AI / ML)", level: 78 },
@@ -52,8 +53,132 @@ export const skills = {
 
 // ENHANCED PROJECTS WITH MEDIA SUPPORT
 export const projects = [
+  // NEW PROJECT 1: SalesCare Service Center
   {
     id: 1,
+    title: "SalesCare Service Center - Complete Management System",
+    shortDescription: "Enterprise-grade service center management platform",
+    description: "A comprehensive full-stack enterprise management system designed for service centers handling customer complaints, inventory management, invoicing, and purchase orders. Built with modern technologies and following industry best practices for scalability and security.",
+    category: "Full Stack",
+    gradient: "from-blue-600 to-cyan-500",
+    icon: "Building2",
+    technologies: [
+      "React.js",
+      "Node.js",
+      "Express.js",
+      "PostgreSQL",
+      "Redux Toolkit",
+      "Tailwind CSS",
+      "JWT Authentication",
+      "React Router",
+      "Axios",
+      "Date-fns",
+      "React Hot Toast",
+      "PDFKit"
+    ],
+    features: [
+      "Complete complaint management with workflow tracking",
+      "Multi-user role-based access control (Admin, Technician, Manager, Receptionist)",
+      "Real-time inventory tracking with transaction logging",
+      "Automated invoice generation (Counter Sale & Service Invoices)",
+      "Purchase Order & Goods Receipt management",
+      "Material Requisition System (MRQS/MRTS)",
+      "Advanced reporting and analytics dashboard",
+      "PDF invoice generation with company branding",
+      "Approval workflow system for purchase orders",
+      "Real-time notifications system",
+      "Auto-number generation for all documents",
+      "Warranty status tracking and validation",
+      "GST/FST calculations with discount management",
+      "Comprehensive audit trail for all operations",
+      "Dark mode support with responsive design"
+    ],
+    media: {
+      thumbnail: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
+      images: [
+        "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&q=80",
+        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80",
+        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80",
+      ],
+      video: null,
+    },
+    github: "https://github.com/Ahtisham992/salescare-service-center",
+    liveDemo: null, // Add when deployed
+    tags: ["React", "PostgreSQL", "MERN", "Enterprise", "ERP"],
+    date: "2024-2025",
+    featured: true,
+    highlights: [
+      "25+ database tables with complex relationships",
+      "Complete RESTful API with 50+ endpoints",
+      "JWT-based authentication with role permissions",
+      "Real-time inventory management with transaction logging",
+      "Automated document numbering system",
+      "Multi-level approval workflows"
+    ]
+  },
+
+  // NEW PROJECT 2: Smart Dua Companion
+  {
+    id: 2,
+    title: "Smart Dua Companion - Islamic Supplications App",
+    shortDescription: "Bilingual Islamic Dua app with offline support",
+    description: "A modern, feature-rich React Native mobile application providing authentic Islamic supplications (Duas) from the Quran and Sunnah. Features complete bilingual support (English & Urdu), dark mode, offline access, and smart search functionality. Built with TypeScript and Redux for optimal performance and user experience.",
+    category: "Mobile",
+    gradient: "from-emerald-500 to-teal-600",
+    icon: "Smartphone",
+    technologies: [
+      "React Native",
+      "TypeScript",
+      "Redux Toolkit",
+      "Redux Persist",
+      "React Navigation",
+      "AsyncStorage",
+      "Vector Icons",
+      "Custom Hooks"
+    ],
+    features: [
+      "Hundreds of authentic Duas verified from Quran and Sahih Hadith",
+      "Complete bilingual interface (English & Urdu)",
+      "Fully optimized dark mode theme",
+      "100% offline access with local storage",
+      "Smart keyword search in English and Urdu",
+      "Favorites system for quick access",
+      "Roman English transliteration for pronunciation",
+      "Authentic source references and spiritual benefits",
+      "Customizable font sizes",
+      "Toggle translation/transliteration visibility",
+      "99 Names of Allah with meanings",
+      "Morning and evening Azkar collections",
+      "Category-based Dua organization"
+    ],
+    media: {
+      thumbnail: "https://images.unsplash.com/photo-1512428559087-560fa5ceab42?w=800&q=80",
+      images: [
+        "https://images.unsplash.com/photo-1512428559087-560fa5ceab42?w=1200&q=80",
+        "https://images.unsplash.com/photo-1519791883288-dc8bd696e667?w=1200&q=80",
+        "https://images.unsplash.com/photo-1591035897819-f4bdf739f446?w=1200&q=80",
+      ],
+      video: null,
+    },
+    github: "https://github.com/Ahtisham992/SmartDuaCompanion",
+    liveDemo: "https://smartduacompanion.netlify.app/", // Mobile app - provide APK link if available
+    apkDownload: "/smart-dua-companion.apk", // Add APK to public folder
+    tags: ["React Native", "TypeScript", "Redux", "Mobile", "Islamic"],
+    date: "2024",
+    featured: true,
+    highlights: [
+      "Bilingual support with RTL (Right-to-Left) text rendering",
+      "Optimized Redux state management with persistence",
+      "Custom theme system with dynamic color switching",
+      "Production-ready Android APK available",
+      "Fully responsive design for all screen sizes",
+      "Zero network dependency after installation"
+    ]
+  },
+
+  // EXISTING PROJECT 3: Prismora AI
+  {
+    id: 3,
     title: "Prismora AI – Smart Podcast Summarization",
     shortDescription: "AI-powered platform for podcast content transformation",
     description: "Prismora AI is an AI-powered platform designed to transform long-form podcasts into structured, searchable, and engaging content. The system automatically generates accurate transcripts with timestamps, concise summaries, and AI-driven highlight clips using NLP and Computer Vision techniques.",
@@ -75,7 +200,7 @@ export const projects = [
         "https://images.unsplash.com/photo-1589903308904-1010c2294adc?w=1200&q=80",
         "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=1200&q=80",
       ],
-      video: "/prismora-project.mp4", // Demo video
+      video: "/prismora-project.mp4",
     },
     github: "https://github.com/Ahtisham992",
     liveDemo: null,
@@ -83,8 +208,10 @@ export const projects = [
     date: "2025",
     featured: true
   },
+
+  // EXISTING PROJECT 4: Ergonomic Posture Assessment
   {
-    id: 2,
+    id: 4,
     title: "Ergonomic Posture Assessment Agent",
     shortDescription: "AI agent for posture analysis and ergonomic feedback",
     description: "This AI Agent analyzes human posture from uploaded images and returns ergonomic feedback. Built with FastAPI, MediaPipe for lightweight posture landmark detection, OpenCV, and NumPy. Runs in Docker on Hugging Face Spaces with REST API endpoints.",
@@ -114,8 +241,10 @@ export const projects = [
     date: "2025",
     featured: true
   },
+
+  // EXISTING PROJECT 5: Photo Gallery Application
   {
-    id: 3,
+    id: 5,
     title: "Photo Gallery Application",
     shortDescription: "Full-stack cloud-native photo gallery on AWS",
     description: "A full-stack cloud-native photo gallery application deployed on AWS, featuring secure authentication, photo uploads, RESTful APIs, and scalable cloud architecture using EC2, RDS, S3, and Elastic Beanstalk.",
@@ -140,13 +269,15 @@ export const projects = [
       video: null,
     },
     github: "https://github.com/Ahtisham992/aws-photo-gallery",
-    liveDemo: "http://photo-gallery.eu-north-1.elasticbeanstalk.com/", // Add if you have one
+    liveDemo: "http://photo-gallery.eu-north-1.elasticbeanstalk.com/",
     tags: ["React", "AWS", "Full Stack", "Cloud"],
     date: "2025",
     featured: true
   },
+
+  // EXISTING PROJECT 6: AI-Powered Code Assistant
   {
-    id: 4,
+    id: 6,
     title: "AI-Powered Code Assistant",
     shortDescription: "Intelligent tool for Python code enhancement",
     description: "An intelligent AI-powered tool for Python developers that provides code explanation, automatic documentation generation, bug detection & fixing, performance optimization, and unit test generation using a fine-tuned transformer model (CodeT5).",
@@ -176,8 +307,10 @@ export const projects = [
     date: "2025",
     featured: true
   },
+
+  // EXISTING PROJECT 7: University Management System
   {
-    id: 5,
+    id: 7,
     title: "University Management System",
     shortDescription: "Comprehensive MERN stack university management platform",
     description: "A web-based application designed to streamline and automate academic and financial operations within a university. Built using the MERN stack with an efficient and user-friendly interface for students, faculty, and administrators.",
@@ -201,7 +334,7 @@ export const projects = [
       video: null,
     },
     github: "https://github.com/Rayyan9477/University-Management-System",
-    liveDemo: "https://university-management-system-nine.vercel.app/", // Add if you have one
+    liveDemo: "https://university-management-system-nine.vercel.app/",
     tags: ["React", "MongoDB", "MERN", "Full Stack"],
     date: "2024",
     featured: false
