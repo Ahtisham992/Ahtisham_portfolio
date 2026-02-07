@@ -103,7 +103,7 @@ export const projects = [
       video: null,
     },
     github: "https://github.com/Ahtisham992/salescare-service-center",
-    liveDemo: null, // Add when deployed
+    liveDemo: "https://salescare.netlify.app/", // Add when deployed
     tags: ["React", "PostgreSQL", "MERN", "Enterprise", "ERP"],
     date: "2024-2025",
     featured: true,
