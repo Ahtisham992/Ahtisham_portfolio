@@ -342,23 +342,23 @@ export const projects = [
 ];
 
 export const experience = [
-  {
-    title: "Software Engineer Intern",
-    company: "Turing Intelligence",
-    location: "",
-    period: "Jun 2024 - Aug 2024",
-    type: "work",
-    responsibilities: [
-      "Developed AI-powered applications",
-      "Collaborated with cross-functional teams",
-      "Implemented modern development practices"
-    ]
-  },
+  // {
+  //   title: "Software Engineer Intern",
+  //   company: "Turing Intelligence",
+  //   location: "",
+  //   period: "Jun 2025 - Aug 2025",
+  //   type: "work",
+  //   responsibilities: [
+  //     "Developed AI-powered applications",
+  //     "Collaborated with cross-functional teams",
+  //     "Implemented modern development practices"
+  //   ]
+  // },
   {
     title: "Web Development Intern",
-    company: "eaccounting360",
+    company: "E-Counting 360 (Private) Limited",
     location: "Islamabad, Pakistan",
-    period: "Jun 2023 - Aug 2023",
+    period: "Jul 2024 - Aug 2024",
     type: "work",
     responsibilities: [
       "Front-end development with HTML, CSS, JavaScript",
