@@ -18,6 +18,7 @@ import KonamiCode from './components/KonamiCode';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
 import { getThemeClasses } from './theme/theme';
+import PhotoIntro from './components/Photointro';
 
 // Home Page Component
 const HomePage = () => {
@@ -59,7 +60,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/projects" element={<ProjectGallery />} />
-          <Route path="/intro" element={<VideoIntro />} />
+          <Route path="/intro" element={<PhotoIntro />} />
         </Routes>
 
         <Footer />

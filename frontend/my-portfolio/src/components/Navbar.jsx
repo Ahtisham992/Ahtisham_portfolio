@@ -18,13 +18,16 @@ const Navbar = () => {
 
   const navItems = [
     { name: 'Home', href: '/', icon: Home, type: 'route' },
-    { name: 'Video Intro', href: '/intro', icon: Video, type: 'route' },
+    { name: 'About Me', href: '/intro', icon: User, type: 'route' },
     { name: 'Projects Gallery', href: '/projects', icon: FolderOpen, type: 'route' },
-    { name: 'About', href: '#about', icon: User, type: 'scroll' },
     { name: 'Skills', href: '#skills', icon: Code2, type: 'scroll' },
     { name: 'Experience', href: '#experience', icon: Briefcase, type: 'scroll' },
     { name: 'Contact', href: '#contact', icon: Mail, type: 'scroll' },
   ];
+
+  // Check if we're on home page - only use transparent navbar on home page when not scrolled
+  const isOnHomePage = location.pathname === '/';
+  const shouldUseTransparent = isOnHomePage && !isScrolled;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -80,9 +83,9 @@ const Navbar = () => {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         className={`fixed w-full top-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? `${themeClasses.cardGlass} shadow-lg`
-            : 'bg-transparent'
+          shouldUseTransparent
+            ? 'bg-transparent'
+            : `${themeClasses.cardGlass} shadow-lg`
         }`}
       >
         <div className="container-custom">
@@ -91,7 +94,7 @@ const Navbar = () => {
             <motion.button
               onClick={(e) => handleNavClick(e, { href: '/', type: 'route' })}
               className={`text-2xl font-black relative ${
-                !isScrolled 
+                shouldUseTransparent
                   ? 'text-white px-4 py-2 rounded-lg bg-white/10 backdrop-blur-md border border-white/20 shadow-lg' 
                   : 'text-gradient'
               }`}
@@ -115,7 +118,7 @@ const Navbar = () => {
                     className={`${
                       active
                         ? 'text-primary-600 dark:text-primary-400'
-                        : !isScrolled 
+                        : shouldUseTransparent
                           ? 'text-white font-semibold drop-shadow-lg' 
                           : `${themeClasses.textSecondary} hover:text-primary-600 dark:hover:text-primary-400`
                     } font-medium transition-colors relative group flex items-center gap-2`}
@@ -126,7 +129,7 @@ const Navbar = () => {
                     <span className={`absolute bottom-0 left-0 ${
                       active ? 'w-full' : 'w-0'
                     } h-0.5 ${
-                      !isScrolled ? 'bg-white' : themeClasses.gradient
+                      shouldUseTransparent ? 'bg-white' : themeClasses.gradient
                     } group-hover:w-full transition-all duration-300`} />
                   </motion.a>
                 );
@@ -136,7 +139,7 @@ const Navbar = () => {
               <motion.button
                 onClick={toggleTheme}
                 className={`p-2 rounded-full transition-colors ${
-                  !isScrolled
+                  shouldUseTransparent
                     ? 'hover:bg-white/20 text-white'
                     : `hover:bg-gray-200 dark:hover:bg-gray-800 ${themeClasses.textSecondary}`
                 }`}
