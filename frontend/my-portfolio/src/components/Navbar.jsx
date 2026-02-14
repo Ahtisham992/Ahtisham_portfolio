@@ -18,7 +18,7 @@ const Navbar = () => {
 
   const navItems = [
     { name: 'Home', href: '/', icon: Home, type: 'route' },
-    { name: 'About Me', href: '/intro', icon: User, type: 'route' },
+    { name: 'Who I Am', href: '/intro', icon: User, type: 'route' },
     { name: 'Projects Gallery', href: '/projects', icon: FolderOpen, type: 'route' },
     { name: 'Skills', href: '#skills', icon: Code2, type: 'scroll' },
     { name: 'Experience', href: '#experience', icon: Briefcase, type: 'scroll' },
