@@ -19,6 +19,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
 import { getThemeClasses } from './theme/theme';
 import PhotoIntro from './components/Photointro';
+import PortfolioChatbot from './components/PortfolioChatbot';
 
 // Home Page Component
 const HomePage = () => {
@@ -67,7 +68,7 @@ function App() {
 
         {/* Konami Code Easter Egg */}
         <KonamiCode />
-
+        <PortfolioChatbot />
         {/* Scroll to Top Button */}
         <AnimatePresence>
           {showScrollTop && (
@@ -76,7 +77,7 @@ function App() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.5 }}
               onClick={scrollToTop}
-              className={`fixed bottom-8 right-8 z-50 p-3 rounded-full ${themeClasses.gradient} text-white shadow-lg hover:shadow-xl transition-shadow duration-300`}
+              className={`fixed bottom-24 right-6 z-50 p-3 rounded-full ${themeClasses.gradient} text-white shadow-lg hover:shadow-xl transition-shadow duration-300`}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
