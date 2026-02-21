@@ -241,7 +241,6 @@ const PortfolioChatbot = () => {
                 </div>
                 <div>
                   <p className="text-white font-semibold text-sm leading-tight">Ahtisham's Assistant</p>
-                  <p className="text-purple-200 text-xs">Powered by Claude AI</p>
                 </div>
               </div>
               <div className="flex items-center gap-1">

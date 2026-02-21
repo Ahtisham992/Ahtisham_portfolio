@@ -130,33 +130,26 @@ const Hero = () => {
                 {personalInfo.bio}
               </motion.p>
 
+              {/* Row 1: Get In Touch + View Projects */}
               <motion.div
                 variants={itemVariants}
-                className="flex flex-col sm:flex-row gap-4 mb-8"
+                className="grid grid-cols-2 gap-3 mb-3 max-w-md"
               >
                 <motion.button
                   onClick={() => {
                     const element = document.querySelector("#contact");
                     if (element) {
                       const offset = 80;
-                      const elementPosition =
-                        element.getBoundingClientRect().top;
-                      const offsetPosition =
-                        elementPosition + window.pageYOffset - offset;
-                      window.scrollTo({
-                        top: offsetPosition,
-                        behavior: "smooth",
-                      });
+                      const elementPosition = element.getBoundingClientRect().top;
+                      const offsetPosition = elementPosition + window.pageYOffset - offset;
+                      window.scrollTo({ top: offsetPosition, behavior: "smooth" });
                     }
                   }}
-                  whileHover={{
-                    scale: 1.05,
-                    boxShadow: "0 0 30px rgba(255,255,255,0.5)",
-                  }}
+                  whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(255,255,255,0.4)" }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-white text-primary-700 px-8 py-4 rounded-full font-bold hover:shadow-2xl transition-all inline-flex items-center justify-center group"
+                  className="bg-white text-primary-700 px-6 py-3.5 rounded-full font-bold hover:shadow-2xl transition-all inline-flex items-center justify-center gap-2 group"
                 >
-                  <Send className="w-5 h-5 mr-2 group-hover:translate-x-1 transition-transform" />
+                  <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   Get In Touch
                 </motion.button>
 
@@ -167,37 +160,37 @@ const Hero = () => {
                   }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="border-2 border-white text-white px-8 py-4 rounded-full font-bold hover:bg-white hover:text-primary-700 transition-all inline-flex items-center justify-center backdrop-blur-sm"
+                  className="border-2 border-white text-white px-6 py-3.5 rounded-full font-bold hover:bg-white hover:text-primary-700 transition-all inline-flex items-center justify-center gap-2 backdrop-blur-sm"
                 >
-                  <Code className="w-5 h-5 mr-2" />
+                  <Code className="w-4 h-4" />
                   View Projects
                 </motion.button>
               </motion.div>
 
-              {/* Resume Download & Terminal */}
+              {/* Row 2: Download Resume + Open Terminal */}
               <motion.div
                 variants={itemVariants}
-                className="flex flex-col sm:flex-row gap-4 mb-8"
+                className="grid grid-cols-2 gap-3 mb-8 max-w-md"
               >
                 <motion.a
                   href={personalInfo.resumeUrl}
                   download
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="border-2 border-purple-200 text-white px-6 py-3 rounded-full font-bold hover:bg-white hover:text-primary-700 transition-all inline-flex items-center justify-center backdrop-blur-sm"
+                  className="border-2 border-purple-200 text-white px-6 py-3.5 rounded-full font-bold hover:bg-white hover:text-primary-700 transition-all inline-flex items-center justify-center gap-2 backdrop-blur-sm"
                 >
-                  <Download className="w-5 h-5 mr-2" />
-                  Download Resume
+                  <Download className="w-4 h-4" />
+                  Download CV
                 </motion.a>
 
                 <motion.button
                   onClick={() => setShowTerminal(true)}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="border-2 border-green-300 text-white px-6 py-3 rounded-full font-bold hover:bg-green-400 hover:text-gray-900 transition-all inline-flex items-center justify-center backdrop-blur-sm group"
+                  className="border-2 border-green-300 text-white px-6 py-3.5 rounded-full font-bold hover:bg-green-400 hover:text-gray-900 transition-all inline-flex items-center justify-center gap-2 backdrop-blur-sm"
                 >
-                  <TerminalIcon className="w-5 h-5 mr-2 group-hover:animate-pulse" />
-                  Open Terminal
+                  <TerminalIcon className="w-4 h-4" />
+                  Terminal
                 </motion.button>
               </motion.div>
 

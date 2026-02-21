@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Terminal, X, Minimize, Maximize2 } from 'lucide-react';
+import { Terminal, X } from 'lucide-react';
 import { personalInfo, projects, skills } from '../data/portfolio';
 
 const InteractiveTerminal = ({ isOpen, onClose }) => {
@@ -10,15 +10,14 @@ const InteractiveTerminal = ({ isOpen, onClose }) => {
     { type: 'system', text: 'Type "help" to see available commands' },
     { type: 'prompt', text: '' }
   ]);
-  const [isMinimized, setIsMinimized] = useState(false);
   const terminalRef = useRef(null);
   const inputRef = useRef(null);
 
   useEffect(() => {
-    if (isOpen && !isMinimized && inputRef.current) {
+    if (isOpen && inputRef.current) {
       inputRef.current.focus();
     }
-  }, [isOpen, isMinimized]);
+  }, [isOpen]);
 
   useEffect(() => {
     if (terminalRef.current) {
@@ -111,19 +110,19 @@ const InteractiveTerminal = ({ isOpen, onClose }) => {
 
   const executeCommand = (cmd) => {
     const trimmedCmd = cmd.trim().toLowerCase();
-    
+
     if (trimmedCmd === '') return;
 
     const newOutput = [...output, { type: 'command', text: `$ ${cmd}` }];
 
     if (commands[trimmedCmd]) {
       const result = commands[trimmedCmd]();
-      
+
       if (result === 'CLEAR') {
         setOutput([{ type: 'prompt', text: '' }]);
         return;
       }
-      
+
       if (result === 'EXIT') {
         onClose();
         return;
@@ -133,9 +132,9 @@ const InteractiveTerminal = ({ isOpen, onClose }) => {
         newOutput.push({ type: 'output', text: line });
       });
     } else {
-      newOutput.push({ 
-        type: 'error', 
-        text: `Command not found: ${trimmedCmd}. Type "help" for available commands.` 
+      newOutput.push({
+        type: 'error',
+        text: `Command not found: ${trimmedCmd}. Type "help" for available commands.`
       });
     }
 
@@ -149,7 +148,7 @@ const InteractiveTerminal = ({ isOpen, onClose }) => {
       executeCommand(input);
     } else if (e.key === 'Tab') {
       e.preventDefault();
-      const matches = Object.keys(commands).filter(cmd => 
+      const matches = Object.keys(commands).filter(cmd =>
         cmd.startsWith(input.toLowerCase())
       );
       if (matches.length === 1) {
@@ -171,10 +170,7 @@ const InteractiveTerminal = ({ isOpen, onClose }) => {
       >
         <motion.div
           initial={{ scale: 0.9, y: 20 }}
-          animate={{ 
-            scale: isMinimized ? 0.3 : 1, 
-            y: isMinimized ? 400 : 0 
-          }}
+          animate={{ scale: 1, y: 0 }}
           exit={{ scale: 0.9, y: 20 }}
           onClick={(e) => e.stopPropagation()}
           className="w-full max-w-4xl bg-gray-900 rounded-lg shadow-2xl overflow-hidden border border-gray-700"
@@ -182,77 +178,73 @@ const InteractiveTerminal = ({ isOpen, onClose }) => {
           {/* Terminal Header */}
           <div className="bg-gray-800 px-4 py-3 flex items-center justify-between border-b border-gray-700">
             <div className="flex items-center gap-3">
-              <Terminal className="w-5 h-5 text-green-400" />
-              <span className="text-gray-300 font-medium">
-                m.ahtisham@portfolio:~
-              </span>
+              {/* macOS-style traffic lights */}
+              <div className="flex items-center gap-1.5">
+                <button
+                  onClick={onClose}
+                  className="w-3 h-3 rounded-full bg-red-500 hover:bg-red-400 transition-colors"
+                />
+                <div className="w-3 h-3 rounded-full bg-yellow-500 opacity-40 cursor-not-allowed" />
+                <div className="w-3 h-3 rounded-full bg-green-500 opacity-40 cursor-not-allowed" />
+              </div>
+              <div className="flex items-center gap-2 ml-2">
+                <Terminal className="w-4 h-4 text-green-400" />
+                <span className="text-gray-300 text-sm font-medium">
+                  m.ahtisham@portfolio:~
+                </span>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => setIsMinimized(!isMinimized)}
-                className="p-1.5 hover:bg-gray-700 rounded transition-colors"
-              >
-                {isMinimized ? (
-                  <Maximize2 className="w-4 h-4 text-gray-400" />
-                ) : (
-                  <Minimize className="w-4 h-4 text-gray-400" />
-                )}
-              </button>
-              <button
-                onClick={onClose}
-                className="p-1.5 hover:bg-red-500/20 rounded transition-colors"
-              >
-                <X className="w-4 h-4 text-red-400" />
-              </button>
-            </div>
+            <button
+              onClick={onClose}
+              className="p-1.5 hover:bg-red-500/20 rounded transition-colors"
+            >
+              <X className="w-4 h-4 text-red-400" />
+            </button>
           </div>
 
-          {!isMinimized && (
-            <div
-              ref={terminalRef}
-              className="bg-gray-900 text-gray-100 p-4 h-96 overflow-y-auto font-mono text-sm"
-            >
-              {output.map((line, i) => (
-                <div key={i} className="mb-1">
-                  {line.type === 'system' && (
-                    <span className="text-blue-400">{line.text}</span>
-                  )}
-                  {line.type === 'command' && (
-                    <span className="text-green-400">{line.text}</span>
-                  )}
-                  {line.type === 'output' && (
-                    <span className="text-gray-300">{line.text}</span>
-                  )}
-                  {line.type === 'error' && (
-                    <span className="text-red-400">{line.text}</span>
-                  )}
-                  {line.type === 'prompt' && (
-                    <div className="flex items-center gap-2">
-                      <span className="text-green-400">$</span>
-                      <input
-                        ref={inputRef}
-                        type="text"
-                        value={input}
-                        onChange={(e) => setInput(e.target.value)}
-                        onKeyDown={handleKeyDown}
-                        className="flex-1 bg-transparent outline-none text-gray-100"
-                        autoFocus
-                      />
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
+          {/* Terminal Body */}
+          <div
+            ref={terminalRef}
+            className="bg-gray-900 text-gray-100 p-4 h-96 overflow-y-auto font-mono text-sm"
+          >
+            {output.map((line, i) => (
+              <div key={i} className="mb-1">
+                {line.type === 'system' && (
+                  <span className="text-blue-400">{line.text}</span>
+                )}
+                {line.type === 'command' && (
+                  <span className="text-green-400">{line.text}</span>
+                )}
+                {line.type === 'output' && (
+                  <span className="text-gray-300">{line.text}</span>
+                )}
+                {line.type === 'error' && (
+                  <span className="text-red-400">{line.text}</span>
+                )}
+                {line.type === 'prompt' && (
+                  <div className="flex items-center gap-2">
+                    <span className="text-green-400">$</span>
+                    <input
+                      ref={inputRef}
+                      type="text"
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                      onKeyDown={handleKeyDown}
+                      className="flex-1 bg-transparent outline-none text-gray-100"
+                      autoFocus
+                    />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
 
           {/* Terminal Footer */}
-          {!isMinimized && (
-            <div className="bg-gray-800 px-4 py-2 border-t border-gray-700">
-              <p className="text-xs text-gray-500">
-                Press Tab for autocomplete • Type "help" for commands • Ctrl+C to exit
-              </p>
-            </div>
-          )}
+          <div className="bg-gray-800 px-4 py-2 border-t border-gray-700">
+            <p className="text-xs text-gray-500">
+              Press Tab for autocomplete • Type "help" for commands • Type "exit" to close
+            </p>
+          </div>
         </motion.div>
       </motion.div>
     </AnimatePresence>
