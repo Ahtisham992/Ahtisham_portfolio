@@ -63,7 +63,7 @@ const Experience = () => {
                         </p>
                       )}
                     </div>
-                    <span className="inline-block mt-2 sm:mt-0 bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300 px-3 py-1 rounded-full text-sm font-medium whitespace-nowrap">
+                    <span className="inline-block mt-2 sm:mt-0 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 px-3 py-1 rounded-md text-sm font-mono whitespace-nowrap">
                       {exp.period}
                     </span>
                   </div>
@@ -109,7 +109,7 @@ const Experience = () => {
                     {education.location}
                   </p>
                 </div>
-                <span className="inline-block mt-2 sm:mt-0 bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300 px-3 py-1 rounded-full text-sm font-medium whitespace-nowrap">
+                <span className="inline-block mt-2 sm:mt-0 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 px-3 py-1 rounded-md text-sm font-mono whitespace-nowrap">
                   {education.period}
                 </span>
               </div>

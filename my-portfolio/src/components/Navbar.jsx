@@ -89,12 +89,12 @@ const Navbar = () => {
               className={`text-2xl font-black relative ${
                 shouldUseTransparent
                   ? 'text-white px-4 py-2 rounded-lg bg-white/10 backdrop-blur-md border border-white/20 shadow-lg'
-                  : 'text-gradient'
+                  : 'text-slate-900 dark:text-white tracking-tight'
               }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              M. Ahtisham
+              M. Ahtisham<span className="text-primary-500">.</span>
             </motion.button>
 
             {/* Desktop menu */}
@@ -111,17 +111,17 @@ const Navbar = () => {
                       active
                         ? 'text-primary-600 dark:text-primary-400'
                         : shouldUseTransparent
-                          ? 'text-white font-semibold drop-shadow-lg'
+                          ? 'text-white/90 hover:text-white font-medium drop-shadow-sm'
                           : `${themeClasses.textSecondary} hover:text-primary-600 dark:hover:text-primary-400`
                     } font-medium transition-colors relative group flex items-center gap-2`}
                     whileHover={{ y: -2 }}
                   >
                     <Icon className="w-4 h-4" />
                     {item.name}
-                    <span className={`absolute bottom-0 left-0 ${
+                    <span className={`absolute -bottom-1 left-0 ${
                       active ? 'w-full' : 'w-0'
                     } h-0.5 ${
-                      shouldUseTransparent ? 'bg-white' : themeClasses.gradient
+                      shouldUseTransparent ? 'bg-white' : 'bg-primary-500'
                     } group-hover:w-full transition-all duration-300`} />
                   </motion.a>
                 );
@@ -194,7 +194,7 @@ const Navbar = () => {
             >
               <div className="flex flex-col h-full p-6">
                 <div className="flex justify-between items-center mb-8">
-                  <span className="text-xl font-bold text-gradient">Menu</span>
+                  <span className="text-xl font-bold text-slate-800 dark:text-slate-100">Menu</span>
                   <button
                     onClick={() => setIsOpen(false)}
                     className={`p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors ${themeClasses.textPrimary}`}
@@ -212,10 +212,10 @@ const Navbar = () => {
                         key={item.name}
                         href={item.href}
                         onClick={(e) => handleNavClick(e, item)}
-                        className={`text-lg font-medium py-3 px-4 rounded-lg transition-colors flex items-center gap-3 ${
+                        className={`text-lg font-medium py-3 px-4 rounded-md transition-colors flex items-center gap-3 ${
                           active
-                            ? 'bg-primary-100 dark:bg-primary-900/40 text-primary-600 dark:text-primary-400'
-                            : `hover:bg-primary-50 dark:hover:bg-primary-900/20 ${themeClasses.textPrimary}`
+                            ? 'bg-slate-100 dark:bg-slate-800 text-primary-600 dark:text-primary-400'
+                            : `hover:bg-slate-50 dark:hover:bg-slate-800 ${themeClasses.textPrimary}`
                         }`}
                         initial={{ opacity: 0, x: 50 }}
                         animate={{ opacity: 1, x: 0 }}

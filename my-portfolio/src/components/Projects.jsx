@@ -3,104 +3,104 @@
 // ========================================
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useInView } from '../hooks/useInView';
+
 import { Brain, CloudUpload, School, Building2, Smartphone, ExternalLink, Github } from 'lucide-react';
 import { projects, personalInfo } from '../data/portfolio';
 import { getThemeClasses } from '../theme/theme';
 
+const iconMap = {
+  Brain: Brain,
+  CloudUpload: CloudUpload,
+  School: School,
+  Building2: Building2,
+  Smartphone: Smartphone,
+};
+
+const projectGradients = [
+  'from-primary-500 to-primary-600',
+  'from-primary-600 to-primary-700',
+  'from-primary-500 to-primary-700',
+];
+
+const ProjectCard = ({ project, index, setSelectedProject, themeClasses }) => {
+  const Icon = iconMap[project.icon];
+  const gradient = projectGradients[index % projectGradients.length];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5, delay: index * 0.15 }}
+      whileHover={{ y: -10 }}
+      className={`${themeClasses.card} overflow-hidden group cursor-pointer`}
+      onClick={() => setSelectedProject({...project, gradient})}
+    >
+      {/* Header with Gradient */}
+      <div className={`bg-gradient-to-br ${gradient} p-6`}>
+        {Icon && <Icon className="w-12 h-12 text-white mb-4" />}
+        <h3 className="text-2xl font-bold text-white">
+          {project.title}
+        </h3>
+      </div>
+
+      {/* Body */}
+      <div className="p-6">
+        <p className={`${themeClasses.textSecondary} mb-4 line-clamp-3`}>
+          {project.description}
+        </p>
+
+        {/* Tech Stack */}
+        <div className="flex flex-wrap gap-2 mb-4">
+          {project.technologies.slice(0, 4).map((tech, i) => (
+            <span
+              key={i}
+              className="px-3 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-md text-sm font-medium"
+            >
+              {tech}
+            </span>
+          ))}
+          {project.technologies.length > 4 && (
+            <span className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-md text-sm">
+              +{project.technologies.length - 4}
+            </span>
+          )}
+        </div>
+
+        {/* Features Preview */}
+        <ul className={`text-sm ${themeClasses.textSecondary} space-y-1 mb-4`}>
+          {project.features.slice(0, 3).map((feature, i) => (
+            <li key={i} className="flex items-start">
+              <span className="text-primary-500 mr-2">•</span>
+              <span className="line-clamp-1">{feature}</span>
+            </li>
+          ))}
+        </ul>
+
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className={`${themeClasses.textAccent} font-semibold flex items-center gap-2 group-hover:gap-3 transition-all`}
+        >
+          View Details
+          <ExternalLink className="w-4 h-4" />
+        </motion.button>
+      </div>
+    </motion.div>
+  );
+};
+
 const Projects = () => {
-  const [ref, isInView] = useInView();
   const [selectedProject, setSelectedProject] = useState(null);
   const themeClasses = getThemeClasses();
-
-  const iconMap = {
-    Brain: Brain,
-    CloudUpload: CloudUpload,
-    School: School,
-    Building2: Building2,
-    Smartphone: Smartphone,
-  };
-
-  const projectGradients = [
-    'from-primary-500 to-primary-600',
-    'from-primary-600 to-primary-700',
-    'from-primary-500 to-primary-700',
-  ];
-
-  const ProjectCard = ({ project, index }) => {
-    const Icon = iconMap[project.icon];
-    const gradient = projectGradients[index % projectGradients.length];
-
-    return (
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6, delay: index * 0.2 }}
-        whileHover={{ y: -10 }}
-        className={`${themeClasses.card} overflow-hidden group cursor-pointer`}
-        onClick={() => setSelectedProject({...project, gradient})}
-      >
-        {/* Header with Gradient */}
-        <div className={`bg-gradient-to-br ${gradient} p-6`}>
-          {Icon && <Icon className="w-12 h-12 text-white mb-4" />}
-          <h3 className="text-2xl font-bold text-white">
-            {project.title}
-          </h3>
-        </div>
-
-        {/* Body */}
-        <div className="p-6">
-          <p className={`${themeClasses.textSecondary} mb-4 line-clamp-3`}>
-            {project.description}
-          </p>
-
-          {/* Tech Stack */}
-          <div className="flex flex-wrap gap-2 mb-4">
-            {project.technologies.slice(0, 4).map((tech, i) => (
-              <span
-                key={i}
-                className="px-3 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-full text-sm font-medium"
-              >
-                {tech}
-              </span>
-            ))}
-            {project.technologies.length > 4 && (
-              <span className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-full text-sm">
-                +{project.technologies.length - 4}
-              </span>
-            )}
-          </div>
-
-          {/* Features Preview */}
-          <ul className={`text-sm ${themeClasses.textSecondary} space-y-1 mb-4`}>
-            {project.features.slice(0, 3).map((feature, i) => (
-              <li key={i} className="flex items-start">
-                <span className="text-primary-500 mr-2">•</span>
-                <span className="line-clamp-1">{feature}</span>
-              </li>
-            ))}
-          </ul>
-
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className={`${themeClasses.textAccent} font-semibold flex items-center gap-2 group-hover:gap-3 transition-all`}
-          >
-            View Details
-            <ExternalLink className="w-4 h-4" />
-          </motion.button>
-        </div>
-      </motion.div>
-    );
-  };
 
   return (
     <section id="projects" className={`section-padding ${themeClasses.bgPrimary}`}>
       <div className="container-custom">
         <motion.div
-          ref={ref}
           initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
@@ -116,15 +116,22 @@ const Projects = () => {
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {projects.map((project, index) => (
-            <ProjectCard key={index} project={project} index={index} />
+            <ProjectCard 
+              key={index} 
+              project={project} 
+              index={index} 
+              setSelectedProject={setSelectedProject} 
+              themeClasses={themeClasses} 
+            />
           ))}
         </div>
 
         {/* View More Button */}
         <motion.div
           initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: 0.8 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
           className="text-center"
         >
           <motion.a

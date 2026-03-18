@@ -100,7 +100,7 @@ const VideoIntro = () => {
         >
           {/* Header */}
           <div className="text-center mb-8">
-            <h1 className="text-4xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <h1 className="text-4xl md:text-5xl font-bold mb-3 text-gradient">
               Welcome, I'm {personalInfo.name}
             </h1>
             <p className="text-xl md:text-2xl text-gray-700">{personalInfo.title}</p>
@@ -133,7 +133,7 @@ const VideoIntro = () => {
                       onClick={togglePlay}
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
-                      className="bg-white/20 backdrop-blur-md p-6 rounded-full hover:bg-white/30 transition-all"
+                      className="bg-white/20 backdrop-blur-md p-6 rounded-xl hover:bg-white/30 transition-all"
                     >
                       <Play className="w-12 h-12 text-white fill-white" />
                     </motion.button>
@@ -153,16 +153,16 @@ const VideoIntro = () => {
                 className="w-full h-1.5 bg-white/20 rounded-full cursor-pointer group mb-3"
               >
                 <div
-                  className="h-full bg-gradient-to-r from-blue-500 to-purple-600 rounded-full transition-all group-hover:h-2"
+                  className="h-full bg-primary-500 rounded-full transition-all group-hover:h-2"
                   style={{ width: `${duration ? (currentTime / duration) * 100 : 0}%` }}
                 />
               </div>
               <div className="flex items-center justify-between text-white">
                 <div className="flex items-center gap-3">
-                  <button onClick={togglePlay} className="p-2 hover:bg-white/20 rounded-full transition-all">
+                  <button onClick={togglePlay} className="p-2 hover:bg-white/20 rounded-md transition-all">
                     {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
                   </button>
-                  <button onClick={toggleMute} className="p-2 hover:bg-white/20 rounded-full transition-all">
+                  <button onClick={toggleMute} className="p-2 hover:bg-white/20 rounded-md transition-all">
                     {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
                   </button>
                   <span className="text-sm font-medium">
@@ -171,7 +171,7 @@ const VideoIntro = () => {
                 </div>
                 <button
                   onClick={() => videoRef.current?.requestFullscreen()}
-                  className="p-2 hover:bg-white/20 rounded-full transition-all"
+                  className="p-2 hover:bg-white/20 rounded-md transition-all"
                 >
                   <Maximize className="w-5 h-5" />
                 </button>
@@ -183,7 +183,7 @@ const VideoIntro = () => {
           <div className="text-center mt-6">
             <button
               onClick={scrollToPortfolio}
-              className="px-6 py-3 bg-white hover:bg-gray-100 text-gray-700 rounded-full font-medium transition-all inline-flex items-center gap-2 shadow-md hover:shadow-lg"
+              className="px-6 py-3 bg-white hover:bg-gray-100 text-gray-700 rounded-md font-medium transition-all inline-flex items-center gap-2 shadow-md hover:shadow-lg"
             >
               Skip to Portfolio
               <ChevronDown className="w-4 h-4" />
@@ -201,7 +201,7 @@ const VideoIntro = () => {
             viewport={{ once: true }}
             className="text-center"
           >
-            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold text-gradient mb-6">
               A Little About Me
             </h2>
             <div className={`w-24 h-1 ${themeClasses.gradient} mx-auto rounded-full mb-8`} />
@@ -216,7 +216,7 @@ const VideoIntro = () => {
                   whileHover={{ scale: 1.05 }}
                   className={`${themeClasses.card} p-6`}
                 >
-                  <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+                  <div className="text-3xl font-bold text-gradient mb-2">
                     {value}
                   </div>
                   <div className={`${themeClasses.textSecondary} text-sm capitalize`}>{key}</div>
@@ -229,7 +229,7 @@ const VideoIntro = () => {
                 href="/#contact"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`px-8 py-4 ${themeClasses.gradient} text-white rounded-full font-bold shadow-lg hover:shadow-xl transition-all inline-flex items-center justify-center`}
+                className={`px-8 py-4 ${themeClasses.gradient} text-white rounded-md font-bold shadow-lg hover:shadow-xl transition-all inline-flex items-center justify-center`}
               >
                 Get In Touch
               </motion.a>
@@ -238,7 +238,7 @@ const VideoIntro = () => {
                 download
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`px-8 py-4 ${themeClasses.btnOutline} rounded-full font-bold hover:shadow-lg transition-all inline-flex items-center justify-center gap-2`}
+                className={`px-8 py-4 ${themeClasses.btnOutline} rounded-md font-bold hover:shadow-lg transition-all inline-flex items-center justify-center gap-2`}
               >
                 <Download className="w-5 h-5" />
                 Download Resume

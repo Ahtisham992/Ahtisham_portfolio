@@ -1,6 +1,5 @@
-// ========================================
-// FILE: tailwind.config.js
-// ========================================
+import colors from 'tailwindcss/colors';
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -11,45 +10,22 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Vibrant Professional Purple Theme
-        primary: {
-          50: '#faf5ff',
-          100: '#f3e8ff',
-          200: '#e9d5ff',
-          300: '#d8b4fe',
-          400: '#c084fc',
-          500: '#a855f7',   // Main vibrant purple
-          600: '#9333ea',   // Rich purple
-          700: '#7e22ce',
-          800: '#6b21a8',
-          900: '#581c87',
-        },
-        accent: {
-          50: '#fdf4ff',
-          100: '#fae8ff',
-          200: '#f5d0fe',
-          300: '#f0abfc',
-          400: '#e879f9',
-          500: '#d946ef',   // Electric purple-pink
-          600: '#c026d3',
-          700: '#a21caf',
-          800: '#86198f',
-          900: '#701a75',
-        },
+        primary: colors.blue,
+        accent: colors.sky,
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
         display: ['Inter', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
-        'purple-glow': '0 0 20px rgba(168, 85, 247, 0.5)',
-        'purple-glow-lg': '0 0 40px rgba(168, 85, 247, 0.6)',
+        'tech-glow': '0 0 15px rgba(99, 102, 241, 0.15)',
+        'tech-glow-lg': '0 0 30px rgba(99, 102, 241, 0.25)',
       },
       animation: {
-        'fade-in': 'fadeIn 0.5s ease-out',
-        'fade-in-up': 'fadeInUp 0.6s ease-out',
-        'slide-in': 'slideIn 0.6s ease-out',
-        'pulse-purple': 'pulsePurple 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'fade-in': 'fadeIn 0.3s ease-out',
+        'fade-in-up': 'fadeInUp 0.4s ease-out',
+        'slide-in': 'slideIn 0.4s ease-out',
       },
       keyframes: {
         fadeIn: {
@@ -57,16 +33,12 @@ export default {
           '100%': { opacity: '1' },
         },
         fadeInUp: {
-          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '0%': { opacity: '0', transform: 'translateY(15px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
         slideIn: {
-          '0%': { opacity: '0', transform: 'translateX(-20px)' },
+          '0%': { opacity: '0', transform: 'translateX(-15px)' },
           '100%': { opacity: '1', transform: 'translateX(0)' },
-        },
-        pulsePurple: {
-          '0%, 100%': { opacity: '1' },
-          '50%': { opacity: '0.8' },
         },
       },
     },

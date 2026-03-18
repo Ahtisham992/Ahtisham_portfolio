@@ -75,7 +75,7 @@ function App() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.5 }}
               onClick={scrollToTop}
-              className={`fixed bottom-24 right-6 z-50 p-3 rounded-full ${themeClasses.gradient} text-white shadow-lg hover:shadow-xl transition-shadow duration-300`}
+              className={`fixed bottom-24 right-6 z-50 p-3 rounded-md bg-slate-800 border border-slate-700 text-slate-300 shadow-sm hover:text-white hover:bg-slate-700 hover:border-slate-500 transition-all duration-300`}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >

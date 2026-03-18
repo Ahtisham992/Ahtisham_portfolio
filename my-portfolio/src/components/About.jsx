@@ -12,11 +12,10 @@ const About = () => {
   const [ref, isInView] = useInView();
   const themeClasses = getThemeClasses();
 
-  const stats = [
-    { icon: Briefcase, value: personalInfo.stats.internships, label: 'Internships' },
-    { icon: FolderGit2, value: personalInfo.stats.projects, label: 'Projects' },
-    { icon: Award, value: personalInfo.stats.certificates, label: 'Certificates' },
-    { icon: Code, value: personalInfo.stats.technologies, label: 'Technologies' },
+  const achievements = [
+    { icon: '🏆', text: 'FYP Grade A — Prismora AI', border: 'border-amber-500/30', textCol: 'text-amber-400' },
+    { icon: '🚀', text: 'SalesCare: 50+ APIs in Production', border: 'border-emerald-500/30', textCol: 'text-emerald-400' },
+    { icon: '🌍', text: 'Remote work — Turing Intelligence, Prague', border: 'border-blue-500/30', textCol: 'text-blue-400' },
   ];
 
   const expertise = [
@@ -24,25 +23,25 @@ const About = () => {
       icon: Smartphone,
       title: 'Mobile Development',
       description: 'ReactNative & Flutter for cross-platform apps',
-      gradient: 'from-primary-500 to-primary-600'
+      gradient: 'group-hover:text-primary-400'
     },
     {
       icon: Globe,
       title: 'Web Development',
       description: 'MERN Stack',
-      gradient: 'from-primary-600 to-primary-700'
+      gradient: 'group-hover:text-accent-400'
     },
     {
       icon: Database,
       title: 'Database Design',
       description: 'MongoDB, MySQL & SQL Server',
-      gradient: 'from-primary-500 to-primary-700'
+      gradient: 'group-hover:text-emerald-400'
     },
     {
       icon: Brain,
       title: 'AI / Machine Learning',
       description: 'Building smart applications using AI & ML',
-      gradient: 'from-primary-600 to-primary-800'
+      gradient: 'group-hover:text-blue-400'
     },
   ];
 
@@ -72,37 +71,36 @@ const About = () => {
             <h3 className={`text-3xl font-bold ${themeClasses.textPrimary} mb-6`}>
               Crafting Digital Excellence
             </h3>
-            <p className={`${themeClasses.textSecondary} text-lg leading-relaxed mb-6`}>
-              I'm a passionate final year BS Software Engineering student at FAST-NUCES Islamabad,
-              eager to apply my growing expertise in software development and web technologies to real-world
-              challenges. I specialize in building practical, user-centered applications using modern frameworks and
-              technologies.
-            </p>
-            <p className={`${themeClasses.textSecondary} text-lg leading-relaxed mb-8`}>
-              With experience in MERN Stack, AWS, AI/ML and various other technologies, I thrive on solving
-              complex problems through clean, efficient code. My goal is to create innovative solutions that
-              make a positive impact.
+            <p className={`${themeClasses.textSecondary} text-lg leading-relaxed mb-10`}>
+              I'm a final-year Software Engineering student at FAST-NUCES Islamabad 
+              specialising in full-stack web development (MERN), cross-platform 
+              mobile (React Native), and applied AI/ML engineering. I've shipped 
+              production systems including an enterprise ERP platform with 50+ REST 
+              APIs and an AI podcast pipeline using Whisper and transformer NLP. I 
+              currently contribute remotely to Turing Intelligence, a Prague-based 
+              simulation and AI research lab.
             </p>
 
-            {/* Stats Grid */}
-            <div className="grid grid-cols-2 gap-6">
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                  className={`text-center p-6 bg-primary-50 dark:bg-primary-900/20 rounded-xl ${themeClasses.card}`}
-                >
-                  <stat.icon className="w-8 h-8 text-primary-600 dark:text-primary-400 mx-auto mb-3" />
-                  <p className={`text-3xl font-bold ${themeClasses.textPrimary}`}>
-                    {stat.value}
-                  </p>
-                  <p className={`${themeClasses.textSecondary} mt-1`}>
-                    {stat.label}
-                  </p>
-                </motion.div>
-              ))}
+            {/* Achievements Banner */}
+            <div 
+              className="relative w-full overflow-hidden py-2"
+              style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}
+            >
+              <motion.div 
+                className="flex gap-4 w-max"
+                animate={{ x: ['0%', '-50%'] }}
+                transition={{ repeat: Infinity, ease: "linear", duration: 25 }}
+              >
+                {[...achievements, ...achievements].map((ach, idx) => (
+                  <div 
+                    key={idx}
+                    className={`inline-flex items-center gap-3 px-5 py-2.5 rounded-md border bg-slate-900/50 backdrop-blur-sm ${ach.border} shadow-sm font-mono text-sm tracking-wide ${ach.textCol}`}
+                  >
+                    <span className="text-lg">{ach.icon}</span>
+                    <span className="whitespace-nowrap">{ach.text}</span>
+                  </div>
+                ))}
+              </motion.div>
             </div>
           </motion.div>
 
@@ -116,12 +114,12 @@ const About = () => {
             {expertise.map((item, index) => (
               <motion.div
                 key={index}
-                whileHover={{ scale: 1.05, y: -10 }}
-                className={`bg-gradient-to-br ${item.gradient} p-6 rounded-2xl text-white shadow-xl`}
+                whileHover={{ y: -5 }}
+                className={`bg-slate-900 border border-slate-800 p-6 rounded-lg shadow-sm hover:border-slate-600 transition-colors group`}
               >
-                <item.icon className="w-10 h-10 mb-4" />
-                <h4 className="text-xl font-bold mb-2">{item.title}</h4>
-                <p className="text-white/90 text-sm">{item.description}</p>
+                <item.icon className={`w-8 h-8 mb-4 text-slate-400 transition-colors duration-200 ${item.gradient}`} />
+                <h4 className="text-lg font-bold mb-2 text-slate-100">{item.title}</h4>
+                <p className="text-slate-400 text-sm">{item.description}</p>
               </motion.div>
             ))}
           </motion.div>

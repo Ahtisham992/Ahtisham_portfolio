@@ -5,13 +5,13 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
+import Hero3D from "./Hero3D";
 import {
   Github, Linkedin, Instagram, Send, Code,
   ChevronDown, Terminal as TerminalIcon, Download,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { personalInfo } from "../data/portfolio";
-import ParticleBackground from "./ParticleBackground";
 import InteractiveTerminal from "./InteractiveTerminal";
 
 const Hero = () => {
@@ -36,10 +36,8 @@ const Hero = () => {
   return (
     <>
       <section
-        id="home"
-        className="relative min-h-screen flex items-center bg-gradient-to-br from-primary-600 via-primary-700 to-accent-600 overflow-hidden"
+        className="relative min-h-screen flex flex-col justify-center pt-24 lg:pt-24 pb-4 lg:pb-0 bg-slate-950 bg-grid-slate-900 overflow-hidden"
       >
-        <ParticleBackground />
 
         {/* Subtle tech grid overlay */}
         <div className="absolute inset-0 opacity-10">
@@ -65,32 +63,32 @@ const Hero = () => {
             >
               {/* TASK 6.4 — "Open to full-time roles" badge */}
               <motion.div variants={itemVariants}>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-500/20 border border-green-400/40 text-green-300 text-sm font-medium mb-4">
-                  <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-white/5 border border-white/10 text-slate-300 text-sm font-mono tracking-wide mb-4">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                   Open to full-time roles
                 </span>
               </motion.div>
 
               <motion.p
                 variants={itemVariants}
-                className="text-lg text-purple-200 mb-2 font-medium tracking-wide"
+                className="text-lg text-primary-400 mb-2 font-mono tracking-wide"
               >
                 Hello, I'm
               </motion.p>
 
               <motion.h1
                 variants={itemVariants}
-                className="text-5xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight"
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-2 lg:mb-4 leading-tight tracking-tight"
               >
                 {personalInfo.name.split(" ")[0]}{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-200 via-pink-200 to-purple-100">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-accent-400">
                   {personalInfo.name.split(" ")[1]}
                 </span>
               </motion.h1>
 
               <motion.div
                 variants={itemVariants}
-                className="text-xl md:text-2xl mb-8 h-16"
+                className="text-lg sm:text-xl md:text-2xl mb-4 lg:mb-6 min-h-[3.5rem] md:min-h-[4rem]"
               >
                 <TypeAnimation
                   sequence={[
@@ -99,13 +97,13 @@ const Hero = () => {
                   wrapper="span"
                   speed={50}
                   repeat={Infinity}
-                  className="text-purple-100 font-semibold"
+                  className="text-slate-300 font-mono"
                 />
               </motion.div>
 
               <motion.p
                 variants={itemVariants}
-                className="text-lg text-purple-100 mb-8 leading-relaxed max-w-2xl"
+                className="text-base sm:text-lg text-slate-400 mb-6 leading-relaxed max-w-2xl"
               >
                 {personalInfo.bio}
               </motion.p>
@@ -113,7 +111,7 @@ const Hero = () => {
               {/* Row 1: Get In Touch + View Projects */}
               <motion.div
                 variants={itemVariants}
-                className="grid grid-cols-2 gap-3 mb-3 max-w-md"
+                className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3 max-w-md w-full"
               >
                 <motion.button
                   onClick={() => {
@@ -125,11 +123,11 @@ const Hero = () => {
                       window.scrollTo({ top: offsetPosition, behavior: "smooth" });
                     }
                   }}
-                  whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(255,255,255,0.4)" }}
-                  whileTap={{ scale: 0.95 }}
-                  className="bg-white text-primary-700 px-6 py-3.5 rounded-full font-bold hover:shadow-2xl transition-all inline-flex items-center justify-center gap-2 group"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="bg-primary-600 text-white px-6 py-3 rounded-md font-medium hover:bg-primary-500 transition-all inline-flex items-center justify-center gap-2 group w-full shadow-tech-glow"
                 >
-                  <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   Get In Touch
                 </motion.button>
 
@@ -138,11 +136,11 @@ const Hero = () => {
                     navigate("/projects");
                     window.scrollTo({ top: 0, behavior: "smooth" });
                   }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="border-2 border-white text-white px-6 py-3.5 rounded-full font-bold hover:bg-white hover:text-primary-700 transition-all inline-flex items-center justify-center gap-2 backdrop-blur-sm"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="bg-slate-800/50 border border-slate-700 text-slate-200 px-6 py-3 rounded-md font-medium hover:bg-slate-800 transition-all inline-flex items-center justify-center gap-2 backdrop-blur-sm w-full"
                 >
-                  <Code className="w-4 h-4" />
+                  <Code className="w-5 h-5" />
                   View Projects
                 </motion.button>
               </motion.div>
@@ -150,50 +148,61 @@ const Hero = () => {
               {/* Row 2: Download CV + Terminal */}
               <motion.div
                 variants={itemVariants}
-                className="grid grid-cols-2 gap-3 mb-8 max-w-md"
+                className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 max-w-md w-full"
               >
                 <motion.a
                   href={personalInfo.resumeUrl}
                   download
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="border-2 border-purple-200 text-white px-6 py-3.5 rounded-full font-bold hover:bg-white hover:text-primary-700 transition-all inline-flex items-center justify-center gap-2 backdrop-blur-sm"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="bg-slate-800/50 border border-slate-700 text-slate-200 px-6 py-3 rounded-md font-medium hover:bg-slate-800 transition-all inline-flex items-center justify-center gap-2 backdrop-blur-sm w-full"
                 >
-                  <Download className="w-4 h-4" />
+                  <Download className="w-5 h-5" />
                   Download CV
                 </motion.a>
 
                 <motion.button
                   onClick={() => setShowTerminal(true)}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="border-2 border-green-300 text-white px-6 py-3.5 rounded-full font-bold hover:bg-green-400 hover:text-gray-900 transition-all inline-flex items-center justify-center gap-2 backdrop-blur-sm"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="bg-slate-900 border border-emerald-500/50 text-emerald-400 px-6 py-3 rounded-md font-medium hover:bg-emerald-500/10 transition-all inline-flex items-center justify-center gap-2 backdrop-blur-sm w-full"
                 >
-                  <TerminalIcon className="w-4 h-4" />
+                  <TerminalIcon className="w-5 h-5" />
                   Terminal
                 </motion.button>
               </motion.div>
 
               {/* Social links */}
-              <motion.div variants={itemVariants} className="flex space-x-6">
+              <motion.div variants={itemVariants} className="flex space-x-4">
                 {socialLinks.map((social, index) => (
                   <motion.a
                     key={index}
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    whileHover={{ scale: 1.2, y: -5 }}
-                    whileTap={{ scale: 0.9 }}
-                    className={`text-white ${social.color} transition-colors duration-300 p-2 rounded-full backdrop-blur-sm bg-white/10 hover:bg-white/20`}
+                    whileHover={{ scale: 1.1, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`text-slate-400 ${social.color} transition-colors duration-200 p-2.5 rounded-md border border-slate-800 bg-slate-900/50 hover:border-slate-600 hover:bg-slate-800`}
                   >
-                    <social.icon className="w-6 h-6" />
+                    <social.icon className="w-5 h-5" />
                   </motion.a>
                 ))}
               </motion.div>
             </motion.div>
 
-            {/* Right side — particles fill this */}
-            <div className="hidden lg:block" />
+            {/* Right side — 3D Interactive Robot */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 2 }}
+              className="hidden lg:flex items-center justify-center relative w-[120%] h-[500px] xl:h-[600px] -right-10 z-0 pointer-events-auto mix-blend-screen"
+              style={{
+                maskImage: "radial-gradient(circle at center, black 30%, transparent 70%)",
+                WebkitMaskImage: "radial-gradient(circle at center, black 30%, transparent 70%)"
+              }}
+            >
+              <Hero3D />
+            </motion.div>
           </div>
         </div>
 

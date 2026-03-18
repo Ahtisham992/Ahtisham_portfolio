@@ -48,16 +48,16 @@ const PhotoIntro = () => {
           >
             <div className="relative">
               {/* Decorative background elements */}
-              <div className="absolute -top-4 -left-4 w-72 h-72 bg-gradient-to-br from-blue-400 to-purple-500 rounded-2xl opacity-20 blur-2xl" />
-              <div className="absolute -bottom-4 -right-4 w-72 h-72 bg-gradient-to-tr from-purple-400 to-pink-500 rounded-2xl opacity-20 blur-2xl" />
+              <div className={`absolute -top-4 -left-4 w-72 h-72 bg-primary-500 rounded-2xl opacity-10 blur-2xl`} />
+              <div className={`absolute -bottom-4 -right-4 w-72 h-72 bg-accent-500 rounded-2xl opacity-10 blur-2xl`} />
               
               {/* Photo Container */}
-              <div className="relative bg-gradient-to-br from-blue-600 to-purple-600 p-1 rounded-2xl shadow-2xl">
-                <div className="bg-white rounded-2xl overflow-hidden">
+              <div className={`relative ${themeClasses.card} p-2 shadow-2xl`}>
+                <div className="bg-slate-900 rounded-md overflow-hidden border border-slate-800 aspect-square">
                   <img
                     src="/Ahtisham.jpg" // Add your photo to public folder
                     alt={personalInfo.name}
-                    className="w-full h-auto object-cover"
+                    className="w-full h-full object-cover object-center opacity-90 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 duration-500"
                     onError={(e) => {
                       // Fallback to placeholder if image not found
                       e.target.src = "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=800&q=80";
@@ -71,11 +71,11 @@ const PhotoIntro = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.5 }}
-                className="absolute -bottom-6 -right-6 bg-white rounded-xl shadow-xl p-4 border-2 border-blue-100"
+                className={`absolute -bottom-6 -right-6 ${themeClasses.card} shadow-xl p-4`}
               >
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
-                  <span className="text-sm font-semibold text-gray-700">Available for Work</span>
+                  <span className={`text-sm font-semibold ${themeClasses.textPrimary}`}>Available for Work</span>
                 </div>
               </motion.div>
             </div>
@@ -95,7 +95,7 @@ const PhotoIntro = () => {
               transition={{ delay: 0.3 }}
               className="mb-4"
             >
-              <span className="text-lg font-medium bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="text-lg font-mono text-primary-500">
                 Hello, I'm
               </span>
             </motion.div>
@@ -105,7 +105,7 @@ const PhotoIntro = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+              className="text-5xl md:text-6xl font-bold mb-4 text-gradient"
             >
               {personalInfo.name}
             </motion.h1>
@@ -115,7 +115,7 @@ const PhotoIntro = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="text-2xl md:text-3xl font-semibold text-gray-700 mb-6"
+              className={`text-2xl md:text-3xl font-semibold ${themeClasses.textPrimary} mb-6`}
             >
               {personalInfo.title}
             </motion.p>
@@ -137,19 +137,19 @@ const PhotoIntro = () => {
               transition={{ delay: 0.7 }}
               className="space-y-3 mb-8"
             >
-              <div className="flex items-center gap-3 text-gray-600">
-                <MapPin className="w-5 h-5 text-blue-600" />
+              <div className={`flex items-center gap-3 ${themeClasses.textSecondary}`}>
+                <MapPin className="w-5 h-5 text-primary-500" />
                 <span>{personalInfo.location}</span>
               </div>
-              <div className="flex items-center gap-3 text-gray-600">
-                <Mail className="w-5 h-5 text-blue-600" />
-                <a href={`mailto:${personalInfo.email}`} className="hover:text-blue-600 transition-colors">
+              <div className={`flex items-center gap-3 ${themeClasses.textSecondary}`}>
+                <Mail className="w-5 h-5 text-primary-500" />
+                <a href={`mailto:${personalInfo.email}`} className={`hover:${themeClasses.textAccent} transition-colors`}>
                   {personalInfo.email}
                 </a>
               </div>
-              <div className="flex items-center gap-3 text-gray-600">
-                <Phone className="w-5 h-5 text-blue-600" />
-                <a href={`tel:${personalInfo.phone}`} className="hover:text-blue-600 transition-colors">
+              <div className={`flex items-center gap-3 ${themeClasses.textSecondary}`}>
+                <Phone className="w-5 h-5 text-primary-500" />
+                <a href={`tel:${personalInfo.phone}`} className={`hover:${themeClasses.textAccent} transition-colors`}>
                   {personalInfo.phone}
                 </a>
               </div>
@@ -166,25 +166,25 @@ const PhotoIntro = () => {
                 href={personalInfo.social.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 bg-gray-100 hover:bg-gray-200 rounded-full transition-all hover:scale-110"
+                className="p-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-md transition-all hover:scale-110"
               >
-                <Github className="w-5 h-5 text-gray-700" />
+                <Github className={`w-5 h-5 ${themeClasses.textPrimary}`} />
               </a>
               <a
                 href={personalInfo.social.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 bg-blue-100 hover:bg-blue-200 rounded-full transition-all hover:scale-110"
+                className="p-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-md transition-all hover:scale-110"
               >
-                <Linkedin className="w-5 h-5 text-blue-700" />
+                <Linkedin className="w-5 h-5 text-blue-500" />
               </a>
               <a
                 href={personalInfo.social.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 bg-pink-100 hover:bg-pink-200 rounded-full transition-all hover:scale-110"
+                className="p-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-md transition-all hover:scale-110"
               >
-                <Instagram className="w-5 h-5 text-pink-700" />
+                <Instagram className="w-5 h-5 text-pink-500" />
               </a>
             </motion.div>
 
@@ -199,7 +199,7 @@ const PhotoIntro = () => {
                 onClick={handleContactClick}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`px-8 py-4 ${themeClasses.gradient} text-white rounded-full font-bold shadow-lg hover:shadow-xl transition-all inline-flex items-center justify-center`}
+                className={`px-8 py-4 ${themeClasses.gradient} text-white rounded-md font-bold shadow-lg hover:shadow-xl transition-all inline-flex items-center justify-center`}
               >
                 Get In Touch
               </motion.button>
@@ -209,7 +209,7 @@ const PhotoIntro = () => {
                 download
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`px-8 py-4 ${themeClasses.btnOutline} rounded-full font-bold hover:shadow-lg transition-all inline-flex items-center justify-center gap-2`}
+                className={`px-8 py-4 ${themeClasses.btnOutline} rounded-md font-bold hover:shadow-lg transition-all inline-flex items-center justify-center gap-2`}
               >
                 <Download className="w-5 h-5" />
                 Download Resume
@@ -245,7 +245,7 @@ const PhotoIntro = () => {
             transition={{ duration: 0.6 }}
             className="text-center"
           >
-            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold text-gradient mb-6">
               What I Bring to the Table
             </h2>
             <div className={`w-24 h-1 ${themeClasses.gradient} mx-auto rounded-full mb-8`} />
@@ -268,7 +268,7 @@ const PhotoIntro = () => {
                   whileHover={{ scale: 1.05, y: -5 }}
                   className={`${themeClasses.card} p-6 hover:shadow-xl transition-all`}
                 >
-                  <div className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+                  <div className="text-4xl font-bold text-gradient mb-2">
                     {value}
                   </div>
                   <div className={`${themeClasses.textSecondary} text-sm capitalize font-medium`}>
@@ -292,7 +292,7 @@ const PhotoIntro = () => {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.05 }}
-                  className="px-4 py-2 bg-gradient-to-r from-blue-100 to-purple-100 text-blue-700 rounded-full text-sm font-semibold"
+                  className="px-4 py-2 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 rounded-md font-mono text-sm"
                 >
                   {tech}
                 </motion.span>
@@ -313,7 +313,7 @@ const PhotoIntro = () => {
                 onClick={handleContactClick}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`px-10 py-4 ${themeClasses.gradient} text-white rounded-full font-bold shadow-lg hover:shadow-xl transition-all inline-flex items-center justify-center`}
+                className={`px-10 py-4 ${themeClasses.gradient} text-white rounded-md font-bold shadow-lg hover:shadow-xl transition-all inline-flex items-center justify-center`}
               >
                 Start a Conversation
               </motion.button>

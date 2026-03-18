@@ -43,8 +43,8 @@ const Footer = () => {
 
           {/* Brand */}
           <div>
-            <h3 className="text-2xl font-bold text-gradient mb-4">
-              {personalInfo.name}
+            <h3 className="text-2xl font-bold text-slate-100 tracking-tight mb-4 flex items-center gap-1">
+              {personalInfo.name}<span className="text-primary-500">.</span>
             </h3>
             <p className="text-gray-400 mb-4">
               Full Stack Developer &amp; AI/ML Engineer building production-ready

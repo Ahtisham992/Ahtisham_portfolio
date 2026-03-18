@@ -145,9 +145,9 @@ const Contact = () => {
                   className="flex items-center gap-4"
                 >
                   <div
-                    className={`w-12 h-12 bg-gradient-to-br ${themeClasses.gradient} rounded-full flex items-center justify-center flex-shrink-0`}
+                    className={`w-12 h-12 bg-primary-100 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 rounded-md flex items-center justify-center flex-shrink-0`}
                   >
-                    <info.icon className="w-6 h-6 text-white" />
+                    <info.icon className="w-6 h-6" />
                   </div>
                   <div>
                     <p className={`font-semibold ${themeClasses.textPrimary}`}>
@@ -181,9 +181,9 @@ const Contact = () => {
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.1, y: -5 }}
                     whileTap={{ scale: 0.9 }}
-                    className={`w-12 h-12 ${themeClasses.gradient} rounded-full flex items-center justify-center text-white shadow-lg hover:shadow-xl transition-shadow`}
+                    className={`w-12 h-12 bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 hover:border-slate-500 rounded-md flex items-center justify-center shadow-sm transition-colors border border-slate-700`}
                   >
-                    <social.icon className="w-6 h-6" />
+                    <social.icon className="w-5 h-5" />
                   </motion.a>
                 ))}
               </div>
@@ -314,7 +314,7 @@ const Contact = () => {
                 disabled={isSubmitting}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className={`w-full ${themeClasses.gradient} text-white font-semibold py-4 rounded-xl flex items-center justify-center gap-2 hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed`}
+                className={`w-full bg-primary-600 hover:bg-primary-500 text-white font-medium py-3 rounded-md flex items-center justify-center gap-2 shadow-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed`}
               >
                 <Send className="w-5 h-5" />
                 {isSubmitting ? "Sending…" : "Send Message"}

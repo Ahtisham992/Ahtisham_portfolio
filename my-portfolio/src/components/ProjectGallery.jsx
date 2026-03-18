@@ -63,10 +63,10 @@ const ProjectGallery = () => {
               onClick={() => setSelectedCategory(category)}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className={`px-6 py-2 rounded-full font-medium transition-all ${
+              className={`px-6 py-2 rounded-md font-medium transition-all ${
                 selectedCategory === category
-                  ? `${themeClasses.gradient} text-white shadow-lg`
-                  : `${themeClasses.bgCard} ${themeClasses.textSecondary} hover:shadow-md`
+                  ? `bg-primary-600 text-white shadow-sm`
+                  : `${themeClasses.bgCard} ${themeClasses.textSecondary} border border-slate-200 dark:border-slate-800 hover:border-primary-500/50`
               }`}
             >
               {category}
@@ -104,17 +104,17 @@ const ProjectGallery = () => {
                   {/* Overlay Icons */}
                   <div className="absolute top-4 right-4 flex gap-2">
                     {project.media.video && (
-                      <div className="bg-red-500 text-white p-2 rounded-full shadow-lg">
+                      <div className="bg-red-500 text-white p-2 rounded-md shadow-lg">
                         <Play className="w-4 h-4" />
                       </div>
                     )}
                     {project.liveDemo && (
-                      <div className="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
+                      <div className="bg-green-500 text-white px-3 py-1 rounded-md text-xs font-bold shadow-lg">
                         Live
                       </div>
                     )}
                     {project.featured && (
-                      <div className={`${themeClasses.gradient} text-white px-3 py-1 rounded-full text-xs font-bold`}>
+                      <div className={`${themeClasses.gradient} text-white px-3 py-1 rounded-md text-xs font-bold shadow-lg`}>
                         Featured
                       </div>
                     )}
@@ -143,7 +143,7 @@ const ProjectGallery = () => {
                     {project.tags.slice(0, 3).map((tag, i) => (
                       <span
                         key={i}
-                        className="px-2 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded text-xs font-medium"
+                        className="px-2 py-1 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 rounded text-xs font-mono"
                       >
                         {tag}
                       </span>
@@ -190,7 +190,7 @@ const ProjectGallery = () => {
               {/* Close Button */}
               <button
                 onClick={() => setSelectedProject(null)}
-                className="absolute top-4 right-4 z-10 p-2 bg-white/10 backdrop-blur-md rounded-full hover:bg-white/20 transition-colors"
+                className="absolute top-4 right-4 z-10 p-2 bg-white/10 backdrop-blur-md rounded-md hover:bg-white/20 transition-colors"
               >
                 <X className="w-6 h-6 text-white" />
               </button>
@@ -208,13 +208,13 @@ const ProjectGallery = () => {
                     <>
                       <button
                         onClick={prevImage}
-                        className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-white/10 backdrop-blur-md rounded-full hover:bg-white/20 transition-colors"
+                        className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-white/10 backdrop-blur-md rounded-md hover:bg-white/20 transition-colors"
                       >
                         <ChevronLeft className="w-6 h-6 text-white" />
                       </button>
                       <button
                         onClick={nextImage}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-white/10 backdrop-blur-md rounded-full hover:bg-white/20 transition-colors"
+                        className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-white/10 backdrop-blur-md rounded-md hover:bg-white/20 transition-colors"
                       >
                         <ChevronRight className="w-6 h-6 text-white" />
                       </button>
@@ -242,7 +242,7 @@ const ProjectGallery = () => {
               <div className="p-8">
                 <div className="flex items-center gap-3 mb-4">
                   <Tag className="w-5 h-5 text-primary-500" />
-                  <span className={`px-3 py-1 ${themeClasses.gradient} text-white rounded-full text-sm font-medium`}>
+                  <span className={`px-3 py-1 ${themeClasses.gradient} text-white rounded-md text-sm font-medium`}>
                     {selectedProject.category}
                   </span>
                   <span className={`text-sm ${themeClasses.textSecondary}`}>
@@ -284,7 +284,7 @@ const ProjectGallery = () => {
                       href={selectedProject.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`flex items-center gap-2 px-6 py-3 ${themeClasses.gradient} text-white rounded-lg font-medium hover:shadow-lg transition-all`}
+                      className={`flex items-center gap-2 px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-white rounded-md font-medium transition-all shadow-sm`}
                     >
                       <Github className="w-5 h-5" />
                       View on GitHub
@@ -295,7 +295,7 @@ const ProjectGallery = () => {
                       href={selectedProject.liveDemo}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`flex items-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium hover:shadow-lg transition-all`}
+                      className={`flex items-center gap-2 px-6 py-2.5 bg-primary-600 hover:bg-primary-500 text-white rounded-md font-medium transition-all shadow-sm`}
                     >
                       <ExternalLink className="w-5 h-5" />
                       Live Demo
@@ -312,7 +312,7 @@ const ProjectGallery = () => {
                     {selectedProject.technologies.map((tech, i) => (
                       <span
                         key={i}
-                        className="px-4 py-2 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-lg font-medium"
+                        className="px-4 py-2 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 rounded-md font-mono text-sm"
                       >
                         {tech}
                       </span>

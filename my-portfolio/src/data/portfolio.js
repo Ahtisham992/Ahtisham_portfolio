@@ -19,7 +19,7 @@ export const personalInfo = {
   // TASK 1.1: Achievement-driven bio — no "passionate/innovative/modern"
   bio: "Final-year BS Software Engineering student at FAST-NUCES (graduating 2026). I build production-ready systems — from an enterprise ERP with 50+ APIs to an AI podcast platform using Whisper and transformer NLP. Currently contributing remotely to Turing Intelligence (Prague). Open to full-time software engineering roles.",
 
-  resumeUrl: "/Muhammad_Ahtisham_Resume.pdf", // Place your resume.pdf in public folder
+  resumeUrl: "/Ahtisham_Resume_SoftwareEngineer.docx", // Place your resume.pdf in public folder
   introVideoUrl: "/intro-video.mp4",           // Place your intro video in public folder
   social: {
     linkedin:  "https://www.linkedin.com/in/muhammad-ahtisham-6116ba2b2/",

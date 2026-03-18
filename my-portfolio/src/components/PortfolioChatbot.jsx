@@ -68,23 +68,23 @@ const Message = ({ msg }) => {
       className={`flex items-end gap-2 mb-3 ${isUser ? 'flex-row-reverse' : 'flex-row'}`}
     >
       <div
-        className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 ${
-          isUser
-            ? 'bg-gradient-to-br from-gray-700 to-gray-900'
-            : 'bg-gradient-to-br from-purple-600 to-fuchsia-500'
-        }`}
-      >
-        {isUser
-          ? <User className="w-4 h-4 text-white" />
-          : <Bot  className="w-4 h-4 text-white" />}
-      </div>
-      <div
-        className={`max-w-[78%] px-4 py-2.5 rounded-2xl text-sm leading-relaxed shadow-sm whitespace-pre-wrap ${
-          isUser
-            ? 'bg-gradient-to-br from-purple-600 to-fuchsia-500 text-white rounded-br-sm'
-            : 'bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border border-gray-100 dark:border-gray-700 rounded-bl-sm'
-        }`}
-      >
+            className={`w-7 h-7 rounded-md flex items-center justify-center flex-shrink-0 ${
+              isUser
+                ? 'bg-slate-800 text-white'
+                : 'bg-primary-600 text-white'
+            }`}
+          >
+            {isUser
+              ? <User className="w-4 h-4 text-white" />
+              : <Bot  className="w-4 h-4 text-white" />}
+          </div>
+          <div
+            className={`max-w-[78%] px-4 py-2.5 rounded-lg text-sm leading-relaxed shadow-sm whitespace-pre-wrap ${
+              isUser
+                ? 'bg-primary-600 text-white rounded-br-sm'
+                : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-bl-sm'
+            }`}
+          >
         {msg.content}
       </div>
     </motion.div>
@@ -163,17 +163,17 @@ const PortfolioChatbot = () => {
             style={{ maxHeight: 'calc(100vh - 140px)' }}
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-purple-600 via-purple-500 to-fuchsia-500 px-4 py-3 flex items-center justify-between flex-shrink-0">
+            <div className="bg-slate-900 border-b border-slate-800 px-4 py-3 flex items-center justify-between flex-shrink-0">
               <div className="flex items-center gap-3">
                 <div className="relative">
-                  <div className="w-9 h-9 rounded-full bg-white/20 backdrop-blur flex items-center justify-center">
-                    <Sparkles className="w-5 h-5 text-white" />
+                  <div className="w-9 h-9 rounded-md bg-slate-800 border border-slate-700 flex items-center justify-center">
+                    <Sparkles className="w-5 h-5 text-primary-400" />
                   </div>
-                  <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-400 border-2 border-white rounded-full" />
+                  <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-accent-500 border-2 border-slate-900 rounded-full" />
                 </div>
                 <div>
                   <p className="text-white font-semibold text-sm leading-tight">Ahtisham's Assistant</p>
-                  <p className="text-purple-200 text-xs">Always here to help</p>
+                  <p className="text-slate-400 text-xs font-mono">Status: Online</p>
                 </div>
               </div>
               <div className="flex items-center gap-1">
@@ -209,7 +209,7 @@ const PortfolioChatbot = () => {
                   <button
                     key={s}
                     onClick={() => send(s)}
-                    className="text-xs px-3 py-1.5 rounded-full bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 hover:bg-purple-200 dark:hover:bg-purple-900/70 transition-colors font-medium whitespace-nowrap"
+                    className="text-xs px-3 py-1.5 rounded-md bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors font-mono whitespace-nowrap"
                   >
                     {s}
                   </button>
@@ -227,12 +227,12 @@ const PortfolioChatbot = () => {
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKey}
                   placeholder="Ask me anything…"
-                  className="flex-1 bg-transparent outline-none text-sm text-gray-800 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500"
+                  className="flex-1 bg-transparent outline-none text-sm font-mono text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500"
                 />
                 <button
                   onClick={() => send()}
                   disabled={!input.trim()}
-                  className="w-7 h-7 rounded-lg bg-gradient-to-br from-purple-600 to-fuchsia-500 flex items-center justify-center disabled:opacity-40 hover:shadow-md transition-all flex-shrink-0"
+                  className="w-7 h-7 rounded-md bg-primary-600 hover:bg-primary-500 flex items-center justify-center disabled:opacity-40 hover:shadow-sm transition-all flex-shrink-0"
                 >
                   <Send className="w-3.5 h-3.5 text-white" />
                 </button>
@@ -247,11 +247,11 @@ const PortfolioChatbot = () => {
         onClick={() => setIsOpen((o) => !o)}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-gradient-to-br from-purple-600 via-purple-500 to-fuchsia-500 shadow-lg hover:shadow-xl flex items-center justify-center transition-shadow"
+        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-md bg-primary-600 shadow-lg hover:bg-primary-500 flex items-center justify-center transition-colors border border-primary-500"
         aria-label="Open chat"
       >
         {pulse && (
-          <span className="absolute inset-0 rounded-full bg-purple-500 animate-ping opacity-60" />
+          <span className="absolute inset-0 rounded-md bg-primary-400 animate-ping opacity-40" />
         )}
         <AnimatePresence mode="wait">
           {isOpen ? (
@@ -279,7 +279,7 @@ const PortfolioChatbot = () => {
 
         {/* Unread dot on first load */}
         {!isOpen && !hasOpened && (
-          <span className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 border-2 border-white rounded-full text-[9px] font-bold text-white flex items-center justify-center">
+          <span className="absolute -top-2 -right-2 w-5 h-5 bg-accent-500 border-2 border-slate-900 rounded-full text-[10px] font-bold text-white flex items-center justify-center">
             1
           </span>
         )}
