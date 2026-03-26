@@ -89,7 +89,7 @@ export const projects = [
     github:   "https://github.com/Ahtisham992",
     liveDemo: null,
     tags:     ["AI", "NLP", "Computer Vision", "React Native"],
-    date:     "2025",
+    date:     "2025-26",
     featured: true
   },
   {
@@ -137,7 +137,7 @@ export const projects = [
     github:   "https://github.com/Ahtisham992/salescare-service-center",
     liveDemo: "https://salescare.netlify.app/",
     tags:     ["React", "PostgreSQL", "MERN", "Enterprise", "ERP"],
-    date:     "2024-2025",
+    date:     "2025-2026",
     featured: true,
     highlights: [
       "25+ database tables with complex relationships",
@@ -196,7 +196,7 @@ export const projects = [
   github: "https://github.com/Ahtisham992/GadgetPro",
   liveDemo: "https://thegadgetpro.netlify.app/",
   tags: ["MERN", "Ecommerce", "React", "MongoDB", "Full Stack"],
-  date: "2025-2026",
+  date: "2026",
   featured: true,
   highlights: [
     "Full MERN stack architecture with scalable backend design",
@@ -245,7 +245,7 @@ export const projects = [
     github:   "https://github.com/Ahtisham992/SmartDuaCompanion",
     liveDemo: "https://smartduacompanion.netlify.app/", // TASK 3.2: Mobile app — no web demo URL
     tags:     ["React Native", "TypeScript", "Redux", "Mobile", "Islamic"],
-    date:     "2024",
+    date:     "2025",
     featured: true,
     highlights: [
       "Bilingual support with RTL (Right-to-Left) text rendering",
@@ -255,9 +255,6 @@ export const projects = [
       "Zero network dependency after installation"
     ]
   },
-
- 
-
   {
     id: 5,
     title: "Ergonomic Posture Assessment Agent",
