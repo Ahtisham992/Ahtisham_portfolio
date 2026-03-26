@@ -80,10 +80,9 @@ export const projects = [
       "Community-driven curation and feedback"
     ],
     media: {
-      thumbnail: "https://images.unsplash.com/photo-1589903308904-1010c2294adc?w=800&q=80",
+      thumbnail: "/projectSS/prismoraai/1.png",
       images: [
-        "https://images.unsplash.com/photo-1589903308904-1010c2294adc?w=1200&q=80",
-        "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=1200&q=80"
+        "/projectSS/prismoraai/1.png",
       ],
       video: "/prismora-project.mp4"
     },
@@ -237,16 +236,14 @@ export const projects = [
       "Category-based Dua organisation"
     ],
     media: {
-      thumbnail: "https://images.unsplash.com/photo-1512428559087-560fa5ceab42?w=800&q=80",
+      thumbnail: "https://smartduacompanion.netlify.app/logo.png",
       images: [
-        "https://images.unsplash.com/photo-1512428559087-560fa5ceab42?w=1200&q=80",
-        "https://images.unsplash.com/photo-1519791883288-dc8bd696e667?w=1200&q=80",
-        "https://images.unsplash.com/photo-1591035897819-f4bdf739f446?w=1200&q=80"
+        "https://smartduacompanion.netlify.app/logo.png",
       ],
       video: null
     },
     github:   "https://github.com/Ahtisham992/SmartDuaCompanion",
-    liveDemo: null, // TASK 3.2: Mobile app — no web demo URL
+    liveDemo: "https://smartduacompanion.netlify.app/", // TASK 3.2: Mobile app — no web demo URL
     tags:     ["React Native", "TypeScript", "Redux", "Mobile", "Islamic"],
     date:     "2024",
     featured: true,
@@ -281,10 +278,10 @@ export const projects = [
       "Health check monitoring"
     ],
     media: {
-      thumbnail: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80",
+      thumbnail: "/projectSS/postureagent/1.png",
       images: [
-        "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1200&q=80",
-        "https://images.unsplash.com/photo-1611689342806-0863700ce1e4?w=1200&q=80"
+        "/projectSS/postureagent/1.png",
+        "/projectSS/postureagent/2.png",
       ],
       video: null
     },
@@ -318,8 +315,10 @@ export const projects = [
     media: {
       thumbnail: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
       images: [
-        "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200&q=80",
-        "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?w=1200&q=80"
+        "/projectSS/photogallery/1.png",
+        "/projectSS/photogallery/2.png",
+        "/projectSS/photogallery/3.png",
+        "/projectSS/photogallery/4.png",
       ],
       video: null
     },
