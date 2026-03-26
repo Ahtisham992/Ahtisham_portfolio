@@ -59,8 +59,42 @@ export const skills = {
 
 // ENHANCED PROJECTS WITH MEDIA SUPPORT
 export const projects = [
-  {
+   {
     id: 1,
+    title: "Prismora AI – Smart Podcast Summarisation",
+    shortDescription: "AI-powered platform for podcast content transformation",
+    description: "Prismora AI is an AI-powered platform designed to transform long-form podcasts into structured, searchable, and engaging content. The system automatically generates accurate transcripts with timestamps, concise summaries, and AI-driven highlight clips using NLP and Computer Vision techniques.",
+    category: "AI/ML",
+    gradient: "from-purple-500 to-pink-600",
+    icon: "Brain",
+    technologies: [
+      "React Native", "Python", "Whisper AI", "FastAPI",
+      "BERT", "PostgreSQL", "OpenCV", "Hugging Face", "FFmpeg", "Node.js"
+    ],
+    features: [
+      "Speech-to-text transcription using Whisper AI",
+      "Abstractive summarisation using transformer-based NLP models",
+      "Video keyframe extraction and highlight generation",
+      "Keyword-based search across transcripts",
+      "Personalised content recommendations",
+      "Community-driven curation and feedback"
+    ],
+    media: {
+      thumbnail: "https://images.unsplash.com/photo-1589903308904-1010c2294adc?w=800&q=80",
+      images: [
+        "https://images.unsplash.com/photo-1589903308904-1010c2294adc?w=1200&q=80",
+        "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=1200&q=80"
+      ],
+      video: "/prismora-project.mp4"
+    },
+    github:   "https://github.com/Ahtisham992",
+    liveDemo: null,
+    tags:     ["AI", "NLP", "Computer Vision", "React Native"],
+    date:     "2025",
+    featured: true
+  },
+  {
+    id: 2,
     title: "SalesCare Service Center - Complete Management System",
     shortDescription: "Enterprise-grade service center management platform",
     description: "A comprehensive full-stack enterprise management system designed for service centers handling customer complaints, inventory management, invoicing, and purchase orders. Built with modern technologies and following industry best practices for scalability and security.",
@@ -112,9 +146,62 @@ export const projects = [
       "Multi-level approval workflows"
     ]
   },
-
   {
-    id: 2,
+  id: 3,
+  title: "GadgetPro - Premium MERN Ecommerce Platform",
+  shortDescription: "Full-stack modern ecommerce platform for high-end tech gadgets",
+  description: "GadgetPro is a complete end-to-end MERN stack ecommerce solution designed for premium tech products. It features a modern Apple-inspired UI, powerful admin dashboard, and scalable backend architecture. The platform includes advanced shopping features, real-time order tracking, and a fully integrated management system for inventory, users, and sales operations.",
+  category: "Full Stack",
+  gradient: "from-orange-500 to-red-500",
+  icon: "ShoppingCart",
+  technologies: [
+    "React.js (Vite)", "Node.js", "Express.js", "MongoDB (Mongoose)",
+    "Zustand", "React Router DOM", "JWT Authentication",
+    "Nodemailer", "Chart.js", "Lucide React",
+    "Vanilla CSS (Flexbox & Grid)"
+  ],
+  features: [
+    "Modern Apple-inspired responsive UI with cinematic homepage",
+    "Smart product search with server-side pagination",
+    "Detailed product pages with image galleries and reviews",
+    "Wishlist system with persistent state management",
+    "Advanced checkout with multiple shipping addresses",
+    "Coupon code system with dynamic discounts",
+    "Real-time order tracking and status updates",
+    "Order return request system with admin approval flow",
+    "User profile dashboard with review and order history",
+    "Admin analytics dashboard with charts (revenue, orders, top products)",
+    "Complete product & inventory management (CRUD)",
+    "Order lifecycle management (Accept → Deliver → Paid)",
+    "Email notifications for order updates using Nodemailer",
+    "Global toast notification system for user actions",
+    "Secure JWT-based authentication and authorization"
+  ],
+  media: {
+    thumbnail: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200&q=80",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80",
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80"
+    ],
+    video: null
+  },
+  github: "https://github.com/Ahtisham992/GadgetPro",
+  liveDemo: "https://thegadgetpro.netlify.app/",
+  tags: ["MERN", "Ecommerce", "React", "MongoDB", "Full Stack"],
+  date: "2025-2026",
+  featured: true,
+  highlights: [
+    "Full MERN stack architecture with scalable backend design",
+    "JWT authentication with protected routes and role-based access",
+    "Real-time analytics dashboard with Chart.js integration",
+    "Complete ecommerce flow from browsing to order fulfillment",
+    "Advanced state management using Zustand",
+    "Email automation system for order lifecycle events"
+  ]
+},
+  {
+    id: 4,
     title: "Smart Dua Companion - Islamic Supplications App",
     shortDescription: "Bilingual Islamic Dua app with offline support",
     description: "A modern, feature-rich React Native mobile application providing authentic Islamic supplications (Duas) from the Quran and Sunnah. Features complete bilingual support (English & Urdu), dark mode, offline access, and smart search functionality. Built with TypeScript and Redux for optimal performance and user experience.",
@@ -164,43 +251,10 @@ export const projects = [
     ]
   },
 
-  {
-    id: 3,
-    title: "Prismora AI – Smart Podcast Summarisation",
-    shortDescription: "AI-powered platform for podcast content transformation",
-    description: "Prismora AI is an AI-powered platform designed to transform long-form podcasts into structured, searchable, and engaging content. The system automatically generates accurate transcripts with timestamps, concise summaries, and AI-driven highlight clips using NLP and Computer Vision techniques.",
-    category: "AI/ML",
-    gradient: "from-purple-500 to-pink-600",
-    icon: "Brain",
-    technologies: [
-      "React Native", "Python", "Whisper AI", "FastAPI",
-      "BERT", "PostgreSQL", "OpenCV", "Hugging Face", "FFmpeg", "Node.js"
-    ],
-    features: [
-      "Speech-to-text transcription using Whisper AI",
-      "Abstractive summarisation using transformer-based NLP models",
-      "Video keyframe extraction and highlight generation",
-      "Keyword-based search across transcripts",
-      "Personalised content recommendations",
-      "Community-driven curation and feedback"
-    ],
-    media: {
-      thumbnail: "https://images.unsplash.com/photo-1589903308904-1010c2294adc?w=800&q=80",
-      images: [
-        "https://images.unsplash.com/photo-1589903308904-1010c2294adc?w=1200&q=80",
-        "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=1200&q=80"
-      ],
-      video: "/prismora-project.mp4"
-    },
-    github:   "https://github.com/Ahtisham992",
-    liveDemo: null,
-    tags:     ["AI", "NLP", "Computer Vision", "React Native"],
-    date:     "2025",
-    featured: true
-  },
+ 
 
   {
-    id: 4,
+    id: 5,
     title: "Ergonomic Posture Assessment Agent",
     shortDescription: "AI agent for posture analysis and ergonomic feedback",
     description: "This AI Agent analyses human posture from uploaded images and returns ergonomic feedback. Built with FastAPI, MediaPipe for lightweight posture landmark detection, OpenCV, and NumPy. Runs in Docker on Hugging Face Spaces with REST API endpoints.",
@@ -234,7 +288,7 @@ export const projects = [
   },
 
   {
-    id: 5,
+    id: 6,
     title: "Cloud Photo Gallery",
     shortDescription: "Full-stack cloud-native photo gallery on AWS",
     description: "A full-stack cloud-native photo gallery application deployed on AWS, featuring secure authentication, photo uploads, RESTful APIs, and scalable cloud architecture using EC2, RDS, S3, and Elastic Beanstalk.",
@@ -269,7 +323,7 @@ export const projects = [
   },
 
   {
-    id: 6,
+    id: 7,
     title: "AI-Powered Code Assistant",
     shortDescription: "Intelligent tool for Python code enhancement",
     description: "An intelligent AI-powered tool for Python developers that provides code explanation, automatic documentation generation, bug detection & fixing, performance optimisation, and unit test generation using a fine-tuned transformer model (CodeT5).",
@@ -304,7 +358,7 @@ export const projects = [
   },
 
   {
-    id: 7,
+    id: 8,
     title: "University Management System",
     shortDescription: "Comprehensive MERN stack university management platform",
     description: "A web-based application designed to streamline and automate academic and financial operations within a university. Built using the MERN stack with an efficient and user-friendly interface for students, faculty, and administrators.",
