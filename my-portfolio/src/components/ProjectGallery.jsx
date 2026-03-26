@@ -92,12 +92,12 @@ const ProjectGallery = () => {
                 }}
                 className={`${themeClasses.card} overflow-hidden cursor-pointer group`}
               >
-                {/* Thumbnail */}
-                <div className="relative h-48 overflow-hidden">
+                {/* Thumbnail — object-contain so the full image is always visible */}
+                <div className="relative h-48 bg-slate-900 dark:bg-slate-950 flex items-center justify-center overflow-hidden">
                   <img
                     src={project.media.thumbnail}
                     alt={project.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   
@@ -195,13 +195,13 @@ const ProjectGallery = () => {
                 <X className="w-6 h-6 text-white" />
               </button>
 
-              {/* Image Carousel */}
+              {/* Image Carousel — object-contain so full screenshots are visible */}
               {selectedProject.media.images.length > 0 && (
-                <div className="relative h-96 bg-gray-900">
+                <div className="relative h-96 bg-slate-950 flex items-center justify-center overflow-hidden">
                   <img
                     src={selectedProject.media.images[currentImageIndex]}
                     alt={selectedProject.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain p-2"
                   />
                   
                   {selectedProject.media.images.length > 1 && (
