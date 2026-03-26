@@ -236,9 +236,9 @@ export const projects = [
       "Category-based Dua organisation"
     ],
     media: {
-      thumbnail: "https://smartduacompanion.netlify.app/logo.png",
+      thumbnail: "/projectSS/smartdua/1.png",
       images: [
-        "https://smartduacompanion.netlify.app/logo.png",
+        "/projectSS/smartdua/1.png",
       ],
       video: null
     },
