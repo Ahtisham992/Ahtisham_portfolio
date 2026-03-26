@@ -124,11 +124,14 @@ export const projects = [
       "Dark mode support with responsive design"
     ],
     media: {
-      thumbnail: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
+      thumbnail: "/projectSS/salescare/1.png",
       images: [
         "/projectSS/salescare/1.png",
-        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80",
-        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80"
+        "/projectSS/salescare/2.png",
+        "/projectSS/salescare/3.png",
+        "/projectSS/salescare/4.png",
+        "/projectSS/salescare/5.png",
+        "/projectSS/salescare/6.png",
       ],
       video: null
     },
@@ -178,12 +181,17 @@ export const projects = [
     "Secure JWT-based authentication and authorization"
   ],
   media: {
-    thumbnail: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&q=80",
+    thumbnail: "/projectSS/gadgetpro/1.png",
     images: [
-      "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200&q=80",
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80",
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80"
-    ],
+        "/projectSS/gadgetpro/1.png",
+        "/projectSS/gadgetpro/2.png",
+        "/projectSS/gadgetpro/3.png",
+        "/projectSS/gadgetpro/4.png",
+        "/projectSS/gadgetpro/5.png",
+        "/projectSS/gadgetpro/6.png",
+        "/projectSS/gadgetpro/7.png",
+        "/projectSS/gadgetpro/8.png",
+      ],
     video: null
   },
   github: "https://github.com/Ahtisham992/GadgetPro",
