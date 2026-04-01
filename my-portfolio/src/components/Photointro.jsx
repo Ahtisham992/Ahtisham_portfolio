@@ -53,11 +53,11 @@ const PhotoIntro = () => {
               
               {/* Photo Container */}
               <div className={`relative ${themeClasses.card} p-2 shadow-2xl`}>
-                <div className="bg-slate-900 rounded-md overflow-hidden border border-slate-800 aspect-square">
+                <div className="bg-slate-900 rounded-md overflow-hidden border border-slate-800">
                   <img
-                    src="/Ahtisham.jpg" // Add your photo to public folder
+                    src="/Ahtisham.png" // Add your photo to public folder
                     alt={personalInfo.name}
-                    className="w-full h-full object-cover object-center opacity-90 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 duration-500"
+                    className="w-full h-auto opacity-90 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 duration-500"
                     onError={(e) => {
                       // Fallback to placeholder if image not found
                       e.target.src = "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=800&q=80";
