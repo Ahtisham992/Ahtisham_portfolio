@@ -12,6 +12,7 @@ import {
 import { useTheme } from '../theme/ThemeContext';
 import { getThemeClasses } from '../theme/theme';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { personalInfo } from '../data/portfolio';
 
 const Navbar = () => {
   const [isOpen,     setIsOpen]     = useState(false);
@@ -83,7 +84,6 @@ const Navbar = () => {
         <div className="container-custom">
           <div className="flex justify-between items-center h-20">
 
-            {/* Logo */}
             <motion.button
               onClick={(e) => handleNavClick(e, { href: '/', type: 'route' })}
               className={`text-2xl font-black relative ${
@@ -94,7 +94,7 @@ const Navbar = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              M. Ahtisham<span className="text-primary-500">.</span>
+              {personalInfo.name}<span className="text-primary-500">.</span>
             </motion.button>
 
             {/* Desktop menu */}

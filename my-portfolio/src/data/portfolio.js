@@ -2,7 +2,7 @@
 // FILE: src/data/portfolio.js - TASK 1 UPDATES APPLIED
 // ========================================
 export const personalInfo = {
-  name: "M. Ahtisham",
+  name: "Muhammad Ahtisham",
   title: "Full Stack Developer · AI/ML Engineer",
 
   // TASK 1.2: Removed "Flutter Developer", "Problem Solver", "Tech Enthusiast"
