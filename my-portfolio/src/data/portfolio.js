@@ -82,9 +82,11 @@ export const projects = [
     media: {
       thumbnail: "/projectSS/prismoraai/1.png",
       images: [
-        "/projectSS/prismoraai/1.png",
+        "/projectSS/prismoraai/2.png",
+        "/projectSS/prismoraai/3.png",
+        "/projectSS/prismoraai/1.png"
       ],
-      video: "/prismora-project.mp4"
+      video: ""
     },
     github:   "https://github.com/Ahtisham992",
     liveDemo: "https://prismora-ai.netlify.app/",
