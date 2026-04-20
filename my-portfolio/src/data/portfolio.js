@@ -87,7 +87,7 @@ export const projects = [
       video: "/prismora-project.mp4"
     },
     github:   "https://github.com/Ahtisham992",
-    liveDemo: null,
+    liveDemo: "https://prismora-ai.netlify.app/",
     tags:     ["AI", "NLP", "Computer Vision", "React Native"],
     date:     "2025-26",
     featured: true
@@ -115,10 +115,11 @@ export const projects = [
     "CI/CD pipeline with Docker and Kubernetes deployment"
   ],
   media: {
-    thumbnail: "/projectSS/turing/1.png", // add screenshot
+    thumbnail: "/projectSS/turingplatform/1.png", // add screenshot
     images: [
-      "/projectSS/turing/1.png",
-      "/projectSS/turing/2.png"
+      "/projectSS/turingplatform/1.png",
+      "/projectSS/turingplatform/2.png",
+      "/projectSS/turingplatform/3.png"
     ],
     video: "" // optional but VERY powerful
   },
