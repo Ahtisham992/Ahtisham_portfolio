@@ -93,7 +93,50 @@ export const projects = [
     featured: true
   },
   {
-    id: 2,
+  id: 2,
+  title: "Turing Intelligence Platform – Distributed System Simulation Engine",
+  shortDescription: "Production-grade DES platform for system performance simulation and optimisation",
+  description: "A production-grade Discrete-Event Simulation (DES) platform implementing the M/G/c queue model for system performance engineering. Enables backend and DevOps teams to simulate workloads, analyse bottlenecks, and optimise system configurations before deployment using real-time metrics and AI-driven insights.",
+  category: "Systems / AI",
+  gradient: "from-indigo-600 to-purple-700",
+  icon: "Cpu",
+  technologies: [
+    "TypeScript", "React 18", "Node.js", "Express",
+    "PostgreSQL", "Redis", "Socket.IO",
+    "Docker", "Kubernetes", "Prisma", "Zustand"
+  ],
+  features: [
+    "Custom-built Discrete-Event Simulation engine (M/G/c queue model)",
+    "Real-time KPI tracking (latency, throughput, utilisation, drop rate)",
+    "WebSocket-based live simulation updates",
+    "AI-driven bottleneck detection and optimisation insights",
+    "Scenario comparison and system configuration testing",
+    "Full-stack SaaS architecture with authentication and persistence",
+    "CI/CD pipeline with Docker and Kubernetes deployment"
+  ],
+  media: {
+    thumbnail: "/projectSS/turing/1.png", // add screenshot
+    images: [
+      "/projectSS/turing/1.png",
+      "/projectSS/turing/2.png"
+    ],
+    video: "" // optional but VERY powerful
+  },
+  github: null, // or repo if public
+  liveDemo: "https://turing-frontend-wkuu.onrender.com/",
+  tags: ["Distributed Systems", "Simulation", "Backend", "DevOps", "AI"],
+  date: "2025-2026",
+  featured: true,
+  highlights: [
+    "Designed scalable monorepo architecture with shared simulation engine",
+    "Implemented queueing theory (M/G/c) for real-world system modelling",
+    "Built real-time simulation pipeline using WebSockets",
+    "Deployed production system using Docker + Kubernetes",
+    "Developed analytics engine for automated system insights"
+  ]
+},
+  {
+    id: 3,
     title: "SalesCare Service Center - Complete Management System",
     shortDescription: "Enterprise-grade service center management platform",
     description: "A comprehensive full-stack enterprise management system designed for service centers handling customer complaints, inventory management, invoicing, and purchase orders. Built with modern technologies and following industry best practices for scalability and security.",
@@ -149,7 +192,7 @@ export const projects = [
     ]
   },
   {
-  id: 3,
+  id: 4,
   title: "GadgetPro - Premium MERN Ecommerce Platform",
   shortDescription: "Full-stack modern ecommerce platform for high-end tech gadgets",
   description: "GadgetPro is a complete end-to-end MERN stack ecommerce solution designed for premium tech products. It features a modern Apple-inspired UI, powerful admin dashboard, and scalable backend architecture. The platform includes advanced shopping features, real-time order tracking, and a fully integrated management system for inventory, users, and sales operations.",
@@ -208,7 +251,7 @@ export const projects = [
   ]
 },
   {
-    id: 4,
+    id: 5,
     title: "Smart Dua Companion - Islamic Supplications App",
     shortDescription: "Bilingual Islamic Dua app with offline support",
     description: "A modern, feature-rich React Native mobile application providing authentic Islamic supplications (Duas) from the Quran and Sunnah. Features complete bilingual support (English & Urdu), dark mode, offline access, and smart search functionality. Built with TypeScript and Redux for optimal performance and user experience.",
@@ -256,7 +299,7 @@ export const projects = [
     ]
   },
   {
-    id: 5,
+    id: 6,
     title: "Ergonomic Posture Assessment Agent",
     shortDescription: "AI agent for posture analysis and ergonomic feedback",
     description: "This AI Agent analyses human posture from uploaded images and returns ergonomic feedback. Built with FastAPI, MediaPipe for lightweight posture landmark detection, OpenCV, and NumPy. Runs in Docker on Hugging Face Spaces with REST API endpoints.",
@@ -290,7 +333,7 @@ export const projects = [
   },
 
   {
-    id: 6,
+    id: 7,
     title: "Cloud Photo Gallery",
     shortDescription: "Full-stack cloud-native photo gallery on AWS",
     description: "A full-stack cloud-native photo gallery application deployed on AWS, featuring secure authentication, photo uploads, RESTful APIs, and scalable cloud architecture using EC2, RDS, S3, and Elastic Beanstalk.",
@@ -327,7 +370,7 @@ export const projects = [
   },
 
   {
-    id: 7,
+    id: 8,
     title: "AI-Powered Code Assistant",
     shortDescription: "Intelligent tool for Python code enhancement",
     description: "An intelligent AI-powered tool for Python developers that provides code explanation, automatic documentation generation, bug detection & fixing, performance optimisation, and unit test generation using a fine-tuned transformer model (CodeT5).",
@@ -362,7 +405,7 @@ export const projects = [
   },
 
   {
-    id: 8,
+    id: 9,
     title: "University Management System",
     shortDescription: "Comprehensive MERN stack university management platform",
     description: "A web-based application designed to streamline and automate academic and financial operations within a university. Built using the MERN stack with an efficient and user-friendly interface for students, faculty, and administrators.",
