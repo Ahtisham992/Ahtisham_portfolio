@@ -126,7 +126,7 @@ export const projects = [
     video: "" // optional but VERY powerful
   },
   github: null, // or repo if public
-  liveDemo: "https://turing-frontend-wkuu.onrender.com/",
+  liveDemo: "",
   tags: ["Distributed Systems", "Simulation", "Backend", "DevOps", "AI"],
   date: "2025-2026",
   featured: true,
