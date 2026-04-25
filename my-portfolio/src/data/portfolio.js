@@ -19,18 +19,18 @@ export const personalInfo = {
   // TASK 1.1: Achievement-driven bio — no "passionate/innovative/modern"
   bio: "Final-year BS Software Engineering student at FAST-NUCES (graduating 2026). I build production-ready systems — from an enterprise ERP with 50+ APIs to an AI podcast platform using Whisper and transformer NLP. Currently contributing remotely to Turing Intelligence (Prague). Open to full-time software engineering roles.",
 
-  resumeUrl: "/Ahtisham_Resume_SoftwareEngineer.pdf", // Place your resume.pdf in public folder
+  resumeUrl: "/Ahtisham_Resume_Final.pdf", // Place your resume.pdf in public folder
   introVideoUrl: "/intro-video.mp4",           // Place your intro video in public folder
   social: {
-    linkedin:  "https://www.linkedin.com/in/muhammad-ahtisham-6116ba2b2/",
-    github:    "https://github.com/Ahtisham992",
+    linkedin: "https://www.linkedin.com/in/muhammad-ahtisham-6116ba2b2/",
+    github: "https://github.com/Ahtisham992",
     instagram: "https://www.instagram.com/_m_ahtish.05/"
   },
 
   // TASK 1.5: Conservative, verifiable numbers
   stats: {
-    internships:  "2+",
-    projects:     "10+",   // Changed from 12+
+    internships: "2+",
+    projects: "10+",   // Changed from 12+
     certificates: "5+",
     technologies: "15+"    // Changed from 20+
   }
@@ -38,28 +38,28 @@ export const personalInfo = {
 
 export const skills = {
   frontend: [
-    { name: "React.js",              level: 80 },
-    { name: "React Native",          level: 75 },
+    { name: "React.js", level: 80 },
+    { name: "React Native", level: 75 },
     { name: "HTML / CSS / JavaScript", level: 95 }
   ],
   backend: [
-    { name: "Node.js / Express",     level: 88 },
-    { name: "MongoDB",               level: 82 },
-    { name: "PostgreSQL",            level: 85 }
+    { name: "Node.js / Express", level: 88 },
+    { name: "MongoDB", level: 82 },
+    { name: "PostgreSQL", level: 85 }
   ],
   ai: [
-    { name: "Python (AI / ML)",            level: 78 },
-    { name: "Machine Learning Models",      level: 72 }
+    { name: "Python (AI / ML)", level: 78 },
+    { name: "Machine Learning Models", level: 72 }
   ],
   cloud: [
-    { name: "AWS (Foundational)",          level: 70 },
-    { name: "Cloud Deployment & APIs",     level: 68 }
+    { name: "AWS (Foundational)", level: 70 },
+    { name: "Cloud Deployment & APIs", level: 68 }
   ]
 };
 
 // ENHANCED PROJECTS WITH MEDIA SUPPORT
 export const projects = [
-   {
+  {
     id: 1,
     title: "Prismora AI – Smart Podcast Summarisation",
     shortDescription: "AI-powered platform for podcast content transformation",
@@ -88,56 +88,56 @@ export const projects = [
       ],
       video: ""
     },
-    github:   "https://github.com/Ahtisham992",
+    github: "https://github.com/Ahtisham992",
     liveDemo: "https://prismora-ai.netlify.app/",
-    tags:     ["AI", "NLP", "Computer Vision", "React Native"],
-    date:     "2025-26",
+    tags: ["AI", "NLP", "Computer Vision", "React Native"],
+    date: "2025-26",
     featured: true
   },
   {
-  id: 2,
-  title: "Turing Intelligence Platform – Distributed System Simulation Engine",
-  shortDescription: "Production-grade DES platform for system performance simulation and optimisation",
-  description: "A production-grade Discrete-Event Simulation (DES) platform implementing the M/G/c queue model for system performance engineering. Enables backend and DevOps teams to simulate workloads, analyse bottlenecks, and optimise system configurations before deployment using real-time metrics and AI-driven insights.",
-  category: "Systems / AI",
-  gradient: "from-indigo-600 to-purple-700",
-  icon: "Cpu",
-  technologies: [
-    "TypeScript", "React 18", "Node.js", "Express",
-    "PostgreSQL", "Redis", "Socket.IO",
-    "Docker", "Kubernetes", "Prisma", "Zustand"
-  ],
-  features: [
-    "Custom-built Discrete-Event Simulation engine (M/G/c queue model)",
-    "Real-time KPI tracking (latency, throughput, utilisation, drop rate)",
-    "WebSocket-based live simulation updates",
-    "AI-driven bottleneck detection and optimisation insights",
-    "Scenario comparison and system configuration testing",
-    "Full-stack SaaS architecture with authentication and persistence",
-    "CI/CD pipeline with Docker and Kubernetes deployment"
-  ],
-  media: {
-    thumbnail: "/projectSS/turingplatform/1.png", // add screenshot
-    images: [
-      "/projectSS/turingplatform/1.png",
-      "/projectSS/turingplatform/2.png",
-      "/projectSS/turingplatform/3.png"
+    id: 2,
+    title: "Turing Intelligence Platform – Distributed System Simulation Engine",
+    shortDescription: "Production-grade DES platform for system performance simulation and optimisation",
+    description: "A production-grade Discrete-Event Simulation (DES) platform implementing the M/G/c queue model for system performance engineering. Enables backend and DevOps teams to simulate workloads, analyse bottlenecks, and optimise system configurations before deployment using real-time metrics and AI-driven insights.",
+    category: "Systems / AI",
+    gradient: "from-indigo-600 to-purple-700",
+    icon: "Cpu",
+    technologies: [
+      "TypeScript", "React 18", "Node.js", "Express",
+      "PostgreSQL", "Redis", "Socket.IO",
+      "Docker", "Kubernetes", "Prisma", "Zustand"
     ],
-    video: "" // optional but VERY powerful
+    features: [
+      "Custom-built Discrete-Event Simulation engine (M/G/c queue model)",
+      "Real-time KPI tracking (latency, throughput, utilisation, drop rate)",
+      "WebSocket-based live simulation updates",
+      "AI-driven bottleneck detection and optimisation insights",
+      "Scenario comparison and system configuration testing",
+      "Full-stack SaaS architecture with authentication and persistence",
+      "CI/CD pipeline with Docker and Kubernetes deployment"
+    ],
+    media: {
+      thumbnail: "/projectSS/turingplatform/1.png", // add screenshot
+      images: [
+        "/projectSS/turingplatform/1.png",
+        "/projectSS/turingplatform/2.png",
+        "/projectSS/turingplatform/3.png"
+      ],
+      video: "" // optional but VERY powerful
+    },
+    github: null, // or repo if public
+    liveDemo: "",
+    tags: ["Distributed Systems", "Simulation", "Backend", "DevOps", "AI"],
+    date: "2026",
+    featured: true,
+    highlights: [
+      "Designed scalable monorepo architecture with shared simulation engine",
+      "Implemented queueing theory (M/G/c) for real-world system modelling",
+      "Built real-time simulation pipeline using WebSockets",
+      "Deployed production system using Docker + Kubernetes",
+      "Developed analytics engine for automated system insights"
+    ]
   },
-  github: null, // or repo if public
-  liveDemo: "",
-  tags: ["Distributed Systems", "Simulation", "Backend", "DevOps", "AI"],
-  date: "2025-2026",
-  featured: true,
-  highlights: [
-    "Designed scalable monorepo architecture with shared simulation engine",
-    "Implemented queueing theory (M/G/c) for real-world system modelling",
-    "Built real-time simulation pipeline using WebSockets",
-    "Deployed production system using Docker + Kubernetes",
-    "Developed analytics engine for automated system insights"
-  ]
-},
   {
     id: 3,
     title: "SalesCare Service Center - Complete Management System",
@@ -180,10 +180,10 @@ export const projects = [
       ],
       video: null
     },
-    github:   "https://github.com/Ahtisham992/salescare-service-center",
+    github: "https://github.com/Ahtisham992/salescare-service-center",
     liveDemo: "https://salescare.netlify.app/",
-    tags:     ["React", "PostgreSQL", "MERN", "Enterprise", "ERP"],
-    date:     "2025-2026",
+    tags: ["React", "PostgreSQL", "MERN", "Enterprise", "ERP"],
+    date: "2025-2026",
     featured: true,
     highlights: [
       "25+ database tables with complex relationships",
@@ -195,39 +195,39 @@ export const projects = [
     ]
   },
   {
-  id: 4,
-  title: "GadgetPro - Premium MERN Ecommerce Platform",
-  shortDescription: "Full-stack modern ecommerce platform for high-end tech gadgets",
-  description: "GadgetPro is a complete end-to-end MERN stack ecommerce solution designed for premium tech products. It features a modern Apple-inspired UI, powerful admin dashboard, and scalable backend architecture. The platform includes advanced shopping features, real-time order tracking, and a fully integrated management system for inventory, users, and sales operations.",
-  category: "Full Stack",
-  gradient: "from-orange-500 to-red-500",
-  icon: "ShoppingCart",
-  technologies: [
-    "React.js (Vite)", "Node.js", "Express.js", "MongoDB (Mongoose)",
-    "Zustand", "React Router DOM", "JWT Authentication",
-    "Nodemailer", "Chart.js", "Lucide React",
-    "Vanilla CSS (Flexbox & Grid)"
-  ],
-  features: [
-    "Modern Apple-inspired responsive UI with cinematic homepage",
-    "Smart product search with server-side pagination",
-    "Detailed product pages with image galleries and reviews",
-    "Wishlist system with persistent state management",
-    "Advanced checkout with multiple shipping addresses",
-    "Coupon code system with dynamic discounts",
-    "Real-time order tracking and status updates",
-    "Order return request system with admin approval flow",
-    "User profile dashboard with review and order history",
-    "Admin analytics dashboard with charts (revenue, orders, top products)",
-    "Complete product & inventory management (CRUD)",
-    "Order lifecycle management (Accept → Deliver → Paid)",
-    "Email notifications for order updates using Nodemailer",
-    "Global toast notification system for user actions",
-    "Secure JWT-based authentication and authorization"
-  ],
-  media: {
-    thumbnail: "/projectSS/gadgetpro/1.png",
-    images: [
+    id: 4,
+    title: "GadgetPro - Premium MERN Ecommerce Platform",
+    shortDescription: "Full-stack modern ecommerce platform for high-end tech gadgets",
+    description: "GadgetPro is a complete end-to-end MERN stack ecommerce solution designed for premium tech products. It features a modern Apple-inspired UI, powerful admin dashboard, and scalable backend architecture. The platform includes advanced shopping features, real-time order tracking, and a fully integrated management system for inventory, users, and sales operations.",
+    category: "Full Stack",
+    gradient: "from-orange-500 to-red-500",
+    icon: "ShoppingCart",
+    technologies: [
+      "React.js (Vite)", "Node.js", "Express.js", "MongoDB (Mongoose)",
+      "Zustand", "React Router DOM", "JWT Authentication",
+      "Nodemailer", "Chart.js", "Lucide React",
+      "Vanilla CSS (Flexbox & Grid)"
+    ],
+    features: [
+      "Modern Apple-inspired responsive UI with cinematic homepage",
+      "Smart product search with server-side pagination",
+      "Detailed product pages with image galleries and reviews",
+      "Wishlist system with persistent state management",
+      "Advanced checkout with multiple shipping addresses",
+      "Coupon code system with dynamic discounts",
+      "Real-time order tracking and status updates",
+      "Order return request system with admin approval flow",
+      "User profile dashboard with review and order history",
+      "Admin analytics dashboard with charts (revenue, orders, top products)",
+      "Complete product & inventory management (CRUD)",
+      "Order lifecycle management (Accept → Deliver → Paid)",
+      "Email notifications for order updates using Nodemailer",
+      "Global toast notification system for user actions",
+      "Secure JWT-based authentication and authorization"
+    ],
+    media: {
+      thumbnail: "/projectSS/gadgetpro/1.png",
+      images: [
         "/projectSS/gadgetpro/1.png",
         "/projectSS/gadgetpro/2.png",
         "/projectSS/gadgetpro/3.png",
@@ -237,24 +237,79 @@ export const projects = [
         "/projectSS/gadgetpro/7.png",
         "/projectSS/gadgetpro/8.png",
       ],
-    video: null
+      video: null
+    },
+    github: "https://github.com/Ahtisham992/GadgetPro",
+    liveDemo: "https://thegadgetpro.netlify.app/",
+    tags: ["MERN", "Ecommerce", "React", "MongoDB", "Full Stack"],
+    date: "2026",
+    featured: true,
+    highlights: [
+      "Full MERN stack architecture with scalable backend design",
+      "JWT authentication with protected routes and role-based access",
+      "Real-time analytics dashboard with Chart.js integration",
+      "Complete ecommerce flow from browsing to order fulfillment",
+      "Advanced state management using Zustand",
+      "Email automation system for order lifecycle events"
+    ]
   },
-  github: "https://github.com/Ahtisham992/GadgetPro",
-  liveDemo: "https://thegadgetpro.netlify.app/",
-  tags: ["MERN", "Ecommerce", "React", "MongoDB", "Full Stack"],
-  date: "2026",
-  featured: true,
-  highlights: [
-    "Full MERN stack architecture with scalable backend design",
-    "JWT authentication with protected routes and role-based access",
-    "Real-time analytics dashboard with Chart.js integration",
-    "Complete ecommerce flow from browsing to order fulfillment",
-    "Advanced state management using Zustand",
-    "Email automation system for order lifecycle events"
-  ]
-},
   {
     id: 5,
+    title: "SlideMind AI – Intelligent Lecture-to-Learning System",
+    shortDescription: "AI-powered system that transforms lecture slides into interactive learning experiences",
+    description: "SlideMind AI is a production-grade AI learning platform that converts static lecture slides (PDF/PPTX) into structured, interactive study experiences. It automatically generates summaries, extracts topics, provides deep explanations, AI tutoring chat, and adaptive quiz generation. Built with a focus on scalability, caching optimization, and real-world educational impact.",
+    category: "AI/Full Stack",
+    gradient: "from-indigo-500 to-purple-600",
+    icon: "Brain",
+
+    technologies: [
+      "Next.js 14", "FastAPI", "Google Gemini 2.5 Flash",
+      "PostgreSQL/SQLite", "Tailwind CSS", "Framer Motion",
+      "JWT Auth", "SQLAlchemy", "Docker", "Google Cloud Run"
+    ],
+
+    features: [
+      "AI-powered lecture summarization with exam-focused insights",
+      "Automatic topic extraction and knowledge mapping",
+      "Deep-dive AI explanations in teacher-style format",
+      "Context-aware AI chat tutor trained on uploaded slides",
+      "Smart MCQ quiz generator with difficulty levels",
+      "AI response caching system for zero-cost repeat access",
+      "Secure JWT authentication with per-user data isolation",
+      "PDF and PPTX parsing with structured text extraction",
+      "Session persistence and lecture history management",
+      "Fully responsive modern UI with smooth animations"
+    ],
+
+    highlights: [
+      "Production-grade full-stack AI architecture",
+      "Optimized AI token usage via caching layer (80k+ calls per $1)",
+      "End-to-end deployment on Google Cloud Run",
+      "Modular FastAPI backend with service-based architecture",
+      "Real-world edtech problem solving (learning + assessment system)"
+    ],
+
+    media: {
+      thumbnail: "/projectSS/slidemindai/logo.png",
+      images: [
+        "/projectSS/slidemindai/1.png",
+        "/projectSS/slidemindai/2.png",
+        "/projectSS/slidemindai/3.png",
+        "/projectSS/slidemindai/4.png",
+        "/projectSS/slidemindai/5.png"
+      ],
+      video: ""
+    },
+
+    github: "https://github.com/Ahtisham992/slidemind-ai",
+    liveDemo: "https://slidemind-ui-703383698921.us-central1.run.app",
+
+    tags: ["AI", "EdTech", "Full Stack", "FastAPI", "Next.js"],
+    date: "2026",
+    featured: true
+  },
+  {
+    id: 6,
     title: "Smart Dua Companion - Islamic Supplications App",
     shortDescription: "Bilingual Islamic Dua app with offline support",
     description: "A modern, feature-rich React Native mobile application providing authentic Islamic supplications (Duas) from the Quran and Sunnah. Features complete bilingual support (English & Urdu), dark mode, offline access, and smart search functionality. Built with TypeScript and Redux for optimal performance and user experience.",
@@ -288,10 +343,10 @@ export const projects = [
       ],
       video: null
     },
-    github:   "https://github.com/Ahtisham992/SmartDuaCompanion",
+    github: "https://github.com/Ahtisham992/SmartDuaCompanion",
     liveDemo: "https://smartduacompanion.netlify.app/", // TASK 3.2: Mobile app — no web demo URL
-    tags:     ["React Native", "TypeScript", "Redux", "Mobile", "Islamic"],
-    date:     "2025",
+    tags: ["React Native", "TypeScript", "Redux", "Mobile", "Islamic"],
+    date: "2025",
     featured: true,
     highlights: [
       "Bilingual support with RTL (Right-to-Left) text rendering",
@@ -302,7 +357,7 @@ export const projects = [
     ]
   },
   {
-    id: 6,
+    id: 7,
     title: "Ergonomic Posture Assessment Agent",
     shortDescription: "AI agent for posture analysis and ergonomic feedback",
     description: "This AI Agent analyses human posture from uploaded images and returns ergonomic feedback. Built with FastAPI, MediaPipe for lightweight posture landmark detection, OpenCV, and NumPy. Runs in Docker on Hugging Face Spaces with REST API endpoints.",
@@ -328,15 +383,15 @@ export const projects = [
       ],
       video: null
     },
-    github:   "https://github.com/Ahtisham992/ergonomic-posture-agent",
+    github: "https://github.com/Ahtisham992/ergonomic-posture-agent",
     liveDemo: "https://ergonomic-posture-analyzer.netlify.app/",
-    tags:     ["AI", "Computer Vision", "FastAPI", "Health"],
-    date:     "2025",
+    tags: ["AI", "Computer Vision", "FastAPI", "Health"],
+    date: "2025",
     featured: true
   },
 
   {
-    id: 7,
+    id: 8,
     title: "Cloud Photo Gallery",
     shortDescription: "Full-stack cloud-native photo gallery on AWS",
     description: "A full-stack cloud-native photo gallery application deployed on AWS, featuring secure authentication, photo uploads, RESTful APIs, and scalable cloud architecture using EC2, RDS, S3, and Elastic Beanstalk.",
@@ -365,15 +420,15 @@ export const projects = [
       ],
       video: null
     },
-    github:   "https://github.com/Ahtisham992/aws-photo-gallery",
+    github: "https://github.com/Ahtisham992/aws-photo-gallery",
     liveDemo: "http://photo-gallery.eu-north-1.elasticbeanstalk.com/",
-    tags:     ["React", "AWS", "Full Stack", "Cloud"],
-    date:     "2025",
+    tags: ["React", "AWS", "Full Stack", "Cloud"],
+    date: "2025",
     featured: true
   },
 
   {
-    id: 8,
+    id: 9,
     title: "AI-Powered Code Assistant",
     shortDescription: "Intelligent tool for Python code enhancement",
     description: "An intelligent AI-powered tool for Python developers that provides code explanation, automatic documentation generation, bug detection & fixing, performance optimisation, and unit test generation using a fine-tuned transformer model (CodeT5).",
@@ -400,15 +455,15 @@ export const projects = [
       ],
       video: null
     },
-    github:   "https://github.com/Ahtisham992/ai_code_assistant",
+    github: "https://github.com/Ahtisham992/ai_code_assistant",
     liveDemo: null,
-    tags:     ["AI", "Machine Learning", "Python", "NLP"],
-    date:     "2025",
+    tags: ["AI", "Machine Learning", "Python", "NLP"],
+    date: "2025",
     featured: true
   },
 
   {
-    id: 9,
+    id: 10,
     title: "University Management System",
     shortDescription: "Comprehensive MERN stack university management platform",
     description: "A web-based application designed to streamline and automate academic and financial operations within a university. Built using the MERN stack with an efficient and user-friendly interface for students, faculty, and administrators.",
@@ -434,10 +489,10 @@ export const projects = [
       ],
       video: null
     },
-    github:   "https://github.com/Rayyan9477/University-Management-System",
+    github: "https://github.com/Rayyan9477/University-Management-System",
     liveDemo: "https://university-management-system-nine.vercel.app/",
-    tags:     ["React", "MongoDB", "MERN", "Full Stack"],
-    date:     "2024",
+    tags: ["React", "MongoDB", "MERN", "Full Stack"],
+    date: "2024",
     featured: false
   }
 ];
@@ -445,23 +500,24 @@ export const projects = [
 // TASK 1.4: Turing Intelligence entry uncommented, corrected, and placed ABOVE eAccounting360
 export const experience = [
   {
-    title:   "Software Engineer (Part-time, Remote)",
+    title: "Software Engineer (Part-time, Remote)",
     company: "Turing Intelligence",
     location: "Prague, Czechia · Remote",
-    period:  "May 2025 – Present",
-    type:    "work",
+    period: "Jan 2026 – Present",
+    type: "work",
     responsibilities: [
-      "Build web and mobile features on a task-basis for a Prague-based AI and simulation research lab (computer algorithms, mathematical modelling, deep learning)",
-      "Develop full-stack applications using MERN stack and React Native; implement REST APIs and authentication systems",
-      "Collaborate remotely with a specialist engineering team on early-stage product and tooling work"
+      "Build Contribute to a system simulation platform based on the M/G/c queue model for backend performance modelling and analysis.",
+      "Built real-time simulation pipelines using WebSockets, enabling live tracking of system metrics (latency, throughput, utilisation).",
+      "Designed and implemented RESTful APIs for simulation control, metrics collection, and scenario comparison.",
+      "Developed full-stack features using React, Node.js, and TypeScript across web and mobile applications."
     ]
   },
   {
-    title:   "Web Development Intern",
+    title: "Web Development Intern",
     company: "eAccounting360",
     location: "Islamabad, Pakistan",
-    period:  "Jun 2024 – Aug 2024",
-    type:    "work",
+    period: "Jun 2024 – Aug 2024",
+    type: "work",
     responsibilities: [
       "Front-end development with React.js for client-facing interfaces",
       "Full-stack feature implementation using MERN stack",
@@ -471,10 +527,10 @@ export const experience = [
 ];
 
 export const education = {
-  degree:      "BS Software Engineering",
+  degree: "BS Software Engineering",
   institution: "FAST-NUCES Islamabad",
-  location:    "Islamabad, Pakistan",
-  period:      "2022 – 2026",
+  location: "Islamabad, Pakistan",
+  period: "2022 – 2026",
   details: [
     "Final year — graduating June 2026",
     "Specialisation in full-stack and AI/ML engineering",
@@ -484,27 +540,39 @@ export const education = {
 
 export const certifications = [
   {
-    title:  "AWS Cloud Quest – Cloud Practitioner",
-    issuer: "Amazon Web Services",
-    date:   "Jan 2026",
-    color:  "orange"
+    title: "Build a Website on Google Cloud Skill Badge",
+    issuer: "Google",
+    date: "Apr 2026",
+    color: "blue"
   },
   {
-    title:  "AWS Academy Cloud Foundations",
-    issuer: "Amazon Web Services",
-    date:   "Dec 2025",
-    color:  "orange"
+    title: "Develop AI-Powered Solutions with Vertex AI",
+    issuer: "Google",
+    date: "Apr 2026",
+    color: "blue"
   },
   {
-    title:  "Front-End Development with React",
+    title: "AWS Cloud Quest – Cloud Practitioner",
+    issuer: "Amazon Web Services",
+    date: "Jan 2026",
+    color: "orange"
+  },
+  {
+    title: "AWS Academy Cloud Foundations",
+    issuer: "Amazon Web Services",
+    date: "Dec 2025",
+    color: "orange"
+  },
+  {
+    title: "Front-End Development with React",
     issuer: "IBM / Coursera",
-    date:   "Sep 2025",
-    color:  "blue"
+    date: "Sep 2025",
+    color: "blue"
   },
   {
-    title:  "Flutter & Dart Development",
-    issuer: "Udemy",
-    date:   "Aug 2024",
-    color:  "purple"
+    title: "Blackbird Software Engineering Job Simulation",
+    issuer: "Forage",
+    date: "Feb 2026",
+    color: "purple"
   }
 ];

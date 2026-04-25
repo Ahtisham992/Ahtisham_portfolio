@@ -4,7 +4,17 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-import { Brain, CloudUpload, School, Building2, Smartphone, ExternalLink, Github } from 'lucide-react';
+import {
+  Brain,
+  CloudUpload,
+  School,
+  Building2,
+  Smartphone,
+  ExternalLink,
+  Github,
+  Cpu,
+  ShoppingCart
+} from 'lucide-react';
 import { projects, personalInfo } from '../data/portfolio';
 import { getThemeClasses } from '../theme/theme';
 
@@ -14,6 +24,8 @@ const iconMap = {
   School: School,
   Building2: Building2,
   Smartphone: Smartphone,
+  Cpu: Cpu,
+  ShoppingCart: ShoppingCart
 };
 
 const projectGradients = [
