@@ -94,7 +94,7 @@ const Navbar = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              {personalInfo.name}<span className="text-primary-500">.</span>
+              M. Ahtisham<span className="text-primary-500">.</span>
             </motion.button>
 
             {/* Desktop menu */}
