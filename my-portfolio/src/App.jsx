@@ -11,6 +11,8 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import AuroraBackground from './components/AuroraBackground';
 import PortfolioChatbot from './components/PortfolioChatbot';
+import Preloader from './components/Preloader';
+import CustomCursor from './components/CustomCursor';
 
 const HomePage = () => (
   <>
@@ -28,6 +30,8 @@ function App() {
   return (
     <Router>
       <div className="min-h-screen bg-bone text-ink relative transition-colors duration-300">
+        <Preloader />
+        <CustomCursor />
         <AuroraBackground />
         <Navbar />
 

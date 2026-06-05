@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Brain, CloudUpload, School, Building2, Smartphone, Cpu, ShoppingCart, Folder } from 'lucide-react';
 import { projects } from '../data/portfolio';
 import CaseStudyModal from './CaseStudyModal';
-
-const iconMap = {
-  Brain, CloudUpload, School, Building2, Smartphone, Cpu, ShoppingCart
-};
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -31,7 +26,7 @@ const Projects = () => {
     <section id="projects" className="section-padding border-t border-border bg-bone">
       <div className="container-custom">
         <div className="mb-16">
-          <h2 className="text-sm font-bold uppercase tracking-widest text-ink-light mb-2">Selected Work</h2>
+          <h2 className="text-sm font-bold uppercase tracking-widest text-ember mb-2">Selected Work</h2>
           <p className="text-3xl font-medium tracking-tight text-ink max-w-2xl">
             Case studies of systems and products I've engineered.
           </p>
@@ -39,7 +34,6 @@ const Projects = () => {
 
         <div className="flex flex-col border-t border-border">
           {projects.map((project, index) => {
-            const Icon = iconMap[project.icon] || Folder;
             return (
               <motion.div
                 key={project.id}
@@ -51,12 +45,13 @@ const Projects = () => {
                 onClick={() => setSelectedProject(project)}
               >
                 <div className="flex-1 pr-8 flex items-start gap-6">
-                  <div className="mt-1 p-3 bg-surface border border-border text-ink group-hover:text-ember group-hover:border-ember transition-all rounded-lg shrink-0 hidden sm:block">
-                    <Icon className="w-6 h-6" />
-                  </div>
+                  {project.media?.thumbnail && (
+                    <div className="mt-1 w-20 h-20 bg-surface border border-border rounded-lg shrink-0 hidden sm:block overflow-hidden transition-all group-hover:border-ember">
+                      <img src={project.media.thumbnail} alt={project.title} className="w-full h-full object-cover" />
+                    </div>
+                  )}
                   <div>
                     <h3 className="text-2xl font-bold tracking-tight text-ink mb-2 group-hover:text-ember transition-colors flex items-center gap-3">
-                      <span className="sm:hidden text-ink-light group-hover:text-ember"><Icon className="w-5 h-5" /></span>
                       {project.title}
                     </h3>
                     <p className="text-ink-light max-w-3xl">

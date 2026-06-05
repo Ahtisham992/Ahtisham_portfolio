@@ -29,7 +29,7 @@ const Achievements = () => {
     <section id="achievements" className="section-padding border-t border-border bg-bone">
       <div className="container-custom">
         <div className="mb-16">
-          <h2 className="text-sm font-bold uppercase tracking-widest text-ink-light mb-2">Achievements</h2>
+          <h2 className="text-sm font-bold uppercase tracking-widest text-ember mb-2">Achievements</h2>
           <p className="text-3xl font-medium tracking-tight text-ink max-w-2xl">
             Key milestones and delivered projects.
           </p>

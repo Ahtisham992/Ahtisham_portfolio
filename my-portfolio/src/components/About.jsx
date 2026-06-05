@@ -7,7 +7,7 @@ const About = () => {
     <section id="about" className="section-padding border-t border-border bg-bone">
       <div className="container-custom">
         <div className="mb-16">
-          <h2 className="text-sm font-bold uppercase tracking-widest text-ink-light mb-2">About</h2>
+          <h2 className="text-sm font-bold uppercase tracking-widest text-ember mb-2">About</h2>
           <p className="text-3xl font-medium tracking-tight text-ink max-w-2xl">
             Engineering background and current focus.
           </p>
@@ -41,7 +41,7 @@ const About = () => {
             <img 
               src="/Ahtisham.png" 
               alt="Muhammad Ahtisham" 
-              className="w-full h-full object-cover grayscale-[0.2] border border-border transition-transform duration-500 group-hover:scale-[1.02]"
+              className="w-full h-full object-cover grayscale group-hover:grayscale-0 border border-border transition-all duration-500 group-hover:scale-[1.02]"
             />
           </motion.div>
 

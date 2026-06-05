@@ -17,7 +17,7 @@ const Contact = () => {
   return (
     <section id="contact" className="section-padding border-t border-border bg-bone">
       <div className="container-custom">
-        <div className="mb-16 text-center">
+        <div className="mb-16">
           <h2 className="text-sm font-bold uppercase tracking-widest text-ember mb-2">Contact</h2>
           <p className="text-3xl font-medium tracking-tight text-ink">
             Start a conversation.

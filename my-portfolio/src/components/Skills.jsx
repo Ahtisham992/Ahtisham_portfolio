@@ -7,7 +7,7 @@ const Skills = () => {
     <section id="capabilities" className="section-padding border-t border-border bg-bone">
       <div className="container-custom">
         <div className="mb-16">
-          <h2 className="text-sm font-bold uppercase tracking-widest text-ink-light mb-2">Capabilities</h2>
+          <h2 className="text-sm font-bold uppercase tracking-widest text-ember mb-2">Capabilities</h2>
           <p className="text-3xl font-medium tracking-tight text-ink max-w-2xl">
             Core technologies and tools I work with daily.
           </p>
@@ -33,9 +33,6 @@ const Skills = () => {
                   <div key={i} className="flex items-center gap-2 bg-surface border border-border px-4 py-2 hover:border-ink transition-colors cursor-default">
                     <span className="text-ink font-medium text-sm">
                       {item.name}
-                    </span>
-                    <span className="text-ink-light/50 text-xs ml-2">
-                      {item.level}%
                     </span>
                   </div>
                 ))}
