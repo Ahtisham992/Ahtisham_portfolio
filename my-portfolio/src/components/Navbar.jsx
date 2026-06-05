@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Sun, Moon } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,7 +50,16 @@ const Navbar = () => {
               <span className="absolute left-0 bottom-[-4px] w-0 h-[1px] bg-ember transition-all duration-300 group-hover:w-full"></span>
             </a>
           ))}
-          <a href="#contact" className="btn-primary py-2 px-5 text-sm ml-4 shadow-sm hover:shadow-md transition-all">
+          
+          <button 
+            onClick={toggleTheme}
+            className="p-2 ml-2 text-ink hover:text-ember transition-colors rounded-full hover:bg-surface"
+            aria-label="Toggle Dark Mode"
+          >
+            {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+          </button>
+
+          <a href="#contact" className="btn-primary py-2 px-5 text-sm ml-2 shadow-sm hover:shadow-md transition-all">
             Hire Me
           </a>
         </div>

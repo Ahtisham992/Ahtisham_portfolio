@@ -5,6 +5,24 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --color-bone: 252 251 248;
+    --color-surface: 237 237 234;
+    --color-border: 193 196 194;
+    --color-ink: 0 16 17;
+    --color-ink-light: 15 30 31;
+    --color-ember: 253 83 33;
+  }
+
+  .dark {
+    --color-bone: 15 15 15;
+    --color-surface: 25 25 25;
+    --color-border: 45 45 45;
+    --color-ink: 252 251 248;
+    --color-ink-light: 170 170 170;
+    --color-ember: 253 83 33;
+  }
+
   * {
     @apply border-border;
   }

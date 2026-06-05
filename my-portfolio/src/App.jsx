@@ -14,6 +14,7 @@ import PortfolioChatbot from './components/PortfolioChatbot';
 import Preloader from './components/Preloader';
 import CustomCursor from './components/CustomCursor';
 import ScrollToTop from './components/ScrollToTop';
+import { ThemeProvider } from './context/ThemeContext';
 
 const HomePage = () => (
   <>
@@ -29,22 +30,24 @@ const HomePage = () => (
 
 function App() {
   return (
-    <Router>
-      <div className="min-h-screen bg-bone text-ink relative transition-colors duration-300">
-        <Preloader />
-        <CustomCursor />
-        <ScrollToTop />
-        <AuroraBackground />
-        <Navbar />
+    <ThemeProvider>
+      <Router>
+        <div className="min-h-screen bg-bone text-ink relative transition-colors duration-300">
+          <Preloader />
+          <CustomCursor />
+          <ScrollToTop />
+          <AuroraBackground />
+          <Navbar />
 
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-        </Routes>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+          </Routes>
 
-        <Footer />
-        <PortfolioChatbot />
-      </div>
-    </Router>
+          <Footer />
+          <PortfolioChatbot />
+        </div>
+      </Router>
+    </ThemeProvider>
   );
 }
 

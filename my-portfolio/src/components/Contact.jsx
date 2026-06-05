@@ -2,16 +2,34 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Instagram, Mail } from 'lucide-react';
 import { personalInfo, siteMetadata } from '../data/portfolio';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState('idle'); // idle, sending, success, error
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('sending');
-    // Simulate sending
-    setTimeout(() => setStatus('success'), 1500);
+    
+    try {
+      await emailjs.send(
+        "service_k84h75r",
+        "template_8524d2n",
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: "Message from Portfolio",
+          message: formData.message,
+        },
+        "AAL_3cEDr2Vb_3GIf"
+      );
+      setStatus('success');
+      setFormData({ name: '', email: '', message: '' });
+    } catch (error) {
+      console.error("EmailJS Error:", error);
+      setStatus('error');
+    }
   };
 
   return (

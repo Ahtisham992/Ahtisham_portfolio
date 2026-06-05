@@ -10,12 +10,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        bone: '#fcfbf8',
-        surface: '#ededea',
-        border: '#c1c4c2',
-        ink: '#001011',
-        'ink-light': '#0f1e1f',
-        ember: '#fd5321',
+        bone: 'rgb(var(--color-bone) / <alpha-value>)',
+        surface: 'rgb(var(--color-surface) / <alpha-value>)',
+        border: 'rgb(var(--color-border) / <alpha-value>)',
+        ink: 'rgb(var(--color-ink) / <alpha-value>)',
+        'ink-light': 'rgb(var(--color-ink-light) / <alpha-value>)',
+        ember: 'rgb(var(--color-ember) / <alpha-value>)',
       },
       fontFamily: {
         sans: ['Inter', 'Satoshi', 'system-ui', 'sans-serif'],
