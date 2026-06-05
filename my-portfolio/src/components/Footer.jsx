@@ -1,106 +1,25 @@
-// ========================================
-// FILE: src/components/Footer.jsx
-// TASK 6.5: Fixed quickLinks hrefs from '../#...' to '/#...'
-//           so they resolve correctly from sub-routes like /projects.
-// ========================================
 import React from 'react';
-import { Linkedin, Github, Instagram, Heart } from 'lucide-react';
-import { personalInfo } from '../data/portfolio';
-import { getThemeClasses } from '../theme/theme';
 
 const Footer = () => {
-  const currentYear  = new Date().getFullYear();
-  const themeClasses = getThemeClasses();
-
-  // TASK 6.5: All hash links now use '/' prefix, not '../'
-  const quickLinks = [
-    { name: 'About',      href: '/#about'      },
-    { name: 'Skills',     href: '/#skills'     },
-    { name: 'Projects',   href: '/#projects'   },
-    { name: 'Experience', href: '/#experience' },
-    { name: 'Contact',    href: '/#contact'    },
-  ];
-
-  const services = [
-    'Web Development (MERN Stack)',
-    'Mobile App Development (React Native)',
-    'AI / Machine Learning Engineering',
-    'Database Design & Management',
-    'REST API Development',
-    'Cloud Deployment (AWS)',
-  ];
-
-  const socialLinks = [
-    { icon: Linkedin,  href: personalInfo.social.linkedin  },
-    { icon: Github,    href: personalInfo.social.github    },
-    { icon: Instagram, href: personalInfo.social.instagram },
-  ];
-
   return (
-    <footer className="bg-gray-900 dark:bg-gray-950 text-white py-12">
-      <div className="container-custom">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-
-          {/* Brand */}
-          <div>
-            <h3 className="text-2xl font-bold text-slate-100 tracking-tight mb-4 flex items-center gap-1">
-              {personalInfo.name}<span className="text-primary-500">.</span>
-            </h3>
-            <p className="text-gray-400 mb-4">
-              Full Stack Developer &amp; AI/ML Engineer building production-ready
-              systems and shipping clean, efficient code.
-            </p>
-            <div className="flex gap-4">
-              {socialLinks.map((social, index) => (
-                <a
-                  key={index}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-primary-400 transition-colors"
-                >
-                  <social.icon className="w-6 h-6" />
-                </a>
-              ))}
-            </div>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4 text-primary-400">Quick Links</h4>
-            <ul className="space-y-2">
-              {quickLinks.map((link, index) => (
-                <li key={index}>
-                  <a
-                    href={link.href}
-                    className="text-gray-400 hover:text-white transition-colors"
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Services */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4 text-primary-400">Services</h4>
-            <ul className="space-y-2 text-gray-400 text-sm">
-              {services.map((service, index) => (
-                <li key={index}>• {service}</li>
-              ))}
-            </ul>
-          </div>
+    <footer className="border-t border-border py-8 mt-20">
+      <div className="container-custom flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="text-sm text-ink-light font-medium">
+          &copy; {new Date().getFullYear()} Muhammad Ahtisham.
+        </div>
+        
+        <div className="flex items-center gap-6 text-sm font-medium text-ink-light">
+          <a href="https://github.com/Ahtisham992" target="_blank" rel="noopener noreferrer" className="hover:text-ink transition-colors">GitHub</a>
+          <a href="https://linkedin.com/in/muhammad-ahtisham0" target="_blank" rel="noopener noreferrer" className="hover:text-ink transition-colors">LinkedIn</a>
+          <a href="https://twitter.com/MAhtisham12" target="_blank" rel="noopener noreferrer" className="hover:text-ink transition-colors">Twitter</a>
         </div>
 
-        {/* Bottom bar */}
-        <div className="border-t border-gray-800 pt-8 text-center">
-          <p className="text-gray-400 flex items-center justify-center gap-2">
-            © {currentYear} {personalInfo.name}. All rights reserved. Built with
-            <Heart className="w-4 h-4 text-red-500 fill-red-500" />
-            and dedication.
-          </p>
-        </div>
+        <button 
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="text-sm font-medium text-ink-light hover:text-ember transition-colors flex items-center gap-1"
+        >
+          Back to top &uarr;
+        </button>
       </div>
     </footer>
   );
