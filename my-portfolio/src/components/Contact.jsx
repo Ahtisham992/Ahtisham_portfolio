@@ -14,18 +14,19 @@ const Contact = () => {
     
     try {
       await emailjs.send(
-        "service_k84h75r",
-        "template_8524d2n",
+        "service_ntd8qaa",
+        "template_we8jt3l",
         {
           from_name: formData.name,
           from_email: formData.email,
           subject: "Message from Portfolio",
           message: formData.message,
         },
-        "AAL_3cEDr2Vb_3GIf"
+        { publicKey: "HF9NDuUkZ7bfuNXto" }
       );
       setStatus('success');
       setFormData({ name: '', email: '', message: '' });
+      setTimeout(() => setStatus('idle'), 4000);
     } catch (error) {
       console.error("EmailJS Error:", error);
       setStatus('error');

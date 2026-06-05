@@ -45,7 +45,7 @@ const Preloader = ({ onComplete }) => {
               {/* Letter M */}
               <motion.path
                 d="M 20 80 L 20 20 L 40 50 L 60 20 L 60 80"
-                stroke="#fd5321" // Ember
+                className="stroke-ember"
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: 1 }}
                 transition={{ duration: 1.2, ease: "easeInOut" }}
@@ -53,14 +53,14 @@ const Preloader = ({ onComplete }) => {
               {/* Letter A */}
               <motion.path
                 d="M 60 80 L 80 20 L 100 80"
-                stroke="#001011" // Ink
+                className="stroke-ink"
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: 1 }}
                 transition={{ duration: 1.2, ease: "easeInOut", delay: 0.2 }}
               />
               <motion.path
                 d="M 67 60 L 93 60"
-                stroke="#001011" // Ink
+                className="stroke-ink"
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: 1 }}
                 transition={{ duration: 0.5, ease: "easeInOut", delay: 1 }}
@@ -69,7 +69,7 @@ const Preloader = ({ onComplete }) => {
               {/* Underline */}
               <motion.path
                 d="M 15 90 L 105 90"
-                stroke="#c1c4c2" // Border
+                className="stroke-border"
                 strokeWidth="2"
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: 1 }}
