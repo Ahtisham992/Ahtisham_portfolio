@@ -31,7 +31,7 @@ const Preloader = ({ onComplete }) => {
           transition={{ duration: 0.5, ease: "easeInOut" }}
           className="fixed inset-0 z-[100] bg-bone flex flex-col items-center justify-center"
         >
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center scale-[1.5] md:scale-[2]">
             <svg 
               width="120" 
               height="120" 

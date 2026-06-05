@@ -58,7 +58,7 @@ const CustomCursor = () => {
     <>
       {/* Exact dot */}
       <motion.div
-        className="fixed top-0 left-0 w-2 h-2 bg-ember rounded-full pointer-events-none z-[9999] mix-blend-difference"
+        className="fixed top-0 left-0 w-2 h-2 bg-ember rounded-full pointer-events-none z-[9999]"
         style={{
           x: mouseX,
           y: mouseY,

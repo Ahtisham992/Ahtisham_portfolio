@@ -13,6 +13,7 @@ import AuroraBackground from './components/AuroraBackground';
 import PortfolioChatbot from './components/PortfolioChatbot';
 import Preloader from './components/Preloader';
 import CustomCursor from './components/CustomCursor';
+import ScrollToTop from './components/ScrollToTop';
 
 const HomePage = () => (
   <>
@@ -32,6 +33,7 @@ function App() {
       <div className="min-h-screen bg-bone text-ink relative transition-colors duration-300">
         <Preloader />
         <CustomCursor />
+        <ScrollToTop />
         <AuroraBackground />
         <Navbar />
 

@@ -27,7 +27,7 @@ const CaseStudyModal = ({ project, onClose }) => {
               </h2>
               <button
                 onClick={onClose}
-                className="text-ink-light hover:text-ink transition-colors font-medium text-sm border-b border-transparent hover:border-ink"
+                className="text-ember hover:text-[#e04518] transition-colors font-bold tracking-widest text-xs uppercase"
               >
                 Close (ESC)
               </button>
