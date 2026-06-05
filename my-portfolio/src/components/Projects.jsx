@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { projects } from '../data/portfolio';
+import { projects, siteMetadata } from '../data/portfolio';
 import CaseStudyModal from './CaseStudyModal';
 
 const Projects = () => {
@@ -26,9 +26,9 @@ const Projects = () => {
     <section id="projects" className="section-padding border-t border-border bg-bone">
       <div className="container-custom">
         <div className="mb-16">
-          <h2 className="text-sm font-bold uppercase tracking-widest text-ember mb-2">Selected Work</h2>
+          <h2 className="text-sm font-bold uppercase tracking-widest text-ember mb-2">{siteMetadata.projects.heading}</h2>
           <p className="text-3xl font-medium tracking-tight text-ink max-w-2xl">
-            Case studies of systems and products I've engineered.
+            {siteMetadata.projects.description}
           </p>
         </div>
 

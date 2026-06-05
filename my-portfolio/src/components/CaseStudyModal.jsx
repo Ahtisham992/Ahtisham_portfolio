@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ExternalLink, Github } from 'lucide-react';
 
 const CaseStudyModal = ({ project, onClose }) => {
   if (!project) return null;
@@ -81,16 +82,20 @@ const CaseStudyModal = ({ project, onClose }) => {
 
                 <div className="space-y-4">
                   <h3 className="text-xs font-bold uppercase tracking-widest text-ink-light mb-4">Links</h3>
-                  {project.liveDemo && (
-                    <a href={project.liveDemo} target="_blank" rel="noopener noreferrer" className="block text-ink font-medium hover:text-ember transition-colors">
-                      Live Project &rarr;
-                    </a>
-                  )}
-                  {project.github && (
-                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="block text-ink font-medium hover:text-ember transition-colors">
-                      Source Code &rarr;
-                    </a>
-                  )}
+                  <div className="space-y-3">
+                    {project.liveDemo && (
+                      <a href={project.liveDemo} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-ember hover:text-[#e04518] font-medium transition-colors">
+                        <ExternalLink className="w-4 h-4" />
+                        Live Project
+                      </a>
+                    )}
+                    {project.github && (
+                      <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-ember hover:text-[#e04518] font-medium transition-colors">
+                        <Github className="w-4 h-4" />
+                        Source Code
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

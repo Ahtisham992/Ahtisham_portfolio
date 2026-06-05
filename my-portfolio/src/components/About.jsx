@@ -1,15 +1,15 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { personalInfo, education, certifications } from '../data/portfolio';
+import { personalInfo, education, certifications, siteMetadata } from '../data/portfolio';
 
 const About = () => {
   return (
     <section id="about" className="section-padding border-t border-border bg-bone">
       <div className="container-custom">
         <div className="mb-16">
-          <h2 className="text-sm font-bold uppercase tracking-widest text-ember mb-2">About</h2>
+          <h2 className="text-sm font-bold uppercase tracking-widest text-ember mb-2">{siteMetadata.about.heading}</h2>
           <p className="text-3xl font-medium tracking-tight text-ink max-w-2xl">
-            Engineering background and current focus.
+            {siteMetadata.about.description}
           </p>
         </div>
 

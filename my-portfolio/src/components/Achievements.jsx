@@ -1,42 +1,21 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-
-const achievementsData = [
-  {
-    title: "Software Engineer (Part-time)",
-    description: "Contributing to a distributed system simulation platform using React, Node.js, and TypeScript at Turing Intelligence.",
-    date: "2026"
-  },
-  {
-    title: "Prismora AI Deployment",
-    description: "Built and deployed an AI podcast summarisation platform using Whisper AI and NLP transformers.",
-    date: "2025"
-  },
-  {
-    title: "Web Development Intern",
-    description: "Implemented full-stack features using the MERN stack and optimized MySQL databases at eAccounting360.",
-    date: "2024"
-  },
-  {
-    title: "SalesCare Service Center System",
-    description: "Delivered a comprehensive ERP platform with 50+ REST APIs for complaint and inventory management.",
-    date: "2025"
-  }
-];
+import { CheckCircle2 } from 'lucide-react';
+import { achievements, siteMetadata } from '../data/portfolio';
 
 const Achievements = () => {
   return (
-    <section id="achievements" className="section-padding border-t border-border bg-bone">
+    <section id="achievements" className="section-padding border-t border-border bg-surface">
       <div className="container-custom">
         <div className="mb-16">
-          <h2 className="text-sm font-bold uppercase tracking-widest text-ember mb-2">Achievements</h2>
+          <h2 className="text-sm font-bold uppercase tracking-widest text-ember mb-2">{siteMetadata.achievements.heading}</h2>
           <p className="text-3xl font-medium tracking-tight text-ink max-w-2xl">
-            Key milestones and delivered projects.
+            {siteMetadata.achievements.description}
           </p>
         </div>
 
         <div className="border-t border-border">
-          {achievementsData.map((item, index) => (
+          {achievements.map((item, index) => (
             <motion.div 
               key={index}
               initial={{ opacity: 0, y: 10 }}

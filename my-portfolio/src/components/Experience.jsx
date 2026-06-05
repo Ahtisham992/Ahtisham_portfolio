@@ -1,15 +1,15 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { experience, education } from '../data/portfolio';
+import { experience, siteMetadata } from '../data/portfolio';
 
 const Experience = () => {
   return (
-    <section id="experience" className="section-padding border-t border-border bg-bone">
+    <section id="experience" className="section-padding border-t border-border bg-surface">
       <div className="container-custom">
         <div className="mb-16">
-          <h2 className="text-sm font-bold uppercase tracking-widest text-ember mb-2">Experience</h2>
+          <h2 className="text-sm font-bold uppercase tracking-widest text-ember mb-2">{siteMetadata.experience.heading}</h2>
           <p className="text-3xl font-medium tracking-tight text-ink max-w-2xl">
-            Where I've built systems and solved problems.
+            {siteMetadata.experience.description}
           </p>
         </div>
 

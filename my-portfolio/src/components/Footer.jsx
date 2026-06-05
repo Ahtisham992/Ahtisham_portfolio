@@ -1,5 +1,5 @@
 import React from 'react';
-import { personalInfo } from '../data/portfolio';
+import { personalInfo, siteMetadata } from '../data/portfolio';
 
 const Footer = () => {
   return (
@@ -12,7 +12,7 @@ const Footer = () => {
               <span className="text-ink">A</span>
             </a>
             <p className="text-ink-light max-w-sm mb-6 leading-relaxed">
-              Engineering robust, scalable software systems and AI solutions. Available for remote and onsite opportunities.
+              {siteMetadata.footer.description}
             </p>
             <div className="flex items-center gap-4 text-sm font-bold text-ink">
               <div className="w-2 h-2 rounded-full bg-ember animate-pulse" />

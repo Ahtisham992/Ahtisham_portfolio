@@ -1,15 +1,15 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { skills } from '../data/portfolio';
+import { skills, siteMetadata } from '../data/portfolio';
 
 const Skills = () => {
   return (
     <section id="capabilities" className="section-padding border-t border-border bg-bone">
       <div className="container-custom">
         <div className="mb-16">
-          <h2 className="text-sm font-bold uppercase tracking-widest text-ember mb-2">Capabilities</h2>
+          <h2 className="text-sm font-bold uppercase tracking-widest text-ember mb-2">{siteMetadata.capabilities.heading}</h2>
           <p className="text-3xl font-medium tracking-tight text-ink max-w-2xl">
-            Core technologies and tools I work with daily.
+            {siteMetadata.capabilities.description}
           </p>
         </div>
 

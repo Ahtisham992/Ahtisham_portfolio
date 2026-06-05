@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Instagram } from 'lucide-react';
-import { personalInfo } from '../data/portfolio';
+import { personalInfo, siteMetadata } from '../data/portfolio';
 
 const Hero = () => {
   return (
@@ -20,7 +20,7 @@ const Hero = () => {
               <span className="relative inline-flex rounded-full h-3 w-3 bg-ember"></span>
             </div>
             <span className="text-sm font-medium tracking-wide text-ink-light uppercase">
-              Available for opportunities
+              {siteMetadata.hero.statusText}
             </span>
           </motion.div>
 
@@ -30,7 +30,7 @@ const Hero = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-[64px] sm:text-[72px] lg:text-[101px] leading-[1.05] tracking-tight font-bold mb-6 text-ink"
           >
-            Muhammad Ahtisham
+            {siteMetadata.hero.heading}
           </motion.h1>
 
           <motion.h2 
@@ -39,7 +39,7 @@ const Hero = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-[28px] sm:text-[32px] md:text-[36px] font-medium leading-tight mb-6 text-ink-light"
           >
-            Full-Stack Engineer building AI-driven systems.
+            {siteMetadata.hero.subheading}
           </motion.h2>
 
           <motion.p 
@@ -48,7 +48,7 @@ const Hero = () => {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="text-[18px] sm:text-[20px] text-ink-light mb-12 max-w-2xl leading-relaxed"
           >
-            I design and build scalable web, mobile, and AI-powered products.
+            {siteMetadata.hero.description}
           </motion.p>
 
           <motion.div 

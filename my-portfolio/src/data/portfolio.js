@@ -36,6 +36,42 @@ export const personalInfo = {
   }
 };
 
+export const siteMetadata = {
+  hero: {
+    heading: personalInfo.name,
+    subheading: "Full-Stack Engineer building AI-driven systems.",
+    description: "I design and build scalable web, mobile, and AI-powered products.",
+    statusText: "Available for opportunities"
+  },
+  about: {
+    heading: "About",
+    description: "Engineering background and current focus."
+  },
+  projects: {
+    heading: "Selected Work",
+    description: "Case studies of systems and products I've engineered."
+  },
+  experience: {
+    heading: "Experience",
+    description: "Professional trajectory and roles."
+  },
+  capabilities: {
+    heading: "Capabilities",
+    description: "Core technologies and tools I work with daily."
+  },
+  achievements: {
+    heading: "Achievements",
+    description: "Milestones and professional recognition."
+  },
+  contact: {
+    heading: "Contact",
+    description: "Start a conversation."
+  },
+  footer: {
+    description: "Engineering robust, scalable software systems and AI solutions. Available for remote and onsite opportunities."
+  }
+};
+
 export const skills = {
   frontend: [
     { name: "React.js", level: 80 },
@@ -574,5 +610,28 @@ export const certifications = [
     issuer: "Forage",
     date: "Feb 2026",
     color: "purple"
+  }
+];
+
+export const achievements = [
+  {
+    title: "Software Engineer (Part-time)",
+    description: "Contributing to a distributed system simulation platform using React, Node.js, and TypeScript at Turing Intelligence.",
+    date: "2026"
+  },
+  {
+    title: "Prismora AI Deployment",
+    description: "Built and deployed an AI podcast summarisation platform using Whisper AI and NLP transformers.",
+    date: "2025"
+  },
+  {
+    title: "Web Development Intern",
+    description: "Implemented full-stack features using the MERN stack and optimized MySQL databases at eAccounting360.",
+    date: "2024"
+  },
+  {
+    title: "SalesCare Service Center System",
+    description: "Delivered a comprehensive ERP platform with 50+ REST APIs for complaint and inventory management.",
+    date: "2025"
   }
 ];
