@@ -13,7 +13,7 @@ const Skills = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 border-t border-border pt-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12 border-t border-border pt-12">
           {Object.entries(skills).map(([category, items], index) => (
             <motion.div
               key={category}
@@ -22,16 +22,24 @@ const Skills = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.1 }}
             >
-              <h3 className="text-sm font-bold uppercase tracking-widest text-ink mb-6 pb-2 border-b border-border capitalize">
-                {category}
-              </h3>
-              <ul className="space-y-3">
+              <div className="flex items-center gap-4 mb-6">
+                <h3 className="text-sm font-bold uppercase tracking-widest text-ink capitalize shrink-0">
+                  {category}
+                </h3>
+                <div className="h-[1px] w-full bg-border" />
+              </div>
+              <div className="flex flex-wrap gap-3">
                 {items.map((item, i) => (
-                  <li key={i} className="text-ink-light font-medium text-sm hover:text-ink transition-colors">
-                    {item.name}
-                  </li>
+                  <div key={i} className="flex items-center gap-2 bg-surface border border-border px-4 py-2 hover:border-ink transition-colors cursor-default">
+                    <span className="text-ink font-medium text-sm">
+                      {item.name}
+                    </span>
+                    <span className="text-ink-light/50 text-xs ml-2">
+                      {item.level}%
+                    </span>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </motion.div>
           ))}
         </div>

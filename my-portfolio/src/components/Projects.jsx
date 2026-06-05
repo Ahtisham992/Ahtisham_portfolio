@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Brain, CloudUpload, School, Building2, Smartphone, Cpu, ShoppingCart, Folder } from 'lucide-react';
 import { projects } from '../data/portfolio';
 import CaseStudyModal from './CaseStudyModal';
+
+const iconMap = {
+  Brain, CloudUpload, School, Building2, Smartphone, Cpu, ShoppingCart
+};
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
 
-  // Handle ESC key to close modal
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') setSelectedProject(null);
@@ -15,7 +19,6 @@ const Projects = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Prevent background scrolling when modal is open
   useEffect(() => {
     if (selectedProject) {
       document.body.style.overflow = 'hidden';
@@ -35,44 +38,53 @@ const Projects = () => {
         </div>
 
         <div className="flex flex-col border-t border-border">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.4, delay: Math.min(index * 0.1, 0.5) }}
-              className="group flex flex-col md:flex-row md:items-center justify-between py-8 border-b border-border cursor-pointer"
-              onClick={() => setSelectedProject(project)}
-            >
-              <div className="flex-1 pr-8">
-                <h3 className="text-2xl font-bold tracking-tight text-ink mb-2 group-hover:text-ember transition-colors">
-                  {project.title}
-                </h3>
-                <p className="text-ink-light max-w-3xl">
-                  {project.shortDescription}
-                </p>
-              </div>
+          {projects.map((project, index) => {
+            const Icon = iconMap[project.icon] || Folder;
+            return (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.4, delay: Math.min(index * 0.1, 0.5) }}
+                className="group flex flex-col md:flex-row md:items-center justify-between py-8 border-b border-border cursor-pointer hover:bg-surface/50 px-4 -mx-4 transition-colors"
+                onClick={() => setSelectedProject(project)}
+              >
+                <div className="flex-1 pr-8 flex items-start gap-6">
+                  <div className="mt-1 p-3 bg-surface border border-border text-ink group-hover:text-ember group-hover:border-ember transition-all rounded-lg shrink-0 hidden sm:block">
+                    <Icon className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold tracking-tight text-ink mb-2 group-hover:text-ember transition-colors flex items-center gap-3">
+                      <span className="sm:hidden text-ink-light group-hover:text-ember"><Icon className="w-5 h-5" /></span>
+                      {project.title}
+                    </h3>
+                    <p className="text-ink-light max-w-3xl">
+                      {project.shortDescription}
+                    </p>
+                  </div>
+                </div>
 
-              <div className="mt-4 md:mt-0 flex items-center gap-6 justify-between md:justify-end">
-                <div className="hidden lg:flex flex-wrap gap-2 justify-end max-w-md">
-                  {project.technologies.slice(0, 3).map((tech, i) => (
-                    <span key={i} className="text-xs font-medium text-ink-light bg-surface px-2 py-1">
-                      {tech}
-                    </span>
-                  ))}
-                  {project.technologies.length > 3 && (
-                    <span className="text-xs font-medium text-ink-light bg-surface px-2 py-1">
-                      +{project.technologies.length - 3}
-                    </span>
-                  )}
+                <div className="mt-4 md:mt-0 flex items-center gap-6 justify-between md:justify-end">
+                  <div className="hidden lg:flex flex-wrap gap-2 justify-end max-w-md">
+                    {project.technologies.slice(0, 3).map((tech, i) => (
+                      <span key={i} className="text-xs font-medium text-ink-light bg-surface px-2 py-1">
+                        {tech}
+                      </span>
+                    ))}
+                    {project.technologies.length > 3 && (
+                      <span className="text-xs font-medium text-ink-light bg-surface px-2 py-1">
+                        +{project.technologies.length - 3}
+                      </span>
+                    )}
+                  </div>
+                  <div className="w-8 h-8 flex items-center justify-center text-ink-light group-hover:text-ember transition-colors">
+                    &rarr;
+                  </div>
                 </div>
-                <div className="w-8 h-8 flex items-center justify-center text-ink-light group-hover:text-ember transition-colors">
-                  &rarr;
-                </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
 

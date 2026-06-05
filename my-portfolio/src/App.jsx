@@ -10,14 +10,15 @@ import Achievements from './components/Achievements';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import AuroraBackground from './components/AuroraBackground';
+import PortfolioChatbot from './components/PortfolioChatbot';
 
 const HomePage = () => (
   <>
     <Hero />
+    <About />
     <Projects />
     <Experience />
     <Skills />
-    <About />
     <Achievements />
     <Contact />
   </>
@@ -35,6 +36,7 @@ function App() {
         </Routes>
 
         <Footer />
+        <PortfolioChatbot />
       </div>
     </Router>
   );

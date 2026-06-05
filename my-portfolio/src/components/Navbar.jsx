@@ -13,10 +13,10 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
+    { name: 'About', href: '#about' },
     { name: 'Projects', href: '#projects' },
     { name: 'Experience', href: '#experience' },
     { name: 'Capabilities', href: '#capabilities' },
-    { name: 'About', href: '#about' },
     { name: 'Contact', href: '#contact' },
   ];
 
@@ -30,8 +30,9 @@ const Navbar = () => {
       }`}
     >
       <div className="container-custom flex items-center justify-between">
-        <a href="#home" className="text-xl font-bold tracking-tighter text-ink">
-          M. Ahtisham
+        <a href="#home" className="text-2xl font-black tracking-tighter flex items-center">
+          <span className="text-ember">M</span>
+          <span className="text-ink">A</span>
         </a>
 
         {/* Desktop Nav */}
@@ -46,8 +47,8 @@ const Navbar = () => {
               <span className="absolute left-0 bottom-[-4px] w-0 h-[1px] bg-ember transition-all duration-300 group-hover:w-full"></span>
             </a>
           ))}
-          <a href="#contact" className="text-sm font-medium text-ember hover:text-[#e04518] transition-colors ml-4">
-            Let's Talk &rarr;
+          <a href="#contact" className="btn-primary py-2 px-5 text-sm ml-4 shadow-sm hover:shadow-md transition-all">
+            Hire Me
           </a>
         </div>
       </div>
