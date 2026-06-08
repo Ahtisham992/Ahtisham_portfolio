@@ -53,6 +53,10 @@ const Navbar = () => {
               </a>
             ))}
             
+            <div className="flex items-center gap-1 text-[11px] font-bold text-ink-light bg-surface px-2 py-1.5 border border-border/50 rounded ml-2 hidden lg:flex cursor-default select-none group hover:border-ember transition-colors">
+              <span className="text-ink">Cmd</span> <span className="opacity-50">+</span> <span className="text-ink">K</span>
+            </div>
+
             <button 
               onClick={toggleTheme}
               className="p-2 ml-2 text-ink hover:text-ember transition-colors rounded-full hover:bg-surface"

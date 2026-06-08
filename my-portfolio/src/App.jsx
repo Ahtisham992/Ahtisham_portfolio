@@ -15,6 +15,8 @@ import Preloader from './components/Preloader';
 import CustomCursor from './components/CustomCursor';
 import ScrollToTop from './components/ScrollToTop';
 import { ThemeProvider } from './context/ThemeContext';
+import CommandPalette from './components/CommandPalette';
+import SystemStatus from './components/SystemStatus';
 
 const HomePage = () => (
   <>
@@ -38,11 +40,13 @@ function App() {
           <ScrollToTop />
           <AuroraBackground />
           <Navbar />
+          <CommandPalette />
 
           <Routes>
             <Route path="/" element={<HomePage />} />
           </Routes>
 
+          <SystemStatus />
           <Footer />
           <PortfolioChatbot />
         </div>
