@@ -22,11 +22,11 @@ const ResumeDownload = () => {
           clearInterval(interval);
           setIsDownloading(false);
           setDownloaded(true);
-          
+
           // Trigger actual download
           const link = document.createElement('a');
           link.href = personalInfo.resumeUrl;
-          link.download = 'M_Ahtisham_Resume.pdf';
+          link.download = personalInfo.resumeUrl;
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
@@ -36,7 +36,7 @@ const ResumeDownload = () => {
             setDownloaded(false);
             setProgress(0);
           }, 3000);
-          
+
           return 100;
         }
         return prev + 10;
@@ -53,11 +53,10 @@ const ResumeDownload = () => {
           disabled={isDownloading || downloaded}
           whileHover={{ scale: isDownloading || downloaded ? 1 : 1.05 }}
           whileTap={{ scale: isDownloading || downloaded ? 1 : 0.95 }}
-          className={`relative px-8 py-4 rounded-full font-bold shadow-lg hover:shadow-xl transition-all inline-flex items-center justify-center gap-2 overflow-hidden ${
-            downloaded
-              ? 'bg-green-500 text-white'
-              : `${themeClasses.gradient} text-white`
-          }`}
+          className={`relative px-8 py-4 rounded-full font-bold shadow-lg hover:shadow-xl transition-all inline-flex items-center justify-center gap-2 overflow-hidden ${downloaded
+            ? 'bg-green-500 text-white'
+            : `${themeClasses.gradient} text-white`
+            }`}
         >
           {/* Progress Bar */}
           {isDownloading && (

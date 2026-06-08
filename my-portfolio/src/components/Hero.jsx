@@ -5,14 +5,14 @@ import { personalInfo, siteMetadata } from '../data/portfolio';
 
 const BlueprintSVG = () => {
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1, delay: 0.5 }}
       className="relative w-72 h-72 lg:w-[400px] lg:h-[400px] flex items-center justify-center cursor-crosshair group opacity-90 hover:opacity-100 transition-opacity duration-500"
     >
-      <svg 
-        viewBox="0 0 120 120" 
+      <svg
+        viewBox="0 0 120 120"
         className="w-full h-full stroke-ember"
         fill="none"
         strokeWidth="1.5"
@@ -41,7 +41,7 @@ const BlueprintSVG = () => {
           transition={{ duration: 0.8, ease: "easeInOut", delay: 0.2 }}
         />
       </svg>
-      
+
       {/* Decorative Blueprint Corner Marks */}
       <div className="absolute top-0 left-0 w-8 h-8 border-t border-l border-ink-light/20 group-hover:border-ember transition-colors duration-700" />
       <div className="absolute top-0 right-0 w-8 h-8 border-t border-r border-ink-light/20 group-hover:border-ember transition-colors duration-700" />
@@ -56,7 +56,7 @@ const Hero = () => {
     <section id="home" className="relative min-h-screen flex items-center pt-20 overflow-hidden">
       <div className="container-custom relative z-10 w-full flex flex-col lg:flex-row items-center justify-between gap-12">
         <div className="max-w-3xl flex-1 z-10">
-          
+
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -72,7 +72,7 @@ const Hero = () => {
             </span>
           </motion.div>
 
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
@@ -81,7 +81,7 @@ const Hero = () => {
             {siteMetadata.hero.heading}
           </motion.h1>
 
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -90,7 +90,7 @@ const Hero = () => {
             {siteMetadata.hero.subheading}
           </motion.h2>
 
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
@@ -99,7 +99,7 @@ const Hero = () => {
             {siteMetadata.hero.description}
           </motion.p>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
@@ -108,7 +108,7 @@ const Hero = () => {
             <a href="#projects" className="btn-primary">
               View Work &rarr;
             </a>
-            <a href="/Ahtisham_Resume_Final.pdf" target="_blank" rel="noopener noreferrer" className="btn-secondary">
+            <a href={personalInfo.resumeUrl} target="_blank" rel="noopener noreferrer" className="btn-secondary">
               Download Resume
             </a>
           </motion.div>

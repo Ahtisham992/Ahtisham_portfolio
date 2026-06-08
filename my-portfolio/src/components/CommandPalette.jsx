@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Home, User, Briefcase, Code, Award, Mail, Moon, Sun, Download, Command } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import { personalInfo } from '../data/portfolio';
 
 const CommandPalette = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,10 +46,10 @@ const CommandPalette = () => {
     { id: 'achievements', title: 'Go to Achievements', icon: Award, action: () => { window.location.hash = '#achievements'; setIsOpen(false); } },
     { id: 'contact', title: 'Go to Contact', icon: Mail, action: () => { window.location.hash = '#contact'; setIsOpen(false); } },
     { id: 'theme', title: `Switch to ${theme === 'light' ? 'Dark' : 'Light'} Theme`, icon: theme === 'light' ? Moon : Sun, action: () => { toggleTheme(); setIsOpen(false); } },
-    { id: 'resume', title: 'Download Resume', icon: Download, action: () => { window.open('/Ahtisham_Resume_Final.pdf', '_blank'); setIsOpen(false); } }
+    { id: 'resume', title: 'Download Resume', icon: Download, action: () => { window.open(personalInfo.resumeUrl, '_blank'); setIsOpen(false); } }
   ];
 
-  const filteredCommands = commands.filter(cmd => 
+  const filteredCommands = commands.filter(cmd =>
     cmd.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -120,9 +121,8 @@ const CommandPalette = () => {
                         key={cmd.id}
                         onClick={cmd.action}
                         onMouseEnter={() => setSelectedIndex(index)}
-                        className={`w-full flex items-center px-4 py-3 text-left transition-colors duration-150 ${
-                          isSelected ? 'bg-ember text-white' : 'text-ink hover:bg-surface'
-                        }`}
+                        className={`w-full flex items-center px-4 py-3 text-left transition-colors duration-150 ${isSelected ? 'bg-ember text-white' : 'text-ink hover:bg-surface'
+                          }`}
                       >
                         <Icon className={`w-5 h-5 mr-3 shrink-0 ${isSelected ? 'text-white' : 'text-ink-light'}`} />
                         <span className="font-medium text-sm">{cmd.title}</span>
