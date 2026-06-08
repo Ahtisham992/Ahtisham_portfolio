@@ -24,20 +24,20 @@
 
 ## 🌟 Overview
 
-Welcome to my personal portfolio repository! I am a **Full Stack Developer & AI/ML Engineer**, currently a final-year BS Software Engineering student at FAST-NUCES Islamabad (graduating '26). 
+Welcome to my personal portfolio repository! I am a **Software Engineer & AI/ML Engineer**, currently a final-year BS Software Engineering student at FAST-NUCES Islamabad (graduating '26). 
 
-This repository contains the source code for my interactive developer portfolio which highlights my experience, skill set, and notable projects including Enterprise ERPs, React Native apps, and AI/ML Agents. The site utilizes a cutting-edge stack featuring **React, Tailwind CSS, Framer Motion, and Three.js (React Three Fiber)**.
+This repository contains the source code for my interactive developer portfolio which highlights my experience, skill set, and notable projects including Enterprise ERPs and AI/ML Agents. The site features a **"Swiss-engineered, editorial interface"** built with a cutting-edge stack featuring **React, Tailwind CSS, and Framer Motion**.
 
 ---
 
 ## 🚀 Key Features
 
-- **Immersive 3D Graphics**: Integrated with `@react-three/fiber` and `@react-three/drei` for interactive 3D elements in the Hero section.
-- **Fluid Animations**: Page transitions, scroll reveals, and micro-interactions powered by `framer-motion`.
-- **Responsive & Modern UI**: Styled with Tailwind CSS for pixel-perfect layout across all devices with strict adherence to a professional Slate & Blue design system.
+- **Editorial UI Design**: Minimalist, "Swiss-engineered" architecture with strict left-alignment, high-contrast typography, and premium aesthetics.
+- **Global Command Palette**: Press `Cmd + K` (or `Ctrl + K`) from anywhere on the site to open a glassmorphic power-user menu for instant navigation and theme switching.
+- **Simulated System Status**: A live metrics board featuring a programmatic, randomized GitHub contribution graph built natively with CSS Grid.
+- **Fluid & Interactive Vectors**: Features high-performance SVG path animations (like the Blueprint 'MA' logo) using Framer Motion.
+- **Absolute Theme Persistence**: Flawless Light & Dark mode toggling that respects user preference via `localStorage` with zero flashes of unstyled content (FOUC).
 - **Portfolio Chatbot**: An integrated smart chatbot to answer questions about my skills and background.
-- **Hidden Easter Eggs**: Enter the *Konami Code* (`Up, Up, Down, Down, Left, Right, ...`) to unlock a secret interactive terminal!
-- **Dynamic Projects Showcase**: A categorized and interactive project gallery featuring thumbnails and detailed descriptions.
 
 ---
 
@@ -45,16 +45,15 @@ This repository contains the source code for my interactive developer portfolio 
 
 **Core Technologies**
 - **Framework**: React 19 + Vite
-- **Styling**: Tailwind CSS, PostCSS, Autoprefixer
-- **Animations**: Framer Motion, React Type Animation
-- **3D / Graphics**: Three.js, React Three Fiber, Spline Tool UI
-- **Icons**: Lucide React, React Icons
+- **Styling**: Tailwind CSS, PostCSS
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+- **Hosting / Deploy**: Vercel
 
 **Key Libraries**
 - `react-router-dom` (Routing)
-- `swiper` (Touch-enabled carousels)
 - `@emailjs/browser` (Contact form functionality)
-- `react-intersection-observer` (Scroll-based events)
+- `lucide-react` (Crisp, clean scalable iconography)
 
 ---
 

@@ -3,12 +3,12 @@
 // ========================================
 export const personalInfo = {
   name: "Muhammad Ahtisham",
-  title: "Full Stack Developer · AI/ML Engineer",
+  title: "Software Engineer · Full Stack Developer",
 
   // TASK 1.2: Removed "Flutter Developer", "Problem Solver", "Tech Enthusiast"
   titles: [
-    "Full Stack Developer",
-    "AI/ML Engineer"
+    "Software Engineer",
+    "Full Stack Developer"
   ],
 
   // TASK 1.3: Updated to correct email
@@ -17,9 +17,9 @@ export const personalInfo = {
   location: "Islamabad / Rawalpindi, Pakistan",
 
   // TASK 1.1: Achievement-driven bio — no "passionate/innovative/modern"
-  bio: "Final-year BS Software Engineering student at FAST-NUCES (graduating 2026). I build production-ready systems — from an enterprise ERP with 50+ APIs to an AI podcast platform using Whisper and transformer NLP. Currently contributing remotely to Turing Intelligence (Prague). Open to full-time software engineering roles.",
+  bio: "Software Engineer with a strong interest in software development, problem-solving, system design and implementation. Experienced in building web and mobile applications, integrating APIs, and working with relational databases. Committed to writing clean code, learning modern technologies, and contributing effectively to development teams. Comfortable owning features from design through deployment and post-release iteration.",
 
-  resumeUrl: "/Ahtisham_Resume_Final.pdf", // Place your resume.pdf in public folder
+  resumeUrl: "/Ahtisham_Resume.pdf", // Place your resume.pdf in public folder
   introVideoUrl: "/intro-video.mp4",           // Place your intro video in public folder
   social: {
     linkedin: "https://www.linkedin.com/in/muhammad-ahtisham-6116ba2b2/",
@@ -29,7 +29,7 @@ export const personalInfo = {
 
   // TASK 1.5: Conservative, verifiable numbers
   stats: {
-    internships: "2+",
+    internships: "1",
     projects: "10+",   // Changed from 12+
     certificates: "5+",
     technologies: "15+"    // Changed from 20+
@@ -39,7 +39,7 @@ export const personalInfo = {
 export const siteMetadata = {
   hero: {
     heading: personalInfo.name,
-    subheading: "Full-Stack Engineer building AI-driven systems.",
+    subheading: "Full-Stack Software Engineer.",
     description: "I design and build scalable web, mobile, and AI-powered products.",
     statusText: "Available for opportunities"
   },
@@ -74,22 +74,53 @@ export const siteMetadata = {
 
 export const skills = {
   frontend: [
-    { name: "React.js", level: 80 },
-    { name: "React Native", level: 75 },
-    { name: "HTML / CSS / JavaScript", level: 95 }
+    { name: "React.js", level: 88 },
+    { name: "Next.js 14", level: 85 },
+    { name: "React Native", level: 80 },
+    { name: "Redux Toolkit", level: 80 },
+    { name: "Zustand", level: 75 },
+    { name: "HTML / CSS / JavaScript (ES6+)", level: 95 },
+    { name: "Tailwind CSS", level: 90 }
   ],
+
   backend: [
-    { name: "Node.js / Express", level: 88 },
-    { name: "MongoDB", level: 82 },
-    { name: "PostgreSQL", level: 85 }
+    { name: "Node.js", level: 90 },
+    { name: "Express.js", level: 88 },
+    { name: "NestJS", level: 80 },
+    { name: "FastAPI", level: 78 },
+    { name: "REST API Design", level: 90 },
+    { name: "WebSockets", level: 80 },
+    { name: "System Design", level: 82 },
+    { name: "Distributed Systems", level: 75 }
   ],
-  ai: [
-    { name: "Python (AI / ML)", level: 78 },
-    { name: "Machine Learning Models", level: 72 }
+
+  databases: [
+    { name: "PostgreSQL", level: 88 },
+    { name: "MongoDB", level: 85 },
+    { name: "MySQL", level: 80 },
+    { name: "Redis", level: 78 },
+    { name: "Prisma ORM", level: 85 },
+    { name: "SQLAlchemy", level: 75 },
+    { name: "Sequelize", level: 75 },
+    { name: "Query Optimization", level: 80 }
   ],
-  cloud: [
-    { name: "AWS (Foundational)", level: 70 },
-    { name: "Cloud Deployment & APIs", level: 68 }
+
+  cloudDevOps: [
+    { name: "AWS (EC2, S3, RDS, Beanstalk)", level: 82 },
+    { name: "Docker", level: 85 },
+    { name: "Kubernetes", level: 75 },
+    { name: "Google Cloud Run", level: 78 },
+    { name: "CI/CD Pipelines", level: 80 },
+    { name: "Git", level: 90 }
+  ],
+
+  aiIntegration: [
+    { name: "Python", level: 85 },
+    { name: "Whisper ASR", level: 80 },
+    { name: "Hugging Face Transformers (BERT, PEGASUS)", level: 78 },
+    { name: "OpenCV", level: 80 },
+    { name: "MediaPipe", level: 75 },
+    { name: "LLM APIs (OpenAI / Gemini)", level: 88 }
   ]
 };
 
