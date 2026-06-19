@@ -39,7 +39,22 @@ export default {
           '0%': { transform: 'translate(0%, 0%) scale(1)' },
           '50%': { transform: 'translate(-5%, 5%) scale(1.05)' },
           '100%': { transform: 'translate(5%, -5%) scale(1)' },
+        },
+        'spin-reverse': {
+          from: { transform: 'rotate(360deg)' },
+          to: { transform: 'rotate(0deg)' }
         }
+      },
+      animation: {
+        'fade-in': 'fadeIn 0.3s ease-out',
+        'fade-in-up': 'fadeInUp 0.4s ease-out',
+        'aurora': 'aurora 20s ease-in-out infinite alternate',
+        'spin-slow': 'spin 25s linear infinite',
+        'spin-slow-reverse': 'spin-reverse 25s linear infinite',
+        'spin-slower': 'spin 35s linear infinite',
+        'spin-slower-reverse': 'spin-reverse 35s linear infinite',
+        'spin-slowest': 'spin 45s linear infinite',
+        'spin-slowest-reverse': 'spin-reverse 45s linear infinite',
       },
     },
   },

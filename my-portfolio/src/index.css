@@ -69,6 +69,18 @@
   .glass {
     @apply bg-surface/80 backdrop-blur-md border border-border;
   }
+
+  .bg-metallic {
+    background: linear-gradient(
+      140deg,
+      rgb(var(--color-bone) / 0.9) 0%,
+      rgb(var(--color-surface) / 0.8) 25%,
+      rgb(var(--color-border) / 0.2) 45%,
+      rgb(var(--color-bone) / 0.7) 50%,
+      rgb(var(--color-surface) / 0.8) 80%,
+      rgb(var(--color-border) / 0.4) 100%
+    );
+  }
 }
 
 /* Custom Scrollbar - Minimal */
