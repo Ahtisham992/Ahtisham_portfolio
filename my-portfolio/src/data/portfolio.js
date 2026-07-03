@@ -154,7 +154,7 @@ export const projects = [
       images: [
         "/projectSS/prismoraai/2.png",
         "/projectSS/prismoraai/3.png",
-        "/projectSS/prismoraai/1.png"
+        "/projectSS/prismoraai/4.mp4"
       ],
       video: ""
     },
@@ -716,5 +716,10 @@ export const achievements = [
     title: "SalesCare Service Center System",
     description: "Delivered a comprehensive ERP platform with 50+ REST APIs for complaint and inventory management.",
     date: "2025"
-  }
+  },
+    {
+    title: "DevFlow AI Platform Launch",
+    description: "Architected and deployed a full-stack, cross-platform AI developer workspace utilizing semantic vector search and real-time WebSockets.",
+    date: "2026"
+  },
 ];

@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { Github, ExternalLink, ChevronLeft, ChevronRight, ArrowLeft } from 'lucide-react';
 import { projects } from '../data/portfolio';
 
+const isVideo = (src) => /\.(mp4|webm|ogg|mov)$/i.test(src ?? '');
+
 // ─── Image Carousel Modal ─────────────────────────────────────────────────────
 
 const GalleryDetailModal = ({ project, onClose }) => {
@@ -47,11 +49,21 @@ const GalleryDetailModal = ({ project, onClose }) => {
         {/* Image Carousel */}
         {images.length > 0 && (
           <div className="relative aspect-video bg-[#0a0a0a] border-b border-border overflow-hidden flex items-center justify-center">
-            <img
-              src={images[imgIndex]}
-              alt={`${project.title} screenshot ${imgIndex + 1}`}
-              className="max-w-full max-h-full w-auto h-auto object-contain"
-            />
+            {isVideo(images[imgIndex]) ? (
+              <video
+                key={imgIndex}
+                src={images[imgIndex]}
+                controls
+                playsInline
+                className="max-w-full max-h-full w-auto h-auto"
+              />
+            ) : (
+              <img
+                src={images[imgIndex]}
+                alt={`${project.title} screenshot ${imgIndex + 1}`}
+                className="max-w-full max-h-full w-auto h-auto object-contain"
+              />
+            )}
             {images.length > 1 && (
               <>
                 <button

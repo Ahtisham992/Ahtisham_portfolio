@@ -2,6 +2,20 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Github } from 'lucide-react';
 
+const isVideo = (src) => /\.(mp4|webm|ogg|mov)$/i.test(src ?? '');
+
+const MediaItem = ({ src, alt }) =>
+  isVideo(src) ? (
+    <video
+      src={src}
+      controls
+      playsInline
+      className="w-full max-h-[60vh] object-contain border border-border bg-black"
+    />
+  ) : (
+    <img src={src} alt={alt} className="w-full border border-border" />
+  );
+
 const CaseStudyModal = ({ project, onClose }) => {
   if (!project) return null;
 
@@ -103,8 +117,12 @@ const CaseStudyModal = ({ project, onClose }) => {
             {project.media && project.media.images && project.media.images.length > 0 && (
               <div className="mt-16 space-y-8">
                 <h3 className="text-xs font-bold uppercase tracking-widest text-ink-light mb-4">Gallery</h3>
-                {project.media.images.slice(0, 3).map((img, i) => (
-                  <img key={i} src={img} alt={`${project.title} screenshot ${i+1}`} className="w-full border border-border" />
+                {project.media.images.slice(0, 4).map((src, i) => (
+                  <MediaItem
+                    key={i}
+                    src={src}
+                    alt={`${project.title} screenshot ${i + 1}`}
+                  />
                 ))}
               </div>
             )}
