@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { projects, siteMetadata } from '../data/portfolio';
 import CaseStudyModal from './CaseStudyModal';
 
@@ -26,11 +27,19 @@ const Projects = () => {
   return (
     <section id="projects" className="section-padding border-t border-border bg-bone">
       <div className="container-custom">
-        <div className="mb-16">
-          <h2 className="text-sm font-bold uppercase tracking-widest text-ember mb-2">{siteMetadata.projects.heading}</h2>
-          <p className="text-3xl font-medium tracking-tight text-ink max-w-2xl">
-            {siteMetadata.projects.description}
-          </p>
+        <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div>
+            <h2 className="text-sm font-bold uppercase tracking-widest text-ember mb-2">{siteMetadata.projects.heading}</h2>
+            <p className="text-3xl font-medium tracking-tight text-ink max-w-2xl">
+              {siteMetadata.projects.description}
+            </p>
+          </div>
+          <Link
+            to="/gallery"
+            className="shrink-0 self-start md:self-auto border border-ember text-ember hover:bg-ember/10 transition-colors px-6 py-2.5 text-xs font-bold uppercase tracking-widest"
+          >
+            Project Gallery →
+          </Link>
         </div>
 
         <div className="flex flex-col">

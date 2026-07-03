@@ -17,6 +17,7 @@ import ScrollToTop from './components/ScrollToTop';
 import { ThemeProvider } from './context/ThemeContext';
 import CommandPalette from './components/CommandPalette';
 import SystemStatus from './components/SystemStatus';
+import ProjectGallery from './components/ProjectGallery';
 
 const HomePage = () => (
   <>
@@ -44,6 +45,7 @@ function App() {
 
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/gallery" element={<ProjectGallery />} />
           </Routes>
 
           <SystemStatus />

@@ -75,7 +75,7 @@ export const siteMetadata = {
 export const skills = {
   frontend: [
     { name: "React.js", level: 88 },
-    { name: "Next.js 14", level: 85 },
+    { name: "Next.js 15", level: 85 },
     { name: "React Native", level: 80 },
     { name: "Redux Toolkit", level: 80 },
     { name: "Zustand", level: 75 },
@@ -90,6 +90,7 @@ export const skills = {
     { name: "FastAPI", level: 78 },
     { name: "REST API Design", level: 90 },
     { name: "WebSockets", level: 80 },
+    { name: "Socket.io", level: 80 },
     { name: "System Design", level: 82 },
     { name: "Distributed Systems", level: 75 }
   ],
@@ -102,6 +103,7 @@ export const skills = {
     { name: "Prisma ORM", level: 85 },
     { name: "SQLAlchemy", level: 75 },
     { name: "Sequelize", level: 75 },
+    { name: "pgvector", level: 75 },
     { name: "Query Optimization", level: 80 }
   ],
 
@@ -120,7 +122,8 @@ export const skills = {
     { name: "Hugging Face Transformers (BERT, PEGASUS)", level: 78 },
     { name: "OpenCV", level: 80 },
     { name: "MediaPipe", level: 75 },
-    { name: "LLM APIs (OpenAI / Gemini)", level: 88 }
+    { name: "LLM APIs (OpenAI / Gemini)", level: 88 },
+    { name: "Ollama (Local LLMs)", level: 78 }
   ]
 };
 
@@ -207,6 +210,48 @@ export const projects = [
   },
   {
     id: 3,
+    title: "DevFlow AI – Unified Intelligent Developer Workspace",
+    shortDescription: "All-in-one developer workspace with project-aware AI and cross-platform sync",
+    description: "DevFlow AI is a robust, full-stack monorepo designed to eliminate context switching for engineers. It combines workspace management, persistent developer notes, and an intelligent AI assistant into a single platform. Powered by locally-running LLMs (Ollama) and vector embeddings (pgvector) for semantic code search, it ensures total privacy while delivering blazingly fast, context-aware responses across both Web and a native React Native Mobile app.",
+    category: "Full Stack / AI",
+    gradient: "from-blue-600 to-purple-600",
+    icon: "Terminal",
+    technologies: [
+      "Next.js 15", "React Native", "NestJS", "PostgreSQL",
+      "pgvector", "Redis", "Socket.io", "Ollama", "Prisma ORM", "Zustand"
+    ],
+    features: [
+      "Context-aware AI Chat using semantic similarity (pgvector)",
+      "Seamless cross-platform synchronization (Web & Mobile)",
+      "Real-time token streaming via WebSockets and Server-Sent Events",
+      "Stateless & secure JWT authentication with Redis token blacklisting",
+      "Persistent markdown developer notes with live preview",
+      "Local LLM execution ensuring 100% code privacy",
+      "Automated CI/CD deployment to Vercel and Render"
+    ],
+    media: {
+      thumbnail: "/projectSS/devflow/1.png",
+      images: [
+        "/projectSS/devflow/1.png",
+        "/projectSS/devflow/2.png",
+        "/projectSS/devflow/3.png"
+      ],
+      video: ""
+    },
+    github: "https://github.com/Ahtisham992/DevFlowAI",
+    liveDemo: "https://dev-flow-ai-five.vercel.app",
+    tags: ["AI", "Next.js", "React Native", "Monorepo", "WebSockets"],
+    date: "2026",
+    featured: true,
+    highlights: [
+      "Architected a complex monorepo scaling across Web, Mobile, and Backend",
+      "Implemented a real-time RAG pipeline using Postgres pgvector and local LLMs",
+      "Deployed a highly available microservices infrastructure on a 100% free cloud tier",
+      "Built seamless real-time WebSocket communication using Redis Pub/Sub adapters"
+    ]
+  },
+  {
+    id: 4,
     title: "SalesCare Service Center - Complete Management System",
     shortDescription: "Enterprise-grade service center management platform",
     description: "A comprehensive full-stack enterprise management system designed for service centers handling customer complaints, inventory management, invoicing, and purchase orders. Built with modern technologies and following industry best practices for scalability and security.",
@@ -262,7 +307,7 @@ export const projects = [
     ]
   },
   {
-    id: 4,
+    id: 5,
     title: "GadgetPro - Premium MERN Ecommerce Platform",
     shortDescription: "Full-stack modern ecommerce platform for high-end tech gadgets",
     description: "GadgetPro is a complete end-to-end MERN stack ecommerce solution designed for premium tech products. It features a modern Apple-inspired UI, powerful admin dashboard, and scalable backend architecture. The platform includes advanced shopping features, real-time order tracking, and a fully integrated management system for inventory, users, and sales operations.",
@@ -321,7 +366,7 @@ export const projects = [
     ]
   },
   {
-    id: 5,
+    id: 6,
     title: "SlideMind AI – Intelligent Lecture-to-Learning System",
     shortDescription: "AI-powered system that transforms lecture slides into interactive learning experiences",
     description: "SlideMind AI is a production-grade AI learning platform that converts static lecture slides (PDF/PPTX) into structured, interactive study experiences. It automatically generates summaries, extracts topics, provides deep explanations, AI tutoring chat, and adaptive quiz generation. Built with a focus on scalability, caching optimization, and real-world educational impact.",
@@ -376,7 +421,7 @@ export const projects = [
     featured: true
   },
   {
-    id: 6,
+    id: 7,
     title: "Smart Dua Companion - Islamic Supplications App",
     shortDescription: "Bilingual Islamic Dua app with offline support",
     description: "A modern, feature-rich React Native mobile application providing authentic Islamic supplications (Duas) from the Quran and Sunnah. Features complete bilingual support (English & Urdu), dark mode, offline access, and smart search functionality. Built with TypeScript and Redux for optimal performance and user experience.",
@@ -424,7 +469,7 @@ export const projects = [
     ]
   },
   {
-    id: 7,
+    id: 8,
     title: "Ergonomic Posture Assessment Agent",
     shortDescription: "AI agent for posture analysis and ergonomic feedback",
     description: "This AI Agent analyses human posture from uploaded images and returns ergonomic feedback. Built with FastAPI, MediaPipe for lightweight posture landmark detection, OpenCV, and NumPy. Runs in Docker on Hugging Face Spaces with REST API endpoints.",
@@ -458,7 +503,7 @@ export const projects = [
   },
 
   {
-    id: 8,
+    id: 9,
     title: "Cloud Photo Gallery",
     shortDescription: "Full-stack cloud-native photo gallery on AWS",
     description: "A full-stack cloud-native photo gallery application deployed on AWS, featuring secure authentication, photo uploads, RESTful APIs, and scalable cloud architecture using EC2, RDS, S3, and Elastic Beanstalk.",
@@ -495,7 +540,7 @@ export const projects = [
   },
 
   {
-    id: 9,
+    id: 10,
     title: "AI-Powered Code Assistant",
     shortDescription: "Intelligent tool for Python code enhancement",
     description: "An intelligent AI-powered tool for Python developers that provides code explanation, automatic documentation generation, bug detection & fixing, performance optimisation, and unit test generation using a fine-tuned transformer model (CodeT5).",
@@ -530,7 +575,7 @@ export const projects = [
   },
 
   {
-    id: 10,
+    id: 11,
     title: "University Management System",
     shortDescription: "Comprehensive MERN stack university management platform",
     description: "A web-based application designed to streamline and automate academic and financial operations within a university. Built using the MERN stack with an efficient and user-friendly interface for students, faculty, and administrators.",

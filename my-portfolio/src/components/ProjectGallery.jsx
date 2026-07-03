@@ -1,345 +1,406 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Github, ExternalLink, Play, Filter, Calendar, Tag, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Github, ExternalLink, ChevronLeft, ChevronRight, ArrowLeft } from 'lucide-react';
 import { projects } from '../data/portfolio';
-import { getThemeClasses } from '../theme/theme';
 
-const ProjectGallery = () => {
-  const [selectedCategory, setSelectedCategory] = useState('All');
-  const [selectedProject, setSelectedProject] = useState(null);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const themeClasses = getThemeClasses();
+// ─── Image Carousel Modal ─────────────────────────────────────────────────────
 
-  const categories = ['All', ...new Set(projects.map(p => p.category))];
+const GalleryDetailModal = ({ project, onClose }) => {
+  const [imgIndex, setImgIndex] = useState(0);
+  const images = project.media?.images?.filter(Boolean) ?? [];
 
-  const filteredProjects = selectedCategory === 'All' 
-    ? projects 
-    : projects.filter(p => p.category === selectedCategory);
+  useEffect(() => {
+    setImgIndex(0);
+    const handleKey = e => {
+      if (e.key === 'Escape') onClose();
+      if (e.key === 'ArrowRight') setImgIndex(i => (i + 1) % Math.max(images.length, 1));
+      if (e.key === 'ArrowLeft') setImgIndex(i => (i - 1 + Math.max(images.length, 1)) % Math.max(images.length, 1));
+    };
+    window.addEventListener('keydown', handleKey);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', handleKey);
+      document.body.style.overflow = 'unset';
+    };
+  }, [project, onClose, images.length]);
 
-  const nextImage = () => {
-    if (selectedProject && selectedProject.media.images.length > 0) {
-      setCurrentImageIndex((prev) => 
-        (prev + 1) % selectedProject.media.images.length
-      );
-    }
-  };
-
-  const prevImage = () => {
-    if (selectedProject && selectedProject.media.images.length > 0) {
-      setCurrentImageIndex((prev) => 
-        prev === 0 ? selectedProject.media.images.length - 1 : prev - 1
-      );
-    }
-  };
+  const prev = e => { e.stopPropagation(); setImgIndex(i => (i - 1 + images.length) % images.length); };
+  const next = e => { e.stopPropagation(); setImgIndex(i => (i + 1) % images.length); };
 
   return (
-    <div className={`min-h-screen ${themeClasses.bgPrimary} pt-24 pb-16`}>
-      <div className="container-custom">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-12"
-        >
-          <h1 className="text-5xl md:text-6xl font-bold text-gradient mb-4">
-            Project Gallery
-          </h1>
-          <p className={`${themeClasses.textSecondary} text-lg max-w-2xl mx-auto`}>
-            Explore my complete portfolio of projects with detailed insights, media, and live demos
-          </p>
-        </motion.div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-bone/90 backdrop-blur-sm p-4 md:p-10"
+      onClick={onClose}
+    >
+      <motion.div
+        initial={{ y: 24, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: 24, opacity: 0 }}
+        transition={{ duration: 0.25 }}
+        className="bg-surface border border-border w-full max-w-4xl max-h-[90vh] overflow-y-auto"
+        onClick={e => e.stopPropagation()}
+      >
+        {/* Image Carousel */}
+        {images.length > 0 && (
+          <div className="relative aspect-video bg-bone border-b border-border overflow-hidden">
+            <img
+              src={images[imgIndex]}
+              alt={`${project.title} screenshot ${imgIndex + 1}`}
+              className="w-full h-full object-cover"
+            />
+            {images.length > 1 && (
+              <>
+                <button
+                  onClick={prev}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-bone/80 border border-border flex items-center justify-center hover:border-ember hover:text-ember transition-colors"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={next}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-bone/80 border border-border flex items-center justify-center hover:border-ember hover:text-ember transition-colors"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+                {/* Dot indicators */}
+                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+                  {images.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={e => { e.stopPropagation(); setImgIndex(i); }}
+                      className={`h-1.5 rounded-full transition-all duration-300 ${
+                        i === imgIndex ? 'w-6 bg-ember' : 'w-1.5 bg-ink/30 hover:bg-ink/60'
+                      }`}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        )}
 
-        {/* Filter Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="flex flex-wrap justify-center gap-3 mb-12"
-        >
-          <Filter className={`w-5 h-5 ${themeClasses.textSecondary} mr-2`} />
-          {categories.map((category) => (
-            <motion.button
-              key={category}
-              onClick={() => setSelectedCategory(category)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className={`px-6 py-2 rounded-md font-medium transition-all ${
-                selectedCategory === category
-                  ? `bg-primary-600 text-white shadow-sm`
-                  : `${themeClasses.bgCard} ${themeClasses.textSecondary} border border-slate-200 dark:border-slate-800 hover:border-primary-500/50`
-              }`}
+        {/* Content */}
+        <div className="p-8 md:p-12">
+          {/* Header */}
+          <div className="flex justify-between items-start mb-10">
+            <div className="flex-1 pr-8">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="text-xs font-bold uppercase tracking-widest text-ember">
+                  {project.category}
+                </span>
+                <span className="text-xs text-ink-light">{project.date}</span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-ink leading-tight">
+                {project.title}
+              </h2>
+            </div>
+            <button
+              onClick={onClose}
+              className="text-ember hover:text-[#e04518] transition-colors font-bold tracking-widest text-xs uppercase shrink-0 mt-1"
             >
-              {category}
-            </motion.button>
-          ))}
-        </motion.div>
+              Close (ESC)
+            </button>
+          </div>
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <AnimatePresence mode="wait">
-            {filteredProjects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.3, delay: index * 0.1 }}
-                whileHover={{ y: -10 }}
-                onClick={() => {
-                  setSelectedProject(project);
-                  setCurrentImageIndex(0);
-                }}
-                className={`${themeClasses.card} overflow-hidden cursor-pointer group`}
-              >
-                {/* Thumbnail — object-contain so the full image is always visible */}
-                <div className="relative h-48 bg-slate-900 dark:bg-slate-950 flex items-center justify-center overflow-hidden">
-                  <img
-                    src={project.media.thumbnail}
-                    alt={project.title}
-                    className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  
-                  {/* Overlay Icons */}
-                  <div className="absolute top-4 right-4 flex gap-2">
-                    {project.media.video && (
-                      <div className="bg-red-500 text-white p-2 rounded-md shadow-lg">
-                        <Play className="w-4 h-4" />
-                      </div>
-                    )}
-                    {project.liveDemo && (
-                      <div className="bg-green-500 text-white px-3 py-1 rounded-md text-xs font-bold shadow-lg">
-                        Live
-                      </div>
-                    )}
-                    {project.featured && (
-                      <div className={`${themeClasses.gradient} text-white px-3 py-1 rounded-md text-xs font-bold shadow-lg`}>
-                        Featured
-                      </div>
-                    )}
-                  </div>
-                </div>
+          {/* Two-column layout (mirrors CaseStudyModal) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            {/* Left: Overview + Highlights + Features */}
+            <div className="md:col-span-2 space-y-8">
+              <div>
+                <h3 className="text-xs font-bold uppercase tracking-widest text-ink-light mb-4">Overview</h3>
+                <p className="text-ink leading-relaxed">{project.description}</p>
+              </div>
 
-                {/* Content */}
-                <div className="p-6">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Calendar className="w-4 h-4 text-primary-500" />
-                    <span className={`text-sm ${themeClasses.textSecondary}`}>
-                      {project.date}
-                    </span>
-                  </div>
-                  
-                  <h3 className={`text-xl font-bold ${themeClasses.textPrimary} mb-2 line-clamp-1`}>
-                    {project.title}
-                  </h3>
-                  
-                  <p className={`${themeClasses.textSecondary} text-sm mb-4 line-clamp-2`}>
-                    {project.shortDescription}
-                  </p>
-
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tags.slice(0, 3).map((tag, i) => (
-                      <span
-                        key={i}
-                        className="px-2 py-1 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 rounded text-xs font-mono"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="flex justify-between items-center">
-                    <span className={`text-sm font-semibold ${themeClasses.textAccent}`}>
-                      View Details →
-                    </span>
-                    <div className="flex gap-2">
-                      {project.github && (
-                        <Github className="w-5 h-5 text-gray-400 group-hover:text-primary-500 transition-colors" />
-                      )}
-                      {project.liveDemo && (
-                        <ExternalLink className="w-5 h-5 text-gray-400 group-hover:text-green-500 transition-colors" />
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </div>
-      </div>
-
-      {/* Project Detail Modal */}
-      <AnimatePresence>
-        {selectedProject && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedProject(null)}
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto"
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
-              className={`${themeClasses.bgCard} rounded-2xl shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto my-8`}
-            >
-              {/* Close Button */}
-              <button
-                onClick={() => setSelectedProject(null)}
-                className="absolute top-4 right-4 z-10 p-2 bg-white/10 backdrop-blur-md rounded-md hover:bg-white/20 transition-colors"
-              >
-                <X className="w-6 h-6 text-white" />
-              </button>
-
-              {/* Image Carousel — object-contain so full screenshots are visible */}
-              {selectedProject.media.images.length > 0 && (
-                <div className="relative h-96 bg-slate-950 flex items-center justify-center overflow-hidden">
-                  <img
-                    src={selectedProject.media.images[currentImageIndex]}
-                    alt={selectedProject.title}
-                    className="w-full h-full object-contain p-2"
-                  />
-                  
-                  {selectedProject.media.images.length > 1 && (
-                    <>
-                      <button
-                        onClick={prevImage}
-                        className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-white/10 backdrop-blur-md rounded-md hover:bg-white/20 transition-colors"
-                      >
-                        <ChevronLeft className="w-6 h-6 text-white" />
-                      </button>
-                      <button
-                        onClick={nextImage}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-white/10 backdrop-blur-md rounded-md hover:bg-white/20 transition-colors"
-                      >
-                        <ChevronRight className="w-6 h-6 text-white" />
-                      </button>
-                      
-                      {/* Image Indicators */}
-                      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-                        {selectedProject.media.images.map((_, i) => (
-                          <button
-                            key={i}
-                            onClick={() => setCurrentImageIndex(i)}
-                            className={`w-2 h-2 rounded-full transition-all ${
-                              i === currentImageIndex 
-                                ? 'bg-white w-8' 
-                                : 'bg-white/50'
-                            }`}
-                          />
-                        ))}
-                      </div>
-                    </>
-                  )}
-                </div>
-              )}
-
-              {/* Content */}
-              <div className="p-8">
-                <div className="flex items-center gap-3 mb-4">
-                  <Tag className="w-5 h-5 text-primary-500" />
-                  <span className={`px-3 py-1 ${themeClasses.gradient} text-white rounded-md text-sm font-medium`}>
-                    {selectedProject.category}
-                  </span>
-                  <span className={`text-sm ${themeClasses.textSecondary}`}>
-                    {selectedProject.date}
-                  </span>
-                </div>
-
-                <h2 className={`text-4xl font-bold ${themeClasses.textPrimary} mb-4`}>
-                  {selectedProject.title}
-                </h2>
-                
-                <p className={`${themeClasses.textSecondary} text-lg mb-6 leading-relaxed`}>
-                  {selectedProject.description}
-                </p>
-
-                {/* Video Player (if available) */}
-                {selectedProject.media.video && (
-                  <div className="mb-8">
-                    <h3 className={`text-xl font-bold ${themeClasses.textPrimary} mb-4 flex items-center gap-2`}>
-                      <Play className="w-5 h-5 text-red-500" />
-                      Demo Video
-                    </h3>
-                    <div className="aspect-video rounded-lg overflow-hidden bg-gray-900">
-                      <iframe
-                        src={selectedProject.media.video}
-                        className="w-full h-full"
-                        title="Project Demo Video"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      />
-                    </div>
-                  </div>
-                )}
-
-                {/* Action Buttons */}
-                <div className="flex flex-wrap gap-4 mb-8">
-                  {selectedProject.github && (
-                    <a
-                      href={selectedProject.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`flex items-center gap-2 px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-white rounded-md font-medium transition-all shadow-sm`}
-                    >
-                      <Github className="w-5 h-5" />
-                      View on GitHub
-                    </a>
-                  )}
-                  {selectedProject.liveDemo && (
-                    <a
-                      href={selectedProject.liveDemo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`flex items-center gap-2 px-6 py-2.5 bg-primary-600 hover:bg-primary-500 text-white rounded-md font-medium transition-all shadow-sm`}
-                    >
-                      <ExternalLink className="w-5 h-5" />
-                      Live Demo
-                    </a>
-                  )}
-                </div>
-
-                {/* Technologies */}
-                <div className="mb-8">
-                  <h3 className={`text-xl font-bold ${themeClasses.textPrimary} mb-4`}>
-                    Technologies
-                  </h3>
-                  <div className="flex flex-wrap gap-3">
-                    {selectedProject.technologies.map((tech, i) => (
-                      <span
-                        key={i}
-                        className="px-4 py-2 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 rounded-md font-mono text-sm"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Features */}
+              {project.highlights && (
                 <div>
-                  <h3 className={`text-xl font-bold ${themeClasses.textPrimary} mb-4`}>
-                    Key Features
+                  <h3 className="text-xs font-bold uppercase tracking-widest text-ink-light mb-4">
+                    Architecture & Highlights
                   </h3>
-                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    {selectedProject.features.map((feature, i) => (
-                      <li
-                        key={i}
-                        className={`flex items-start ${themeClasses.textSecondary}`}
-                      >
-                        <span className="text-primary-500 font-bold mr-3 mt-1">✓</span>
-                        <span>{feature}</span>
+                  <ul className="space-y-2">
+                    {project.highlights.map((item, i) => (
+                      <li key={i} className="text-ink leading-relaxed flex gap-3">
+                        <span className="mt-2 w-1 h-1 bg-ember rounded-full block flex-shrink-0" />
+                        {item}
                       </li>
                     ))}
                   </ul>
                 </div>
+              )}
+
+              {project.features && (
+                <div>
+                  <h3 className="text-xs font-bold uppercase tracking-widest text-ink-light mb-4">Features</h3>
+                  <ul className="space-y-2">
+                    {project.features.map((item, i) => (
+                      <li key={i} className="text-ink leading-relaxed flex gap-3">
+                        <span className="mt-2 w-1 h-1 bg-border rounded-full block flex-shrink-0" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+
+            {/* Right sidebar: Tech Stack + Links */}
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-xs font-bold uppercase tracking-widest text-ink-light mb-4">Tech Stack</h3>
+                <div className="flex flex-wrap gap-2">
+                  {project.technologies.map((tech, i) => (
+                    <span
+                      key={i}
+                      className="text-sm text-ink-light border border-border px-3 py-1 bg-bone"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </motion.div>
-          </motion.div>
+
+              <div>
+                <h3 className="text-xs font-bold uppercase tracking-widest text-ink-light mb-4">Links</h3>
+                <div className="space-y-3">
+                  {project.liveDemo && (
+                    <a
+                      href={project.liveDemo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-ember hover:text-[#e04518] font-medium transition-colors text-sm"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                      Live Project
+                    </a>
+                  )}
+                  {project.github && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-ember hover:text-[#e04518] font-medium transition-colors text-sm"
+                    >
+                      <Github className="w-4 h-4" />
+                      Source Code
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
+// ─── Category filter pill ─────────────────────────────────────────────────────
+
+const FilterPill = ({ label, active, onClick }) => (
+  <button
+    onClick={onClick}
+    className={`px-5 py-2 text-xs font-bold uppercase tracking-widest border transition-colors ${
+      active
+        ? 'border-ember text-ember bg-ember/5'
+        : 'border-border text-ink-light bg-surface hover:border-ink hover:text-ink'
+    }`}
+  >
+    {label}
+  </button>
+);
+
+// ─── Project card ─────────────────────────────────────────────────────────────
+
+const ProjectCard = ({ project, onClick }) => (
+  <motion.div
+    layout
+    initial={{ opacity: 0, y: 12 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: 12 }}
+    transition={{ duration: 0.3 }}
+    whileHover={{ y: -4 }}
+    onClick={onClick}
+    className="bg-surface border border-border hover:border-ember transition-colors cursor-pointer group flex flex-col"
+  >
+    {/* Thumbnail */}
+    <div className="aspect-video bg-bone overflow-hidden border-b border-border">
+      {project.media?.thumbnail ? (
+        <img
+          src={project.media.thumbnail}
+          alt={project.title}
+          className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+        />
+      ) : (
+        <div className="w-full h-full flex items-center justify-center text-ink-light text-xs uppercase tracking-widest">
+          No Preview
+        </div>
+      )}
+    </div>
+
+    {/* Body */}
+    <div className="p-6 flex flex-col flex-1">
+      <div className="flex items-center gap-3 mb-3">
+        <span className="text-xs font-bold uppercase tracking-widest text-ember">
+          {project.category}
+        </span>
+        <span className="text-xs text-ink-light">{project.date}</span>
+      </div>
+
+      <h3 className="text-lg font-bold tracking-tight text-ink mb-2 leading-snug group-hover:text-ember transition-colors line-clamp-2">
+        {project.title}
+      </h3>
+
+      <p className="text-sm text-ink-light leading-relaxed line-clamp-2 flex-1">
+        {project.shortDescription}
+      </p>
+
+      {/* Tech tags */}
+      <div className="flex flex-wrap gap-1.5 mt-4">
+        {project.technologies.slice(0, 4).map((tech, i) => (
+          <span
+            key={i}
+            className="text-xs text-ink-light bg-bone border border-border px-2 py-0.5"
+          >
+            {tech}
+          </span>
+        ))}
+        {project.technologies.length > 4 && (
+          <span className="text-xs text-ink-light bg-bone border border-border px-2 py-0.5">
+            +{project.technologies.length - 4}
+          </span>
+        )}
+      </div>
+
+      {/* Footer row */}
+      <div className="flex items-center justify-between pt-4 mt-4 border-t border-border">
+        <span className="text-xs font-bold uppercase tracking-widest text-ember group-hover:underline">
+          View Details →
+        </span>
+        <div className="flex gap-3">
+          {project.github && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={e => e.stopPropagation()}
+              className="text-ink-light hover:text-ember transition-colors"
+            >
+              <Github className="w-4 h-4" />
+            </a>
+          )}
+          {project.liveDemo && (
+            <a
+              href={project.liveDemo}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={e => e.stopPropagation()}
+              className="text-ink-light hover:text-ember transition-colors"
+            >
+              <ExternalLink className="w-4 h-4" />
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  </motion.div>
+);
+
+// ─── Page ─────────────────────────────────────────────────────────────────────
+
+const ProjectGallery = () => {
+  const [activeCategory, setActiveCategory] = useState('All');
+  const [selectedProject, setSelectedProject] = useState(null);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, []);
+
+  const categories = ['All', ...Array.from(new Set(projects.map(p => p.category)))];
+
+  const filtered =
+    activeCategory === 'All'
+      ? projects
+      : projects.filter(p => p.category === activeCategory);
+
+  return (
+    <div className="min-h-screen bg-bone">
+      <div className="container-custom section-padding">
+        {/* Back link */}
+        <motion.div
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3 }}
+          className="mb-12"
+        >
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-ink-light hover:text-ember transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back to Portfolio
+          </Link>
+        </motion.div>
+
+        {/* Section header */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="mb-16"
+        >
+          <h2 className="text-sm font-bold uppercase tracking-widest text-ember mb-2">Gallery</h2>
+          <p className="text-4xl md:text-5xl font-bold tracking-tight text-ink leading-tight">
+            All Projects
+          </p>
+          <p className="text-ink-light mt-4 max-w-xl leading-relaxed">
+            Every project I've shipped — click any card for a full case study with screenshots and links.
+          </p>
+        </motion.div>
+
+        {/* Category filter */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+          className="flex flex-wrap gap-3 mb-12 pb-12 border-b border-border"
+        >
+          {categories.map(cat => (
+            <FilterPill
+              key={cat}
+              label={cat}
+              active={activeCategory === cat}
+              onClick={() => setActiveCategory(cat)}
+            />
+          ))}
+          <span className="text-xs text-ink-light self-center ml-2">
+            {filtered.length} project{filtered.length !== 1 ? 's' : ''}
+          </span>
+        </motion.div>
+
+        {/* Grid */}
+        <AnimatePresence mode="popLayout">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filtered.map(project => (
+              <ProjectCard
+                key={project.id}
+                project={project}
+                onClick={() => setSelectedProject(project)}
+              />
+            ))}
+          </div>
+        </AnimatePresence>
+      </div>
+
+      {/* Detail Modal */}
+      <AnimatePresence>
+        {selectedProject && (
+          <GalleryDetailModal
+            project={selectedProject}
+            onClose={() => setSelectedProject(null)}
+          />
         )}
       </AnimatePresence>
     </div>
