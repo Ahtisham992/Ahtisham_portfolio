@@ -187,7 +187,7 @@ export const projects = [
       "CI/CD pipeline with Docker and Kubernetes deployment"
     ],
     media: {
-      thumbnail: "/projectSS/turingplatform/1.png", // add screenshot
+      thumbnail: "/projectSS/turingplatform/0.png", // add screenshot
       images: [
         "/projectSS/turingplatform/1.png",
         "/projectSS/turingplatform/2.png",
@@ -230,11 +230,18 @@ export const projects = [
       "Automated CI/CD deployment to Vercel and Render"
     ],
     media: {
-      thumbnail: "/projectSS/devflow/1.png",
+      thumbnail: "/projectSS/devflowai/1.webp",
       images: [
-        "/projectSS/devflow/1.png",
-        "/projectSS/devflow/2.png",
-        "/projectSS/devflow/3.png"
+        "/projectSS/devflowai/2.png",
+        "/projectSS/devflowai/3.png",
+        "/projectSS/devflowai/4.png",
+        "/projectSS/devflowai/5.png",
+        "/projectSS/devflowai/6.png",
+        "/projectSS/devflowai/7.png",
+        "/projectSS/devflowai/8.png",
+        "/projectSS/devflowai/9.png",
+        "/projectSS/devflowai/10.png",
+        "/projectSS/devflowai/11.png"
       ],
       video: ""
     },
@@ -338,7 +345,7 @@ export const projects = [
       "Secure JWT-based authentication and authorization"
     ],
     media: {
-      thumbnail: "/projectSS/gadgetpro/1.png",
+      thumbnail: "/projectSS/gadgetpro/0.png",
       images: [
         "/projectSS/gadgetpro/1.png",
         "/projectSS/gadgetpro/2.png",

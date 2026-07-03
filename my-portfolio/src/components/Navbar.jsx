@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sun, Moon, Menu, X } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,6 +27,20 @@ const Navbar = () => {
     { name: 'Contact', href: '#contact' },
   ];
 
+  const handleNavClick = (e, href) => {
+    e.preventDefault();
+    const id = href.replace('#', '');
+    setIsOpen(false);
+    if (location.pathname === '/') {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      navigate('/');
+      setTimeout(() => {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+      }, 150);
+    }
+  };
+
   return (
     <>
       <motion.nav
@@ -35,7 +52,7 @@ const Navbar = () => {
         }`}
       >
         <div className="container-custom flex items-center justify-between">
-          <a href="#home" className="text-2xl font-black tracking-tighter flex items-center z-[60]">
+          <a href="#home" onClick={(e) => handleNavClick(e, '#home')} className="text-2xl font-black tracking-tighter flex items-center z-[60]">
             <span className="text-ember">M</span>
             <span className="text-ink">A</span>
           </a>
@@ -46,6 +63,7 @@ const Navbar = () => {
               <a
                 key={link.name}
                 href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
                 className="text-sm font-medium text-ink-light hover:text-ink transition-colors relative group"
               >
                 {link.name}
@@ -65,7 +83,7 @@ const Navbar = () => {
               {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </button>
 
-            <a href="#contact" className="btn-primary py-2 px-5 text-sm ml-2 shadow-sm hover:shadow-md transition-all">
+            <a href="#contact" onClick={(e) => handleNavClick(e, '#contact')} className="btn-primary py-2 px-5 text-sm ml-2 shadow-sm hover:shadow-md transition-all">
               Hire Me
             </a>
           </div>
@@ -105,15 +123,15 @@ const Navbar = () => {
                 <a
                   key={link.name}
                   href={link.href}
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => handleNavClick(e, link.href)}
                   className="text-2xl font-bold text-ink hover:text-ember transition-colors"
                 >
                   {link.name}
                 </a>
               ))}
-              <a 
-                href="#contact" 
-                onClick={() => setIsOpen(false)}
+              <a
+                href="#contact"
+                onClick={(e) => handleNavClick(e, '#contact')}
                 className="btn-primary w-full max-w-xs text-center py-4 mt-4 text-lg"
               >
                 Hire Me

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Home, User, Briefcase, Code, Award, Mail, Moon, Sun, Download, Command } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import { personalInfo } from '../data/portfolio';
 
@@ -10,6 +11,20 @@ const CommandPalette = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef(null);
   const { theme, toggleTheme } = useTheme();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const goToSection = (id) => {
+    setIsOpen(false);
+    if (location.pathname === '/') {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      navigate('/');
+      setTimeout(() => {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+      }, 150);
+    }
+  };
 
   // Handle global keyboard shortcuts
   useEffect(() => {
@@ -39,14 +54,14 @@ const CommandPalette = () => {
   }, [isOpen]);
 
   const commands = [
-    { id: 'home', title: 'Go to Home', icon: Home, action: () => { window.location.hash = '#home'; setIsOpen(false); } },
-    { id: 'about', title: 'Go to About', icon: User, action: () => { window.location.hash = '#about'; setIsOpen(false); } },
-    { id: 'projects', title: 'Go to Projects', icon: Code, action: () => { window.location.hash = '#projects'; setIsOpen(false); } },
-    { id: 'experience', title: 'Go to Experience', icon: Briefcase, action: () => { window.location.hash = '#experience'; setIsOpen(false); } },
-    { id: 'achievements', title: 'Go to Achievements', icon: Award, action: () => { window.location.hash = '#achievements'; setIsOpen(false); } },
-    { id: 'contact', title: 'Go to Contact', icon: Mail, action: () => { window.location.hash = '#contact'; setIsOpen(false); } },
-    { id: 'theme', title: `Switch to ${theme === 'light' ? 'Dark' : 'Light'} Theme`, icon: theme === 'light' ? Moon : Sun, action: () => { toggleTheme(); setIsOpen(false); } },
-    { id: 'resume', title: 'Download Resume', icon: Download, action: () => { window.open(personalInfo.resumeUrl, '_blank'); setIsOpen(false); } }
+    { id: 'home',         title: 'Go to Home',         icon: Home,                          action: () => goToSection('home') },
+    { id: 'about',        title: 'Go to About',        icon: User,                          action: () => goToSection('about') },
+    { id: 'projects',     title: 'Go to Projects',     icon: Code,                          action: () => goToSection('projects') },
+    { id: 'experience',   title: 'Go to Experience',   icon: Briefcase,                     action: () => goToSection('experience') },
+    { id: 'achievements', title: 'Go to Achievements', icon: Award,                         action: () => goToSection('achievements') },
+    { id: 'contact',      title: 'Go to Contact',      icon: Mail,                          action: () => goToSection('contact') },
+    { id: 'theme',        title: `Switch to ${theme === 'light' ? 'Dark' : 'Light'} Theme`, icon: theme === 'light' ? Moon : Sun, action: () => { toggleTheme(); setIsOpen(false); } },
+    { id: 'resume',       title: 'Download Resume',    icon: Download,                      action: () => { window.open(personalInfo.resumeUrl, '_blank'); setIsOpen(false); } },
   ];
 
   const filteredCommands = commands.filter(cmd =>

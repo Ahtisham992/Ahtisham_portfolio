@@ -46,11 +46,11 @@ const GalleryDetailModal = ({ project, onClose }) => {
       >
         {/* Image Carousel */}
         {images.length > 0 && (
-          <div className="relative aspect-video bg-bone border-b border-border overflow-hidden">
+          <div className="relative aspect-video bg-[#0a0a0a] border-b border-border overflow-hidden flex items-center justify-center">
             <img
               src={images[imgIndex]}
               alt={`${project.title} screenshot ${imgIndex + 1}`}
-              className="w-full h-full object-cover"
+              className="max-w-full max-h-full w-auto h-auto object-contain"
             />
             {images.length > 1 && (
               <>
