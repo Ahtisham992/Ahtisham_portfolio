@@ -1,38 +1,34 @@
 // ========================================
-// FILE: src/data/portfolio.js - TASK 1 UPDATES APPLIED
+// FILE: src/data/portfolio.js - UPDATED WITH LADEWAY
 // ========================================
 export const personalInfo = {
   name: "Muhammad Ahtisham",
   title: "Software Engineer · Full Stack Developer",
 
-  // TASK 1.2: Removed "Flutter Developer", "Problem Solver", "Tech Enthusiast"
   titles: [
     "Software Engineer",
     "Full Stack Developer"
   ],
 
-  // TASK 1.3: Updated to correct email
   email: "muhammad.ahtisham.se@gmail.com",
   phone: "+92 320 5999041",
   location: "Islamabad / Rawalpindi, Pakistan",
 
-  // TASK 1.1: Achievement-driven bio — no "passionate/innovative/modern"
   bio: "Software Engineer with a strong interest in software development, problem-solving, system design and implementation. Experienced in building web and mobile applications, integrating APIs, and working with relational databases. Committed to writing clean code, learning modern technologies, and contributing effectively to development teams. Comfortable owning features from design through deployment and post-release iteration.",
 
-  resumeUrl: "/Ahtisham_Resume.pdf", // Place your resume.pdf in public folder
-  introVideoUrl: "/intro-video.mp4",           // Place your intro video in public folder
+  resumeUrl: "/Ahtisham_Resume.pdf",
+  introVideoUrl: "/intro-video.mp4",
   social: {
     linkedin: "https://www.linkedin.com/in/muhammad-ahtisham-6116ba2b2/",
     github: "https://github.com/Ahtisham992",
     instagram: "https://www.instagram.com/_m_ahtish.05/"
   },
 
-  // TASK 1.5: Conservative, verifiable numbers
   stats: {
     internships: "1",
-    projects: "10+",   // Changed from 12+
+    projects: "10+",
     certificates: "5+",
-    technologies: "15+"    // Changed from 20+
+    technologies: "15+"
   }
 };
 
@@ -127,7 +123,6 @@ export const skills = {
   ]
 };
 
-// ENHANCED PROJECTS WITH MEDIA SUPPORT
 export const projects = [
   {
     id: 1,
@@ -164,8 +159,73 @@ export const projects = [
     date: "2025-26",
     featured: true
   },
+
+  // ─── LADEWAY — POSITION 2 ───────────────────────────────────────────
   {
     id: 2,
+    title: "Ladeway – AI-Powered Conversational Lead Qualification Platform",
+    shortDescription: "Multi-tenant SaaS platform that qualifies leads through natural AI conversation for any industry",
+    description: "Ladeway is a production-grade, multi-tenant SaaS platform built as an architecture exercise for Logicstics (Philadelphia, PA). Any business — logistics, real estate, legal, insurance — can configure an AI agent with a custom persona, define qualification fields, set scoring rules, and deploy a branded chat interface. The AI conducts natural multi-turn conversations, extracts structured data with confidence scores, scores leads automatically, and surfaces them to the sales team in a real-time CRM dashboard. The industry-agnostic design is the central architectural decision — zero hardcoded industry logic exists in any service file, proven by automated codebase audit.",
+    category: "Full Stack / AI / SaaS",
+    gradient: "from-blue-700 to-indigo-800",
+    icon: "Bot",
+    technologies: [
+      "Next.js 14", "NestJS", "TypeScript", "PostgreSQL",
+      "Prisma ORM", "Redis (Upstash)", "Groq API (Llama 3)",
+      "Turborepo", "Tailwind CSS", "JWT Auth",
+      "Row-Level Security", "Server-Sent Events", "Vercel", "Render"
+    ],
+    features: [
+      "Multi-tenant architecture with PostgreSQL Row-Level Security enforced at the database layer — not just application code",
+      "Industry-agnostic AI engine — every persona, qualification field, and scoring rule is a database record, not code",
+      "Natural multi-turn AI conversations streamed token-by-token via Server-Sent Events",
+      "Structured data extraction with confidence scoring from free-form conversation transcripts",
+      "Configurable lead scoring engine with HOT / WARM / COLD tier overrides",
+      "Real-time sales rep dashboard with lead pipeline, inline status updates, and 30-second polling",
+      "Admin configuration console — update AI persona, fields, and scoring rules without a developer",
+      "Visual Flow Builder with live preview of unsaved configuration changes",
+      "Config versioning — structural changes create a new version, in-progress conversations are immune",
+      "Analytics dashboard with conversation volume charts, tier distribution, and industry breakdown",
+      "Self-serve tenant onboarding with 3-step wizard and embeddable chat widget code",
+      "Conversation resilience — Redis expiry recovery, AI unavailable graceful fallback, escalation to human rep",
+      "Three industries (Logistics, Real Estate, Legal Services) running on one codebase — proven by grep audit"
+    ],
+    highlights: [
+      "Built end-to-end in one week as a paid architecture exercise for a Philadelphia-based international logistics company",
+      "30-phase implementation plan with definitions of done — treated as a real production build, not a prototype",
+      "Automated multi-industry proof: same engine, three industries, zero conditional industry logic",
+      "PostgreSQL RLS cross-tenant isolation test — zero rows returned even without application-level filtering",
+      "NestJS persistent server architecture specifically chosen to support SSE streaming — serverless would time out mid-conversation",
+      "Groq-powered Llama 3 inference for fast, cost-efficient AI qualification at scale"
+    ],
+    media: {
+      thumbnail: "/projectSS/ladeway/0.png",
+      images: [
+        "/projectSS/ladeway/1.png",
+        "/projectSS/ladeway/2.png",
+        "/projectSS/ladeway/3.png",
+        "/projectSS/ladeway/4.png",
+        "/projectSS/ladeway/5.png",
+        "/projectSS/ladeway/6.png",
+        "/projectSS/ladeway/7.png",
+        "/projectSS/ladeway/8.png",
+        "/projectSS/ladeway/9.png",
+        "/projectSS/ladeway/10.png",
+        "/projectSS/ladeway/11.png",
+        "/projectSS/ladeway/12.png"
+      ],
+      video: ""
+    },
+    github: "https://github.com/Ahtisham992/Ladeway",
+    liveDemo: "https://ladeway-web-ten.vercel.app/",
+    tags: ["SaaS", "AI", "Multi-Tenant", "NestJS", "Next.js", "Full Stack"],
+    date: "2026",
+    featured: true
+  },
+  // ────────────────────────────────────────────────────────────────────
+
+  {
+    id: 3,
     title: "Turing Intelligence Platform – Distributed System Simulation Engine",
     shortDescription: "Production-grade DES platform for system performance simulation and optimisation",
     description: "A production-grade Discrete-Event Simulation (DES) platform implementing the M/G/c queue model for system performance engineering. Enables backend and DevOps teams to simulate workloads, analyse bottlenecks, and optimise system configurations before deployment using real-time metrics and AI-driven insights.",
@@ -187,15 +247,15 @@ export const projects = [
       "CI/CD pipeline with Docker and Kubernetes deployment"
     ],
     media: {
-      thumbnail: "/projectSS/turingplatform/0.png", // add screenshot
+      thumbnail: "/projectSS/turingplatform/0.png",
       images: [
         "/projectSS/turingplatform/1.png",
         "/projectSS/turingplatform/2.png",
         "/projectSS/turingplatform/3.png"
       ],
-      video: "" // optional but VERY powerful
+      video: ""
     },
-    github: null, // or repo if public
+    github: null,
     liveDemo: "",
     tags: ["Distributed Systems", "Simulation", "Backend", "DevOps", "AI"],
     date: "2026",
@@ -208,8 +268,9 @@ export const projects = [
       "Developed analytics engine for automated system insights"
     ]
   },
+
   {
-    id: 3,
+    id: 4,
     title: "DevFlow AI – Unified Intelligent Developer Workspace",
     shortDescription: "All-in-one developer workspace with project-aware AI and cross-platform sync",
     description: "DevFlow AI is a robust, full-stack monorepo designed to eliminate context switching for engineers. It combines workspace management, persistent developer notes, and an intelligent AI assistant into a single platform. Powered by locally-running LLMs (Ollama) and vector embeddings (pgvector) for semantic code search, it ensures total privacy while delivering blazingly fast, context-aware responses across both Web and a native React Native Mobile app.",
@@ -257,8 +318,9 @@ export const projects = [
       "Built seamless real-time WebSocket communication using Redis Pub/Sub adapters"
     ]
   },
+
   {
-    id: 4,
+    id: 5,
     title: "SalesCare Service Center - Complete Management System",
     shortDescription: "Enterprise-grade service center management platform",
     description: "A comprehensive full-stack enterprise management system designed for service centers handling customer complaints, inventory management, invoicing, and purchase orders. Built with modern technologies and following industry best practices for scalability and security.",
@@ -288,7 +350,7 @@ export const projects = [
       "Dark mode support with responsive design"
     ],
     media: {
-      thumbnail: "/projectSS/salescare/1.png",
+      thumbnail: "/projectSS/salescare/0.png",
       images: [
         "/projectSS/salescare/1.png",
         "/projectSS/salescare/2.png",
@@ -313,8 +375,9 @@ export const projects = [
       "Multi-level approval workflows"
     ]
   },
+
   {
-    id: 5,
+    id: 6,
     title: "GadgetPro - Premium MERN Ecommerce Platform",
     shortDescription: "Full-stack modern ecommerce platform for high-end tech gadgets",
     description: "GadgetPro is a complete end-to-end MERN stack ecommerce solution designed for premium tech products. It features a modern Apple-inspired UI, powerful admin dashboard, and scalable backend architecture. The platform includes advanced shopping features, real-time order tracking, and a fully integrated management system for inventory, users, and sales operations.",
@@ -372,21 +435,20 @@ export const projects = [
       "Email automation system for order lifecycle events"
     ]
   },
+
   {
-    id: 6,
+    id: 7,
     title: "SlideMind AI – Intelligent Lecture-to-Learning System",
     shortDescription: "AI-powered system that transforms lecture slides into interactive learning experiences",
     description: "SlideMind AI is a production-grade AI learning platform that converts static lecture slides (PDF/PPTX) into structured, interactive study experiences. It automatically generates summaries, extracts topics, provides deep explanations, AI tutoring chat, and adaptive quiz generation. Built with a focus on scalability, caching optimization, and real-world educational impact.",
     category: "AI/Full Stack",
     gradient: "from-indigo-500 to-purple-600",
     icon: "Brain",
-
     technologies: [
       "Next.js 14", "FastAPI", "Google Gemini 2.5 Flash",
       "PostgreSQL/SQLite", "Tailwind CSS", "Framer Motion",
       "JWT Auth", "SQLAlchemy", "Docker", "Google Cloud Run"
     ],
-
     features: [
       "AI-powered lecture summarization with exam-focused insights",
       "Automatic topic extraction and knowledge mapping",
@@ -399,7 +461,6 @@ export const projects = [
       "Session persistence and lecture history management",
       "Fully responsive modern UI with smooth animations"
     ],
-
     highlights: [
       "Production-grade full-stack AI architecture",
       "Optimized AI token usage via caching layer (80k+ calls per $1)",
@@ -407,7 +468,6 @@ export const projects = [
       "Modular FastAPI backend with service-based architecture",
       "Real-world edtech problem solving (learning + assessment system)"
     ],
-
     media: {
       thumbnail: "/projectSS/slidemindai/logo.png",
       images: [
@@ -419,16 +479,15 @@ export const projects = [
       ],
       video: ""
     },
-
     github: "https://github.com/Ahtisham992/slidemind-ai",
     liveDemo: "https://slidemind-ui-703383698921.us-central1.run.app",
-
     tags: ["AI", "EdTech", "Full Stack", "FastAPI", "Next.js"],
     date: "2026",
     featured: true
   },
+
   {
-    id: 7,
+    id: 8,
     title: "Smart Dua Companion - Islamic Supplications App",
     shortDescription: "Bilingual Islamic Dua app with offline support",
     description: "A modern, feature-rich React Native mobile application providing authentic Islamic supplications (Duas) from the Quran and Sunnah. Features complete bilingual support (English & Urdu), dark mode, offline access, and smart search functionality. Built with TypeScript and Redux for optimal performance and user experience.",
@@ -463,7 +522,7 @@ export const projects = [
       video: null
     },
     github: "https://github.com/Ahtisham992/SmartDuaCompanion",
-    liveDemo: "https://smartduacompanion.netlify.app/", // TASK 3.2: Mobile app — no web demo URL
+    liveDemo: "https://smartduacompanion.netlify.app/",
     tags: ["React Native", "TypeScript", "Redux", "Mobile", "Islamic"],
     date: "2025",
     featured: true,
@@ -475,8 +534,9 @@ export const projects = [
       "Zero network dependency after installation"
     ]
   },
+
   {
-    id: 8,
+    id: 9,
     title: "Ergonomic Posture Assessment Agent",
     shortDescription: "AI agent for posture analysis and ergonomic feedback",
     description: "This AI Agent analyses human posture from uploaded images and returns ergonomic feedback. Built with FastAPI, MediaPipe for lightweight posture landmark detection, OpenCV, and NumPy. Runs in Docker on Hugging Face Spaces with REST API endpoints.",
@@ -510,7 +570,7 @@ export const projects = [
   },
 
   {
-    id: 9,
+    id: 10,
     title: "Cloud Photo Gallery",
     shortDescription: "Full-stack cloud-native photo gallery on AWS",
     description: "A full-stack cloud-native photo gallery application deployed on AWS, featuring secure authentication, photo uploads, RESTful APIs, and scalable cloud architecture using EC2, RDS, S3, and Elastic Beanstalk.",
@@ -547,7 +607,7 @@ export const projects = [
   },
 
   {
-    id: 10,
+    id: 11,
     title: "AI-Powered Code Assistant",
     shortDescription: "Intelligent tool for Python code enhancement",
     description: "An intelligent AI-powered tool for Python developers that provides code explanation, automatic documentation generation, bug detection & fixing, performance optimisation, and unit test generation using a fine-tuned transformer model (CodeT5).",
@@ -582,7 +642,7 @@ export const projects = [
   },
 
   {
-    id: 11,
+    id: 12,
     title: "University Management System",
     shortDescription: "Comprehensive MERN stack university management platform",
     description: "A web-based application designed to streamline and automate academic and financial operations within a university. Built using the MERN stack with an efficient and user-friendly interface for students, faculty, and administrators.",
@@ -616,7 +676,6 @@ export const projects = [
   }
 ];
 
-// TASK 1.4: Turing Intelligence entry uncommented, corrected, and placed ABOVE eAccounting360
 export const experience = [
   {
     title: "Software Engineer (Part-time, Remote)",
@@ -625,7 +684,7 @@ export const experience = [
     period: "Jan 2026 – Present",
     type: "work",
     responsibilities: [
-      "Build Contribute to a system simulation platform based on the M/G/c queue model for backend performance modelling and analysis.",
+      "Build and contribute to a system simulation platform based on the M/G/c queue model for backend performance modelling and analysis.",
       "Built real-time simulation pipelines using WebSockets, enabling live tracking of system metrics (latency, throughput, utilisation).",
       "Designed and implemented RESTful APIs for simulation control, metrics collection, and scenario comparison.",
       "Developed full-stack features using React, Node.js, and TypeScript across web and mobile applications."
@@ -703,6 +762,11 @@ export const achievements = [
     date: "2026"
   },
   {
+    title: "Ladeway — Architecture Exercise",
+    description: "Built a production-grade multi-tenant AI SaaS platform in one week as an architecture exercise for a Philadelphia-based international logistics company. Deployed live with NestJS, Next.js, PostgreSQL RLS, and Groq-powered AI conversations.",
+    date: "2026"
+  },
+  {
     title: "Prismora AI Deployment",
     description: "Built and deployed an AI podcast summarisation platform using Whisper AI and NLP transformers.",
     date: "2025"
@@ -717,7 +781,7 @@ export const achievements = [
     description: "Delivered a comprehensive ERP platform with 50+ REST APIs for complaint and inventory management.",
     date: "2025"
   },
-    {
+  {
     title: "DevFlow AI Platform Launch",
     description: "Architected and deployed a full-stack, cross-platform AI developer workspace utilizing semantic vector search and real-time WebSockets.",
     date: "2026"
