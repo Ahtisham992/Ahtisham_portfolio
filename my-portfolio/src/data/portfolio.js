@@ -16,7 +16,7 @@ export const personalInfo = {
 
   bio: "Software Engineer with a strong interest in software development, problem-solving, system design and implementation. Experienced in building web and mobile applications, integrating APIs, and working with relational databases. Committed to writing clean code, learning modern technologies, and contributing effectively to development teams. Comfortable owning features from design through deployment and post-release iteration.",
 
-  resumeUrl: "/Ahtisham_Resume.pdf",
+  resumeUrl: "/Muhammad_Ahtisham_Resume.pdf",
   introVideoUrl: "/intro-video.mp4",
   social: {
     linkedin: "https://www.linkedin.com/in/muhammad-ahtisham-6116ba2b2/",
