@@ -226,7 +226,7 @@ export const projects = [
 
   {
     id: 3,
-    title: "Turing Intelligence Platform – Distributed System Simulation Engine",
+    title: "DES Simulation Engine",
     shortDescription: "Production-grade DES platform for system performance simulation and optimisation",
     description: "A production-grade Discrete-Event Simulation (DES) platform implementing the M/G/c queue model for system performance engineering. Enables backend and DevOps teams to simulate workloads, analyse bottlenecks, and optimise system configurations before deployment using real-time metrics and AI-driven insights.",
     category: "Systems / AI",
@@ -247,12 +247,12 @@ export const projects = [
       "CI/CD pipeline with Docker and Kubernetes deployment"
     ],
     media: {
-      thumbnail: "/projectSS/turingplatform/0.png",
-      images: [
-        "/projectSS/turingplatform/1.png",
-        "/projectSS/turingplatform/2.png",
-        "/projectSS/turingplatform/3.png"
-      ],
+      // thumbnail: "/projectSS/turingplatform/0.png",
+      // images: [
+      //   "/projectSS/turingplatform/1.png",
+      //   "/projectSS/turingplatform/2.png",
+      //   "/projectSS/turingplatform/3.png"
+      // ],
       video: ""
     },
     github: null,
@@ -684,10 +684,7 @@ export const experience = [
     period: "Jan 2026 – Present",
     type: "work",
     responsibilities: [
-      "Build and contribute to a system simulation platform based on the M/G/c queue model for backend performance modelling and analysis.",
-      "Built real-time simulation pipelines using WebSockets, enabling live tracking of system metrics (latency, throughput, utilisation).",
-      "Designed and implemented RESTful APIs for simulation control, metrics collection, and scenario comparison.",
-      "Developed full-stack features using React, Node.js, and TypeScript across web and mobile applications."
+      "Worked part-time with Turing Intelligence, contributing to software development tasks and supporting ongoing engineering projects."
     ]
   },
   {
@@ -758,7 +755,7 @@ export const certifications = [
 export const achievements = [
   {
     title: "Software Engineer (Part-time)",
-    description: "Contributing to a distributed system simulation platform using React, Node.js, and TypeScript at Turing Intelligence.",
+    description: "Worked part-time with Turing Intelligence, contributing to software development tasks and supporting ongoing engineering projects.",
     date: "2026"
   },
   {
