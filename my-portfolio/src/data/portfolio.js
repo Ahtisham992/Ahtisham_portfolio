@@ -247,7 +247,7 @@ export const projects = [
       "CI/CD pipeline with Docker and Kubernetes deployment"
     ],
     media: {
-      // thumbnail: "/projectSS/turingplatform/0.png",
+      thumbnail: "/projectSS/DES/0.png",
       // images: [
       //   "/projectSS/turingplatform/1.png",
       //   "/projectSS/turingplatform/2.png",
